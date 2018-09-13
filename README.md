@@ -1,5 +1,5 @@
 # readme 
-Name: Robert White 
+Name: Robert White  
 Role: Graduate Student/TA at McMaster University
 Supervisor: Dr. Dimitry Pelinovsky (McMaster)
 Project: A numerical search for the location of the continuous spectrum of a spectral problem
