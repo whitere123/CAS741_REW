@@ -1,1 +1,9 @@
-readme
+This directory is home to the Problem Statement. The problem statement is written in latex. The .tex and .pdf files for the problem statement are here.  
+  
+The problem statement should:  
+-> identify what problem we are trying to solve  
+-> not say how we are going to solve the problem  
+-> explain why the problem is important  
+-> detail the context of the problem (stakeholders, software environment, etc..)  
+-> not surpass a page in length  
+[Smiths Lecture notes]  
