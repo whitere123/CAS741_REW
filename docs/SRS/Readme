@@ -1,1 +1,15 @@
-Readme
+The outline of the SRS was created by Dr.Spencer Smith. It can be found in his gitlab repository.  
+SRS stands for Specific System Requirements. 
+The purpose of this document is to describe the requirements. 
+This abstract document will explain the mathematical models, assumptions, 
+solution characterisitcs and goals of the software. After reading this doucment 
+one should be able to understand the mathematical and physical context of the 
+inputs and outputs. They should also be able to identify the constraints of the 
+system and have an idea as to how the output is derived from the given input.  
+The SRS is meant to be unambigious and will not provide a detailed explanation 
+of the numerical solution or code. 
+The SRS details the quality attributes of the software, such as functionality, 
+without dicussing any code, numerical algorithms or scientific computing 
+solutions. It is a precursor to the documents required in the development of 
+scientific software. One should read and understand this document before the 
+VnV, design or code itself.
