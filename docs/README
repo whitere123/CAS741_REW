@@ -1,4 +1,4 @@
-This directory is home to the directories for important documents (within each of these sub-directories are associated tex files, pdf files etc.
+This directory is home to the directories for important documents (within each of these sub-directories are associated tex files, pdf files etc.)
 ./ProblemStatement has all the files associated with the problem statement.  
 ./SRS is the specific systems requirements
 Comments.tex is a tex file which defines functions for Spencer Smith and I to leave comments in other tex files.
