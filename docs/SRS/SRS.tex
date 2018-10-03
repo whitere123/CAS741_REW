@@ -114,7 +114,15 @@ as the unit system.  In addition to the basic units, several derived units are
 used as described below.  For each unit, the symbol is given followed by a
 description of the unit and the SI name. \\
 \wrw{Is it OK if we mark some units as unitless? My supervisor and I are more 
-concerned about mathematical properties, not physical.}
+concerned about mathematical properties, not physical.} \wss{Yes, unitless
+symbols are common, even in specific physical problems.  (For instance, strain
+is unitless.)  I suggest that you explicitly state that you have unitless
+symbols.  In your table of symbols, you do have concepts that are usually
+associated with units, like wave speed and wave amplitude.  I suppose that your
+amplitude isn't necessarily in units of length, but your speed will be the units
+of amplitude divided by time.  Actually, I suppose this isn't necessary either.
+This seems to be something you could say in
+words, instead of coming up with a new convention for documenting variable units.}
 ~\newline
 
 \renewcommand{\arraystretch}{1.2}
@@ -130,12 +138,17 @@ concerned about mathematical properties, not physical.}
   %	\caption{Provide a caption}
 %\end{table}
 
+\wss{If you aren't using units, you should change what you write in this
+  section.  You should keep the heading, but in the contents explain that your
+  units are abstracted out.  This might be the spot to mention that the units are
+  assumed to be consistent.}
 
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
 their units.  The choice of symbols was made to be consistent with the heat
-transfer literature and with existing documentation for solar water heating
+transfer \wss{is your problem in the heat transfer domain?  This looks like a
+  copy and paste error?} literature and with existing documentation for solar water heating
 systems.  The symbols are listed in alphabetical order.
 
 \renewcommand{\arraystretch}{1.2}
@@ -197,6 +210,10 @@ derivative of u with respect to x. If $u$ has a one independent variable than
 we will denote its derivative by $u'$. \\
 
 \wrw{Why is this section before the table of contents?}
+
+\wss{Reference material is often before the table of contents.  Although other
+  decisions could be made, the benefits of standardization outweight giving the
+  flexibility to move this section.}
 
 \newpage
 
@@ -266,9 +283,12 @@ for the user's reasearch
 \item Understand research limitations of software model, such as strict 
 assumptions on physical system.
 \end{itemize}
-\item \progname{} Responsibilities:
-\wrw{I am wondering if my responsibilities are similar to Goal Statements and 
-functional requirenments..}
+\item \progname{} Responsibilities: \wrw{I am wondering if my responsibilities
+    are similar to Goal Statements and functional requirenments.} \wss{This
+    sounds correct.  Your program's responsibilities provide an abstract view of
+    the functional requirements, which are in turn related to the goal
+    statements.}
+
 \begin{itemize}
 \item Detect data type mismatch. 
 \item Solve the lax equation associated with given wave parameters. 
@@ -351,7 +371,14 @@ wave.
 
 \subsubsection{Goal Statements}
 \wrw{Are these too similar to functional responsibilities and requirenments?}
-\noindent Given the constant wave speed, c , angular frequenct ,$\omega$, and 
+\wss{The answer depends on whether there is a more abstract version that would
+  be helpful.  Could you just have GS4 (why isn't it GS3?) as a goal?  That is
+  could finding the stability of the traveling wave be your goal?  This would
+  make sense if the algorithm implied by the other two goals is one of many
+  possible algorithms.  If it is a scope time decision to use this algorithm,
+  then you can ``bake'' this algorithm into your goal.  I would add a scope
+  statement to that affect, if that is what you choose to do.}
+\noindent Given the constant wave speed, $c$, angular frequenct, $\omega$, and 
 intial profile of a general traveling periodic wave, the goal statements are:
 
 \begin{itemize}
