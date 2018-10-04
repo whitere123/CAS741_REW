@@ -411,7 +411,9 @@ likely change [LC], in which the respective assumption is used.
 \begin{itemize}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]The 
-wave equation is a complex hamiltonian evolution equation. 
+wave equation is a complex hamiltonian \wss{Hamiltonian?  I've noticed you do
+  not use capitals for the names of scientists.  I believe the normal convention
+is to do so.} evolution equation. 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]The 
 linear momentum densities are proportional to the integrands of the 
 corresponding velocity functionals 
@@ -440,7 +442,7 @@ on.
   \rowcolor[gray]{0.9}
   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
   \hline
-  Label&\bf Nonlinear focusing shchrodinger equation\\
+  Label&\bf Nonlinear focusing shchrodinger \wss{Schr\"{o}dinger} equation\\
   \hline
   Equation&  $ iu_{t} + u_{xx} + 2|u|^{2}u=0$\\
   \hline
@@ -467,7 +469,11 @@ on.
 
 This section collects the laws and equations that will be used in deriving the
 data definitions, which in turn are used to build the instance models.
-\wrw{Should T2 be a data definition?}
+\wrw{Should T2 be a data definition?} \wss{It is hard to tell how your parts
+  should be organized until I understand how they fit together.  The traceability
+matrix will help you.  The theories use the definitions, not the other way
+around.  My guess is that your T1 is correct.  I believe what you have labelled
+T2 and T3 should be labelled as GD1 and GD2, respectively. }
 ~\newline
 \noindent
 \begin{minipage}{\textwidth}
@@ -684,7 +690,12 @@ This section provides the functional requirements, the business tasks that the
 software is expected to complete, and the nonfunctional requirements, the
 qualities that the software is expected to exhibit.\\
 
-\wrw{Are these too similar to goal statements and responsibilites?}
+\wrw{Are these too similar to goal statements and responsibilities?} \wss{No, I
+  don't think so.  The idea of the SRS is to document a successive refinement
+  from abstract theories to concrete requirements.  There is going to be
+  repetition of ideas.  The difference is that each time the idea is repeated,
+  it should become less abstract (more concrete).  If you simplify your goal
+  statement, as we discussed above, you might see this refinement more clearly.}
 
 \subsection{Functional Requirements}
 
@@ -760,11 +771,18 @@ Other Items}
 \label{Table:A_trace}
 \end{table}
 \end{landscape}
-}
-\wrw{I dont know how to correctly mark row T3 and DD1 in table 2. T3 is derived 
-by 
-substituting T2 into T1. So T3 cannot be changed independently.. I cannot just 
-change T3. Also DD1 is a manipulation of T3..}\\
+} 
+
+\wrw{I don't know how to correctly mark row T3 and DD1 in table 2. T3 is
+  derived by substituting T2 into T1. So T3 cannot be changed independently. I
+  cannot just change T3. Also DD1 is a manipulation of T3.}
+
+\wss{The fact that figuring out the traceability table is a clue that you might
+  need to do further organization.  Shouldn't you have an assumption that allows
+T2 to be substituted into T1.  I don't think you can do this in general, but you
+have made an assumption that lets you make this simplification.  If this
+assumption changes than T3 will change.}
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -783,10 +801,10 @@ IM1    & & & & &X  \\
 Sections}
 \label{Table:trace}
 \end{table}
-\\
-\wrw{I do not know how to mark the first row in table 3. The Instance model is 
-essentially 
-what the software is built around..}
+
+\wrw{I do not know how to mark the first row in table 3. The Instance model is
+  essentially what the software is built around.}
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
