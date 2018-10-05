@@ -199,21 +199,24 @@ $\omega$ & $\frac{1}{s}$ & angular frequency
 
 Let $u$ be a complex number of the form $u= m + ni$ ($m,n \in 
 \mathbb{R}$). The real part of u is m and the imaginary part of u is n. $i$ is 
-the imaginary number such that $i^{2}=-1$.The complex 
+the imaginary number such that $i=\sqrt{-1}$.\\
+
+The complex 
 conjugate of $u$ is defined to be $\bar{u}= m - ni$. 
 The modulus of $u$ is defined to be $|u| = \sqrt{m^{2}+n^{2}}$.\\
 
-Let $u(x,t): \mathbb{R}^{2} \rightarrow \mathbb{C}$. We will let $u_{t}$ denote 
-the partial derivative of $u$ with respect to t. Similarily, $u_{x}$ is the 
-partial derivative of u with respect to x. If $u$ has one independent 
-variable we will denote its derivative by $u'$. \\ 
+Let $z(x,t): \mathbb{R}^{2} \rightarrow \mathbb{C}$. We will let $z_{t}$ and 
+$z_{x}$ denote 
+the partial derivatives of $z$ with respect to t and x respectively. If $z$ has 
+one independent 
+variable we will denote its derivative by $z'$. If H is a matrix than $H_{t}$ 
+is the 
+matrix formed by taking the t derivative in each component of $H$.\\ 
 
 $ e^{i \omega t} = cos(\omega t) + i sin(\omega t)$. So it is clear from the 
 above definitions that \\$ |e^{i \omega t}| = \sqrt{cos^{2} (\omega t) + 
 sin^{2} (\omega t)} = 1$ \\ 
 
-
-\newpage
 
 \tableofcontents
 
@@ -226,7 +229,7 @@ sin^{2} (\omega t)} = 1$ \\
 \subsection{Purpose of Document}
 The purpose of this document is to describe the requirements for the spectral 
 search program (SpecSearch). SpecSearch will search for the 
-continuous spectrum of a lax pair that is compatbile for solutions 
+continuous spectrum of a lax pair that is compatibile for solutions 
 of the NLS 
 equation. \\ 
 
@@ -349,6 +352,7 @@ instance model 2 for more details regarding stability.\\
 SpecSearch will attempt to produce a numerical approximation of the continuous 
 spectrum for the previously mentioned spectral problem. In particular, 
 it will find the spectrum for general travelling periodic wave solutions of the 
+focusing
 NLS equation. \\ 
 
 Previous attempts have used an algebraic method to calculate the spectral 
@@ -386,7 +390,7 @@ surroundings.
 \item \textbf{PDE}: A partial differential equation.An equation containing one 
 or more partial derivatives. The partial derivative of a multivariable function 
 is a derivative with respect to one of its arguments. 
-\item \textbf{Countable} A set that is finite or has the same cardinality as 
+\item \textbf{Countable:} A set that is finite or has the same cardinality as 
 the natural numbers (1,2,3,4,5 ....). 
 \item \textbf{Focusing wave:} When the nonlinear Schr\"{o}dinger equation adds 
 the 
@@ -469,7 +473,7 @@ on.
 		\rowcolor[gray]{0.9}
 		Number& T1\\
 		\hline
-		Label&\bf NLS for General travelling periodic waves\\
+		Label&\bf Focusing NLS for General travelling periodic waves\\
 		\hline
 		Equation&  $ u'' + 2|u|^{2}u+2icu'=\omega u$\\
 		\hline
@@ -488,7 +492,7 @@ on.
 	\end{tabular}
 \end{minipage}\\ 
 
-We start with the NLS equation: $iq_{t} + q_{xx} + 
+We start with the focusing NLS equation: $iq_{t} + q_{xx} + 
 2|q|^{2}q=0$ \\ 
 
 The NLS equation is a PDE meant to model modulated wave packets and rogue waves 
