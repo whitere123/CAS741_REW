@@ -16,7 +16,7 @@
 \usepackage{caption}
 \usepackage{pdflscape}
 \usepackage{afterpage}
-
+\usepackage{enumitem}
 \usepackage[round]{natbib}
 
 %\usepackage{refcheck}
@@ -94,10 +94,19 @@ periodic waves}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-25-09-2018 & 1.0 & Creation of first draft\\
-29-09-2018 & 1.1 & Edit of 1.1. Added a GS, responsibilites, requirenments, 
-definitions and verification of compatibility. Updated comments .tex. My 
-comments are in red, SS comments are in blue.\\
+25-09-2018 & 1.0 & Creation of the first draft\\
+29-09-2018 & 1.1 & Edit of 1.0. Added a GS, responsibilites, requirenments, 
+definitions and verification of compatibility. Updated comments.tex. My 
+comments are in red, SS comments are in blue.\\ 
+01-10-2018 & 1.2 & Edit of 1.1. Added more theory to support the instance 
+model. Made a clearer distinction between user and reader charaterisitcs. 
+Modified the goal statements.  \\ 
+03-10-2018 & 1.3 & Edit of 1.2. Removed a redundant goal statement. Made some 
+of Dr. 
+Smith's suggested changes. Updated the traceability matrices.  \\
+04-10-2018 & 1.4 & Edit of 1.3. Created IM2 and inserted tracebility graphs. 
+Completed all of Dr. Smith's suggested changes. Performed a grammar and 
+spelling check.\\
 \bottomrule
 \end{tabularx}
 
@@ -113,16 +122,7 @@ Throughout this document SI (Syst\`{e}me International d'Unit\'{e}s) is employed
 as the unit system.  In addition to the basic units, several derived units are
 used as described below.  For each unit, the symbol is given followed by a
 description of the unit and the SI name. \\
-\wrw{Is it OK if we mark some units as unitless? My supervisor and I are more 
-concerned about mathematical properties, not physical.} \wss{Yes, unitless
-symbols are common, even in specific physical problems.  (For instance, strain
-is unitless.)  I suggest that you explicitly state that you have unitless
-symbols.  In your table of symbols, you do have concepts that are usually
-associated with units, like wave speed and wave amplitude.  I suppose that your
-amplitude isn't necessarily in units of length, but your speed will be the units
-of amplitude divided by time.  Actually, I suppose this isn't necessary either.
-This seems to be something you could say in
-words, instead of coming up with a new convention for documenting variable units.}
+
 ~\newline
 
 \renewcommand{\arraystretch}{1.2}
@@ -138,33 +138,29 @@ words, instead of coming up with a new convention for documenting variable units
   %	\caption{Provide a caption}
 %\end{table}
 
-\wss{If you aren't using units, you should change what you write in this
-  section.  You should keep the heading, but in the contents explain that your
-  units are abstracted out.  This might be the spot to mention that the units are
-  assumed to be consistent.}
 
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
-their units.  The choice of symbols was made to be consistent with the heat
-transfer \wss{is your problem in the heat transfer domain?  This looks like a
-  copy and paste error?} literature and with existing documentation for solar water heating
-systems.  The symbols are listed in alphabetical order.
+their units. Some of the symbols are unitless, 
+they are marked with a dash. The choice of symbols was made to be consistent 
+with the rogue 
+wave and mathematical physics literature.  
 
 \renewcommand{\arraystretch}{1.2}
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$\lambda$ &  & spectral parameter
+$\lambda$ & $\frac{1}{s}$ & spectral parameter
 \\
-$u$ &  & wave amplitude 
+$u$ & m & wave amplitude 
 \\  
-$\phi$ & & eigen function
+$\phi$ & - & eigen function
 \\ 
-$c$ & & wave speed 
+$c$ & $\frac{m}{s}$ & wave speed 
 \\
-$\omega$ & & angular frequency 
+$\omega$ & $\frac{1}{s}$ & angular frequency 
 \\ 
 \bottomrule
 \end{longtable*}
@@ -200,20 +196,22 @@ $\omega$ & & angular frequency
 \end{tabular}\\
 
 \subsection{Mathematical Notation}
-Let $u$ be a complex number of the form $u= m + ni$, where $m,n \in 
-\mathbb{R}$. The complex conjugate of $u$ is defined to be $\bar{u}= m - ni$. 
-The modulus of $u$ is defined to be $|u| = \sqrt{m^{2}+n^{2}}$. \\
 
-Let $u(x,t): \mathbb{R}^{2} -> \mathbb{C}$. We will let $u_{t}$ denote the 
-partial derivative of $u$ with respect to t. Similarily, $u_{x}$ is the partial 
-derivative of u with respect to x. If $u$ has a one independent variable than 
-we will denote its derivative by $u'$. \\
+Let $u$ be a complex number of the form $u= m + ni$ ($m,n \in 
+\mathbb{R}$). The real part of u is m and the imaginary part of u is n. $i$ is 
+the imaginary number such that $i^{2}=-1$.The complex 
+conjugate of $u$ is defined to be $\bar{u}= m - ni$. 
+The modulus of $u$ is defined to be $|u| = \sqrt{m^{2}+n^{2}}$.\\
 
-\wrw{Why is this section before the table of contents?}
+Let $u(x,t): \mathbb{R}^{2} \rightarrow \mathbb{C}$. We will let $u_{t}$ denote 
+the partial derivative of $u$ with respect to t. Similarily, $u_{x}$ is the 
+partial derivative of u with respect to x. If $u$ has one independent 
+variable we will denote its derivative by $u'$. \\ 
 
-\wss{Reference material is often before the table of contents.  Although other
-  decisions could be made, the benefits of standardization outweight giving the
-  flexibility to move this section.}
+$ e^{i \omega t} = cos(\omega t) + i sin(\omega t)$. So it is clear from the 
+above definitions that \\$ |e^{i \omega t}| = \sqrt{cos^{2} (\omega t) + 
+sin^{2} (\omega t)} = 1$ \\ 
+
 
 \newpage
 
@@ -227,16 +225,19 @@ we will denote its derivative by $u'$. \\
 
 \subsection{Purpose of Document}
 The purpose of this document is to describe the requirements for the spectral 
-search program. The spectral search program will search for the location of the 
-continuous spectrum of a particular lax equation related to the NLS equation. 
-This abstract document will explain the mathematical models, assumptions, 
-solution characterisitcs and goals of the software. After reading this doucment 
+search program (SpecSearch). SpecSearch will search for the 
+continuous spectrum of a lax pair that is compatbile for solutions 
+of the NLS 
+equation. \\ 
+
+This document will explain the mathematical models, assumptions, 
+solution characterisitcs and goals of the software. After reading this document 
 one should be able to understand the mathematical and physical context of the 
-inputs and outputs. They should also be able to identify the constraints of the 
-system and have an idea as to how the output is derived from the given input.  
-The SRS is meant to be unambigious and will not provide a detailed explanation 
-of the numerical solution or code. \\
-The SRS details the quality attributes of the software, such as functionality, 
+inputs and outputs. They should also recognize the connections and 
+dependencies between these SRS topics. \\
+
+The SRS is meant to be simaltaneously unambigious and abstract. It details the 
+quality attributes of the software, such as functionality, 
 without dicussing any code, numerical algorithms or scientific computing 
 solutions. It is a precursor to the documents required in the development of 
 scientific software. One should read and understand this document before the 
@@ -245,24 +246,27 @@ VnV, design or code itself. \\
 
 \subsection{Scope of Requirements} 
 
-The scope of SpecSearch is limited to the creation of a spectral diagram for a 
-particular linear lax equation. The waves being investigated are solutions to 
-the NLS equation. The spectrum will be plotted on the complex plane. 
+The scope of SpecSearch is limited to finding the spectrum of a particular 
+linear lax equation and determining the stability of the corresponding waves. 
+The waves being investigated are solutions to 
+the focusing NLS equation. 
 
 \subsection{Characteristics of Intended Reader} 
 
-The intended reader of this document should have taken an introductory course 
+The reader of this document should have taken an introductory course 
 in partial differential equations and complex analysis. They should also have a 
 first year undergraduate understanding of linear algebra.\\
 
 \subsection{Organization of Document}
 
 This document follows a template provided by Dr. Spencer Smith at McMaster 
-University. It begins by introducing the document. This intdocution is followed 
-by a general overview of the system and than an outline of the goals and 
-mathematical theory. The document continues with behaviour between inputs and 
-outputs, judging output and than foreshadows changes to the software. It 
-concludes with useful graphs. \\ 
+University. It begins by introducing the document. This introduction is 
+followed by a general overview of the system and then an outline of the goals 
+and mathematical theory. The document continues by describing the behaviour 
+between inputs 
+and outputs, judging output and then foreshadows changes to the software. It 
+concludes with useful graphs and figures for tracebility. \\ 
+
 More details of the template can be found in Smith et al (2005) and Smith et al 
 (2007). The latex template is available in Dr. Spencer Smith's gitlab 
 repository CAS 741. \\
@@ -272,43 +276,55 @@ repository CAS 741. \\
 This section identifies the interfaces between the system and its environment,
 describes the user characteristics and lists the system constraints.
 
-\subsection{System Context}
+\subsection{System Context} 
+Diagram 1 shows the system context. The circle represents the user of the 
+scientific software. The rectangle resembles the software system. The arrows 
+indicate the flow of data between software and environment. 
+ \begin{figure}[h!]
+	\begin{center}
+		{
+			\includegraphics[width=15cm,height=6cm]{SystemContext.png}
+		}
+	\end{center}
+ \end{figure}
 
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item Ensure that the input variables resemble the wave they intend to analyze.
-\item Ensure that the assumptions imposed on waves in this model are reasonable 
-for the user's reasearch
-\item Understand research limitations of software model, such as strict 
-assumptions on physical system.
+\item Ensure that the input variables resemble the wave that you intend 
+to analyze.
+\item Ensure that the assumptions imposed on waves in this software are 
+reasonable 
+for your reasearch
+\item Ensure that the software is used in a legal and ethical manner.
+
 \end{itemize}
-\item \progname{} Responsibilities: \wrw{I am wondering if my responsibilities
-    are similar to Goal Statements and functional requirenments.} \wss{This
-    sounds correct.  Your program's responsibilities provide an abstract view of
-    the functional requirements, which are in turn related to the goal
-    statements.}
+\item SpecSearch Responsibilities:
 
 \begin{itemize}
 \item Detect data type mismatch. 
-\item Solve the lax equation associated with given wave parameters. 
+\item Solve the lax equation associated with the given wave parameters. 
 \item Connect the discrete spectrum in order to form a continuous spectrum. 
-\item Plot the continuous spectrum on the complex plane.
-\item Determine whether or not the solution is stable. 
+\item Display the continuous spectrum on the complex plane.
+\item Determine whether or not the waves are stable. 
 \end{itemize}
 \end{itemize}
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-The end user of SpecSearch should have an introductory level understanding of 
-complex analysis and partial differential equations. They should also be 
-familiar with matrix alegbra and eigenvectors presented in a first year course 
-in linear algebra. 
+The user should have a basic understanding of wave mechanics (wave 
+speed, 
+amplitude and angular frequency). They should also understand the concept of 
+conserved quantities. \\ 
 
 \subsection{System Constraints}
 
 The system only deals with general traveling periodic wave solutions of the 
-NLS. 
+NLS equation. The system will start by assuming that the wave is stationary and 
+then use 
+the stationary solution to build the moving solution. The software will be 
+created in MATLAB.\\
+
 
 \section{Specific System Description}
 
@@ -321,16 +337,27 @@ definitions and finally the instance models.
 A lax pair is a set of matrices or operators that satisfy differential 
 equations. The NLS equation, a PDE used to model rogue waves and modulated wave 
 packets, appears as a compatibility condition of a particular lax pair of 
-equations. One equation is a spectral problem and the other is a time 
-evolution problem.  \\
+equations. One equation is a spectral problem, with matrix U, and the other is 
+a time evolution problem, with matrix V. See instance model 1 for more 
+details.\\
 
-SpecSearch will produce a graph of a numerical approximation of the continuous 
-spectrum of a lax linear equation assocaited with general travelling periodic 
-wave solutions of the NLS equation. Previous attempts have used an algebraic 
-method to calculate the spectral parameter. These attempts have only been 
-successful at finding a countable number of eigenvalues. This software will 
-"connect" these points in an attempt to approximate and search for the 
-continuous spectrum. \\ 
+ The 
+spectral problem is important because the spectral 
+parameter within it contains information about the stability of solutions. See 
+instance model 2 for more details regarding stability.\\
+
+SpecSearch will attempt to produce a numerical approximation of the continuous 
+spectrum for the previously mentioned spectral problem. In particular, 
+it will find the spectrum for general travelling periodic wave solutions of the 
+NLS equation. \\ 
+
+Previous attempts have used an algebraic method to calculate the spectral 
+parameter (Pelinovsky 2018)(Deconinck 2017). These attempts have only been 
+successful at finding a countable number of points on the spectrum. This 
+software will 
+search for more points and "connect" the points in an attempt to approximate 
+and search for the continuous spectrum. 
+\\ 
 
 \subsubsection{Terminology and  Definitions}
 
@@ -342,18 +369,30 @@ easier to correctly understand the requirements:
 
 \item \textbf{Spectrum}: The set of allowable values for the spectral parameter 
 of a matrix or operator.
-\item \textbf{Operator}: A mapping that transforms elements of a space int 
+\item \textbf{Operator}: A mapping that transforms elements of a space into 
 other elements of the same space. 
 \item \textbf{Traveling Periodic Wave}: A periodic and one-dimensional wave 
-that travels with a constant speed. 
-\item \textbf{Compatibility Condition}: Conditions under which the lax pair of 
+that travels with a constant speed, c, and angular frequency, $\omega$. 
+\item \textbf{Compatibility Condition}: Conditions for which the lax pair of 
 equations is guaranteed. 
-\item \textbf{Stability}: A solution is stable if it slight perturbations lead 
-to at most slight perturbations in the solution.
-\item \textbf{Initial Data}: The initial profile of a wave (or its derivative) 
-at a fixed point in time.
+\item \textbf{Stability}: A solution is stable if slight perturbations in 
+intial conditions lead 
+to slight perturbations in the entire solution.
+\item \textbf{Initial Data}: The graph of a wave (or its derivative) 
+at a fixed point in time, tyically t=0.
 \item \textbf{Rogue Wave}: A wave is considered rogue if its amplitude is more 
-than double of the average of the upper third surrounding wave amplitudes.
+than double of the average of the upper third wave amplitudes in its 
+surroundings. 
+\item \textbf{PDE}: A partial differential equation.An equation containing one 
+or more partial derivatives. The partial derivative of a multivariable function 
+is a derivative with respect to one of its arguments. 
+\item \textbf{Countable} A set that is finite or has the same cardinality as 
+the natural numbers (1,2,3,4,5 ....). 
+\item \textbf{Focusing wave:} When the nonlinear Schr\"{o}dinger equation adds 
+the 
+nonlinear term ($+|u|^{2}u$).  
+\item \textbf{Hamiltonian:} Is an operator corresponding to the total energy of 
+a system. 
 
 \end{itemize}
 
@@ -363,39 +402,30 @@ The physical system of SpecSearch includes the following elements:
 
 \begin{itemize}
 
-\item[PS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] 
+\item[PS1:] 
 Unspecified body of water or laser channel with a traveling periodic 
 wave.
 
 \end{itemize}
 
 \subsubsection{Goal Statements}
-\wrw{Are these too similar to functional responsibilities and requirenments?}
-\wss{The answer depends on whether there is a more abstract version that would
-  be helpful.  Could you just have GS4 (why isn't it GS3?) as a goal?  That is
-  could finding the stability of the traveling wave be your goal?  This would
-  make sense if the algorithm implied by the other two goals is one of many
-  possible algorithms.  If it is a scope time decision to use this algorithm,
-  then you can ``bake'' this algorithm into your goal.  I would add a scope
-  statement to that affect, if that is what you choose to do.}
-\noindent Given the constant wave speed, $c$, angular frequenct, $\omega$, and 
-intial profile of a general traveling periodic wave, the goal statements are:
 
-\begin{itemize}
+\noindent Given the constant wave speed,c , angular frequency ,$\omega$, 
+conserved quantities, (g,d), and the intial profile of a general traveling 
+periodic wave, the goal statements are:
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] 
-Find elements of the continuous spectrum on the complex plane for a general 
-traveling periodic wave. 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] 
-Approximate the coninuous spectrum given the points from GS1.
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] 
-Determine the stability of traveling wave solutions.
+\begin{itemize}[leftmargin=.75in]
+
+\item[GSlocate:] {Locate elements of the continuous spectrum on the 
+complex plane. }
+
+\item[GSstable:] {Determine the stability of the solutions.}
 
 \end{itemize}
 
 \subsection{Solution Characteristics Specification}
 
-The instance models that govern SpecSearch are presented in
+The instance model that governs SpecSearch is presented in
 Subsection~\ref{sec_instance}.  The information to understand the meaning of the
 instance models and their derivation is also presented, so that the instance
 models can be verified.
@@ -408,21 +438,19 @@ system. The numbers given in the square brackets refer to the theoretical model
 [T], general definition [GD], data definition [DD], instance model [IM], or
 likely change [LC], in which the respective assumption is used.
 
-\begin{itemize}
+\begin{itemize}[leftmargin=.5in]
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]The 
-wave equation is a complex hamiltonian \wss{Hamiltonian?  I've noticed you do
-  not use capitals for the names of scientists.  I believe the normal convention
-is to do so.} evolution equation. 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]The 
+\item[Aham:]The 
+wave equation is a complex hamiltonian evolution equation. 
+\item[Amom:]The 
 linear momentum densities are proportional to the integrands of the 
 corresponding velocity functionals 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]All 
+\item[Awav:]All 
 waves in the model are general traveling perioidic waves with constant speed 
 and frequency. 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]The 
+\item[Anls:]The 
 wave is a solution to the NLS equation.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]The 
+\item[Afoc:]The 
 system only deals with focusing waves.
 
 \end{itemize}
@@ -431,78 +459,6 @@ system only deals with focusing waves.
 
 This section focuses on the general equations and laws that SpecSearch is based
 on. 
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
-  \hline
-  Label&\bf Nonlinear focusing shchrodinger \wss{Schr\"{o}dinger} equation\\
-  \hline
-  Equation&  $ iu_{t} + u_{xx} + 2|u|^{2}u=0$\\
-  \hline
-  Description & 
-                The above equation is a PDE meant to model modulated wave 
-                packets and rogue waves in physics. $u$ is the complex envelope 
-                of the wave, $t$ is time and $x$ is the position in one 
-                dimensional space.\\
-  \hline
-  Source &
-           \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}\\
-  % The above web link should be replaced with a proper citation to a publication
-  \hline
-  Ref.\ By & \dref{ROCT}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-~\newline
-
-
-
-\subsubsection{General Definitions}\label{sec_gendef}
-
-This section collects the laws and equations that will be used in deriving the
-data definitions, which in turn are used to build the instance models.
-\wrw{Should T2 be a data definition?} \wss{It is hard to tell how your parts
-  should be organized until I understand how they fit together.  The traceability
-matrix will help you.  The theories use the definitions, not the other way
-around.  My guess is that your T1 is correct.  I believe what you have labelled
-T2 and T3 should be labelled as GD1 and GD2, respectively. }
-~\newline
-\noindent
-\begin{minipage}{\textwidth}
-	\renewcommand*{\arraystretch}{1.5}
-	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
-		\hline
-		Label&\bf General travelling periodic wave\\
-		\hline
-		Equation&  $ u(x,t)=u(x+2ct)e^{i\omega t}$\\
-		\hline
-		Description & 
-		This is the standard form of a traveling periodic wave. The variables 
-		$c$ and $\omega$ denote the wave speed and angular frequency 
-		respectively. $u(x+2ct)$ represents an amplitude value traveling in 
-		time for a fixed x value.\\
-		\hline
-		Source &
-		\url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}\\
-		% The above web link should be replaced with a proper citation to a 
-		%publication
-		\hline
-		Ref.\ By & \dref{ROCT}\\
-		\hline
-	\end{tabular}
-\end{minipage}\\
-
 ~\newline
 
 \noindent
@@ -511,32 +467,58 @@ T2 and T3 should be labelled as GD1 and GD2, respectively. }
 	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 		\hline
 		\rowcolor[gray]{0.9}
-		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
+		Number& T1\\
 		\hline
-		Label&\bf General travelling periodic wave\\
+		Label&\bf NLS for General travelling periodic waves\\
 		\hline
 		Equation&  $ u'' + 2|u|^{2}u+2icu'=\omega u$\\
 		\hline
 		Description & 
-		A reduction of T1 into a second order ODE. This is derived by 
-		substituting T2 into T1. \\
+		General traveling periodic waves that satisfy the Schr\"{o}dinger 
+		equation 
+		will have this form. \\
 		\hline
 		Source &
-		\url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}\\
+		Deconinck (2017)\\
 		% The above web link should be replaced with a proper citation to a 
 		%publication
 		\hline
-		Ref.\ By & T1,T2\\
+		Ref.\ By & DD1, IM1\\
 		\hline
 	\end{tabular}
-\end{minipage}\\
+\end{minipage}\\ 
 
-~\newline
+We start with the NLS equation: $iq_{t} + q_{xx} + 
+2|q|^{2}q=0$ \\ 
+
+The NLS equation is a PDE meant to model modulated wave packets and rogue waves 
+in physics. $u$ is the complex envelope of the wave, $t$ is time and $x$ is the 
+position in one dimensional space. \\ 
+
+A general traveling periodic wave has the form $z(x,t)=u(x+2ct)e^{i \omega 
+t}$.$(u: \mathbb{R} \rightarrow \mathbb{C})$. 
+We will now search for general traveling periodic waves that are solutions to 
+the NLS equation. This is done by setting z=q in the NLS equation. This 
+yields: \\ 
+
+$ iz_{t} + z_{xx} + 2|z|^{2}z = 0$ \\ 
+$ \Rightarrow i(2cu'e^{i \omega t} + i \omega ue^{i \omega t}) + u''e^{i \omega 
+t} + 2|u|^{2}|e^{i \omega t}|^{2} u e^{i \omega t} = 0 $ \\
+ $\Rightarrow e^{i \omega t} (2icu' + i^{2} \omega u + u'' + 2|u|^{2}u) = 0 $ 
+ \\ 
+$ \Rightarrow 2icu' - \omega u + u'' + 2|u|^{2}u =0$ \\ 
+
+Which is the result in T1. \\
+
+
+\subsubsection{General Definitions}\label{sec_gendef}
+
+There are no general definitions.\\
 
 \subsubsection{Data Definitions}\label{sec_datadef}
 
 This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given. 
+models. 
 ~\newline
 
 \noindent
@@ -553,24 +535,40 @@ Symbols &$g, c, d, \omega$\\
 \hline
 % Units& $Mt^{-3}$\\
 % \hline
-  SI Units & \si{\watt\per\square\metre}\\
+  SI Units & -\\
   \hline
   Equation(1)&$\bar{u}u' - u\bar{u}' + 2ic|u|^{2} = 2ig$\\
   Equation(2)&$|u'|^{2} + |u|^{4} + d = \omega |u|^{2}$\\
   \hline
   Description & 
-                Equation 1 (2) is derived by multiplying T3 by $\bar{u}$ 
-                $(\bar{u}')$ and than subtracting (adding) the conjugate 
-                equation. The resultant equations are integrated to yield 1 and 
-                2.
+                These are conserved quantities in the NLS equation. For fixed 
+                g and d the above relations are true for all space and time.
   \\
   \hline
-  Sources& Citation here \\
+  Sources& Deconinck (2017) \\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & IM1\\
   \hline
-\end{tabular}
-\end{minipage}\\
+\end{tabular}\\
+\end{minipage}
+
+I will first multiply T3 by $\bar{u}$. \\ 
+$  u''\bar{u} + 2|u|^{2}u \bar{u}+2icu' \bar{u}=\omega u \bar{u}$ (*) \\ 
+Taking the complex conjugate yields: \\ 
+$ \bar{u''} u + 2|u|^{2} \bar{u} u -2ic\bar{u'}u = \omega \bar{u} u$ (**) \\ 
+Subtraction of * with ** yields: \\
+$  u''\bar{u} + 2|u|^{2}u \bar{u}+2icu' \bar{u} - (\bar{u''} u + 2|u|^{2} 
+\bar{u} u -2ic\bar{u'}u) =\omega u \bar{u} - (\omega \bar{u} u)$\\ 
+$ \Rightarrow  u''\bar{u} - \bar{u''} u + 2ic (u' \bar{u} + \bar{u'}u ) = 0$ \\
+$ \Rightarrow \int u''\bar{u} - \int \bar{u''} u + 2ic \int (u' \bar{u} + 
+\bar{u'}u ) = 2ig  $ \\ 
+Noticing that the term in the integral attatched to 2ic is a product rule.\\
+$ \Rightarrow \int u''\bar{u} - \int \bar{u''} u + 2icu \bar{u} = 2ig $ \\
+$ \Rightarrow \bar{u}u' - \int \bar{u'} u' - u \bar{u'} + \int \bar{u'} u' + 
+2icu \bar{u} = 2ig$ \\ 
+$ \Rightarrow \bar{u}u' - u\bar{u}' + 2ic|u|^{2} = 2ig$ \\
+The second conserved quantity is obtained by multiplying $\bar{u'}$ by T1, 
+adding the complex conjugate and integrating. \\ 
 
 \subsubsection{Instance Models} \label{sec_instance}    
 
@@ -579,12 +577,7 @@ one which is expressed in mathematical terms. It uses concrete symbols defined
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals \wss{reference your goals} are solved by \wss{reference your instance
-  models}.  \wss{other details, with cross-references where appropriate.}
-\wss{Modify the examples below for your problem, and add additional models as
-  appropriate.}
-
-~\newline
+The goals GSlocate and GSstable are solved by IM1 and IM2 respectively.  
 
 %Instance Model 1
 
@@ -607,82 +600,160 @@ The goals \wss{reference your goals} are solved by \wss{reference your instance
   \lambda & u \\
   -\bar{u} &-\lambda 
   \end{pmatrix}$ \\
-  &T3 is a compabililty condition for the lax pair comprised of the above row's 
+  &T1 is a compabililty condition for the lax pair comprised of the above row's 
   ODE and $\phi_{t}=V(u,\lambda)\phi$\\
-  &$V(u,\lambda)=\begin{pmatrix} 
+  &$V(u,\lambda)=i \begin{pmatrix} 
   2 \lambda^{2} + |u|^{2} & u_{x}+2 \lambda u \\
   \bar{u}_{x}-2\lambda \bar{u} & -2\lambda^{2} - |u|^{2}
   \end{pmatrix}$ \\
   &$\phi \in \mathbb{C}$\\
   \hline
-  Sources& Citation here \\
+  Sources& Deconinck (2017) \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By & IM2\\
   \hline
 \end{tabular}
 \end{minipage}\\
 \newline \\
 For a smooth $C^{2}$ function ,$\phi$, we have that $\phi_{tx}=\phi_{xt}$. \\
-From IM1 $\Rightarrow \phi_{tx} = \delta_{t} U \phi + UV \phi$ and $\phi_{xt} = 
+From IM1 $\Rightarrow \phi_{xt} = \delta_{t} U \phi + UV \phi$ and $\phi_{tx} = 
 \delta_{x} V \phi + VU \phi$. \\
 Combining the above two equations : \\
 $\Rightarrow \delta_{t} U \phi + UV \phi = \delta_{x} V \phi + VU \phi$ \\
-$\Rightarrow \delta_{t} U + UV = \delta_{x} V + VU$ (--) \\
-Equating the two sides of (--) we arrive at 4 equalities (since each side is a 
-2x2 
-matrix) : \\
-(1,1) : $ 0 + \lambda(-4\lambda^{3}-2\lambda u^{2}) + u(4\lambda^{2} u - 2 
-\lambda u_{x} + 2 u^{3} + u_{xx}) = -4 \lambda u u_{x} + \lambda 
-(-4\lambda^{3}-2\lambda u^{2} ) - u(-4\lambda^{2}u -2\lambda u_{x} - 2u^{3} 
--u_{xx})$ \\
-$\Rightarrow 0=0$ \\ 
-We have the same result for component (2,2) \\
-(1,2) : $u_{t} + \lambda (-4\lambda^{2} u - 2\lambda u_{x} - 2u^{3} -u_{xx}) + 
-u(4\lambda^{3}+2\lambda u^{2}) = -4\lambda^{2} u_{x} - 2\lambda u_{xx} - 
-6u^{2}u_{x} - u_{xxx} + u(-4\lambda^{3} - 2\lambda u^{2}) - \lambda 
-(-4\lambda^{2} u - 2\lambda u_{x} - 2u^{3} - u_{xx}) $ \\
-$\Rightarrow u_{t} = -6u^{2}u_{x} - u_{xxx}$ $ \\
-$$\Rightarrow u_{t} + 6u^{2}u_{x} + u_{xxx} = 0$ \\
-The above equation is satisfied when $u$ is a solution to the NLS. \\
-The result is the same for (2,1). Thus, the NLS is a compatability condition 
-for IM1. 
+$\Rightarrow \delta_{t} U + UV = \delta_{x} V + VU$ (--) \\ 
+$\Rightarrow$
+$\begin{pmatrix} 
+	0 & u_{t} \\
+	-\bar{u}_{t} & 0
+\end{pmatrix}$ +
+$i \begin{pmatrix} 
+\lambda & u \\
+-\bar{u} & -\lambda
+\end{pmatrix}$ 
+$ \begin{pmatrix} 
+2\lambda^{2} + |u|^{2} & u_{x}+2\lambda u \\
+\bar{u}_{x} -2\lambda\bar{u} & -2\lambda^{2} - |u|^{2}
+\end{pmatrix} =$ 
+$ i \begin{pmatrix} 
+u_{x}\bar{u} + u\bar{u}_{x} & u_{xx} + 2\lambda u_{x} \\
+\bar{u}_{xx} - 2 \lambda \bar{u}_{x} & -u_{x} \bar{u} - u_{x}\bar{u}_{x}
+\end{pmatrix} +$ 
+$i \begin{pmatrix} 
+2 \lambda^{2} + 2|u|^{2} & u_{x} + 2\lambda u_{x} \\
+\bar{u}_{x} - 2 \lambda \bar{u} & -2 \lambda^{2} - |u|^{2}
+\end{pmatrix}$ 
+$\begin{pmatrix} 
+	\lambda & u \\
+	- \bar{u} & - \lambda
+\end{pmatrix}$
+\\
+$\Rightarrow \begin{pmatrix} 
+	i(2 \lambda ^{3} + \lambda |u|^{2} + u\bar{u}_{x} -2\lambda |u|^{2}) & 
+	u_{t} + i(\lambda u_{x} + 2 \lambda^{2} u - 2 \lambda^{2} u - u|u|^{2}) \\
+	-\bar{u}_{t} + i(-2 \lambda^{2}\bar{u} - \bar{u}|u|^{2} - 
+	\lambda\bar{u}_{x} + 2 \lambda^{2} \bar{u}) & i(-\bar{u} u_{x} - 2 \lambda 
+	u \bar{u} + 2 \lambda^{3} + \lambda |u|^{2})
+\end{pmatrix} $ = \\
+$ i \begin{pmatrix} 
+	u_{x}\bar{u} + u\bar{u}_{x} + 2 \lambda^{3} + \lambda |u|^{2} - 
+	u_{x}\bar{u} - 2\lambda |u|^{2} & u_{xx} + 2\lambda u_{x} + 2\lambda^{2} u 
+	+ u|u|^{2} - 2|u|^{2} - \lambda u_{x} \\
+	\bar{u}_{xx} - 2\lambda \bar{u}_{x} + \lambda \bar{u}_{x} - 
+	2\lambda^{2}\bar{u} + 2\lambda^{2}\bar{u} + \bar{u}|u|^{2} & -u_{x}\bar{u} 
+	- u_{x}\bar{u}_{x} + u\bar{u}_{x} - 2\lambda |u|^{2} + 2\lambda^{3} + 
+	\lambda |u|^{2}
+\end{pmatrix}$ \\
+$ \Rightarrow \begin{pmatrix} 
+0 & u_{t} - iu|u|^{2} \\
+-\bar{u}_{t} - i\bar{u}|u|^{2} & 0
+\end{pmatrix} $ = 
+$ \begin{pmatrix} 
+0 & iu_{xx} + iu|u|^{2} \\
+i\bar{u}_{xx} + i \bar{u}|u|^{2} & 0
+\end{pmatrix} $ \\ 
+% new line
+$ \Rightarrow \begin{pmatrix} 
+0 & iu_{t} + 2u|u|^{2} + u_{xx} \\
+iu_{t} + 2u|u|^{2} + u_{xx} & 0
+\end{pmatrix} $ = 
+$ \begin{pmatrix} 
+0 & 0 \\
+0 & 0
+\end{pmatrix} $ \\ 
+\\
+This is true if u satisfies the NLS equation (T1). Thus, the NLS equation is a 
+compatibility 
+condition for the lax pair in IM1. \\
 
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+		\hline
+		Label& \bf Stability\\
+		\hline
+		Input &$\lambda, \omega, g, d$\\
+		\hline
+		Output& Stable or Unstable \\ 
+		\hline
+		Description& $\Omega = \frac{+}{-} 2i (\lambda^{4} - \frac{1}{2}\omega 
+		\lambda^{2} - ig\lambda + \frac{1}{16}\omega^{2} - 
+		\frac{1}{4}d)^{\frac{1}{2}}$ \\
+		& If the real part of $\Omega > 0$  then the solution, u, 
+		is unstable. \\
+		\hline
+		Sources& Deconinck (2017) \\
+		\hline
+		Ref.\ By & IM2\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+Without loss of generality it is possible to set $c=0$. \\  
+
+We can write $\phi(x,t) = M(t) \chi (x,t) $. Here M(t) is the diagonal matrix 
+with the first entry as $e^{\frac{i \omega t}{2}}$ and second entry as 
+$e^{\frac{-i \omega t}{2}}$ and $\sigma_{3}$ is the diagonal matrix with top 
+entry 1 and bottom entry -1.\\  
+
+Substituting this into the lax pair in IM1 yields: \\ 
+
+$\chi _{x} = U \chi $ and $\chi_{t} = V \chi - \frac{i \omega}{2} \sigma_{3} 
+\chi$ \\ 
+Let $\chi (x,t) = e^{t \Omega} \phi (x) $. \\ 
+$\Rightarrow \Omega \phi = V(u,\lambda) \phi - \frac{i \omega}{2} \sigma_{3} 
+\phi$ \\ 
+
+This matrix system admits a non zero solution when the determinant of the 
+following: 
+$ R(\Omega, \lambda) = \begin{pmatrix} 
+i(2\lambda^{2} + |u|^{2} - \frac{\omega}{2}) - \Omega & i(u_{x}+2\lambda u) \\
+i(\bar{u}_{x}-2\lambda \bar{u}) & -i(2\lambda^{2} + |u|^{2} - \frac{\omega}{2}) 
+- \Omega
+\end{pmatrix} $ \\ 
+Is nonzero. Expanding the determinant of R it follows that: \\
+$|R| = \Omega^{2} + 4(\lambda^{4} - \frac{1}{2} \omega \lambda^{2} + 
+\frac{1}{16} \omega^{2} - \frac{1}{4}d ) = \Omega^{2} +4P(\lambda) = 0$ \\ 
+$ \Rightarrow \Omega^{2} = -4P(\lambda)$ \\ 
+$ \Rightarrow \Omega = \frac{+}{-}\sqrt{-4P(\lambda)} $\\ 
+By Theorem 5.1 of (Deconinck, 2017) any $\Omega$ with real part larger than 
+zero implies instability of the periodic wave u. \\
+ 
 
 \subsubsection{Data Constraints} \label{sec_DataConstraints}    
 
-Tables~\ref{TblInputVar} and \ref{TblOutputVar} show the data constraints on the
-input and output variables, respectively.  The column for physical constraints gives
-the physical limitations on the range of values that can be taken by the
-variable.  The column for software constraints restricts the range of inputs to
-reasonable values.  The constraints are conservative, to give the user of the
-model the flexibility to experiment with unusual situations.  The column of
-typical values is intended to provide a feel for a common scenario.  The
-uncertainty column provides an estimate of the confidence with which the
-physical quantities can be measured.  This information would be part of the
-input if one were performing an uncertainty quantification exercise.
-
-The specification parameters in Table~\ref{TblInputVar} are listed in
-Table~\ref{TblSpecParams}.
-
-\begin{table}[!h]
-\caption{Output Variables} \label{TblOutputVar}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} \\
-  \midrule 
-  $\lambda$ & $\lambda \in \mathbb{C}$ 
-  \\
-  \bottomrule
-\end{longtable*}
-\end{table}
+There are no data constraints. 
 
 \subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
 
 \noindent
 A correct solution will be an array of numbers that appear on the continuous 
 spectrum. The plot will connect these points in an attempt to model the entire 
-continuous spectrum. The stability of solutions will be displayed as booleans. 
+continuous spectrum. The stability of solutions will be displayed as booleans 
+(stable or unstable). 
 
 \section{Requirements}
 
@@ -690,30 +761,26 @@ This section provides the functional requirements, the business tasks that the
 software is expected to complete, and the nonfunctional requirements, the
 qualities that the software is expected to exhibit.\\
 
-\wrw{Are these too similar to goal statements and responsibilities?} \wss{No, I
-  don't think so.  The idea of the SRS is to document a successive refinement
-  from abstract theories to concrete requirements.  There is going to be
-  repetition of ideas.  The difference is that each time the idea is repeated,
-  it should become less abstract (more concrete).  If you simplify your goal
-  statement, as we discussed above, you might see this refinement more clearly.}
-
 \subsection{Functional Requirements}
 
 \noindent \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] SpecSearch takes in 
-conserved quantities $d,g$ and wave quantities $c,\omega$ as input. 
+\item[Rin:] SpecSearch will 
+take in 
+conserved quantities $d,g$, wave parameters $c,\omega$, and initial wave data 
+as input. 
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] SpecSearch 
+\item[Rfind:] SpecSearch 
 will find values of $\lambda$ within a certain resolution.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] SpecSearch will 
-connect the points in R2 in an attempt to approximate the continuous spectrum.
+\item[Rcon:] SpecSearch will 
+connect the points in Rfind in an attempt to approximate the continuous 
+spectrum.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] SpecSearch 
+\item[Rplt:] SpecSearch 
 will plot the spectrum on the complex plane. 
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] SpecSearch 
+\item[Rstl:] SpecSearch 
 will determine the stability of solutions.  
 
 
@@ -721,9 +788,11 @@ will determine the stability of solutions.
 
 \subsection{Nonfunctional Requirements}
 \noindent \begin{itemize}
-\item[NFR1:] The resultant spectrum is legible and previously known values from 
-algebraic methods are highlighted. 
-\item[NFR2:] A legend of parameters are given and the axes are clearly labeled.
+\item[NFR1:] The software should be maintainable and manageable as it will 
+be modified and continually updated during the research process. 
+\item[NFR2:] The software should be servicable. It is meant to be used by 
+mathematicians and physcists for their research with rogue waves and modulated 
+wave packets.
 \end{itemize}
 
 
@@ -731,9 +800,8 @@ algebraic methods are highlighted.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] We may be 
-able to run the software with less input variables. In particular, we could 
-remove $g,d$ or $c, \omega$. 
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] We might 
+add constraints or bounds to the input variables. 
 
 \end{itemize}
 
@@ -742,7 +810,8 @@ remove $g,d$ or $c, \omega$.
 The purpose of the traceability matrices is to provide easy references on what
 has to be additionally modified if a certain component is changed.  Every time a
 component is changed, the items in the column of that component that are marked
-with an ``X'' may have to be modified as well.  Table~\ref{Table:trace} shows the
+with an ``X'' may have to be modified as well.  Table~\ref{Table:B_trace} shows 
+the
 dependencies of theoretical models, general definitions, data definitions, and
 instance models with each other. Table~\ref{Table:R_trace} shows the
 dependencies of instance models, requirements, and data constraints on each
@@ -756,13 +825,12 @@ the assumptions.\\
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& A1 & A2& A3& A4& A5 \\
+	& Aham & Amom& Awav& Anls& Afoc \\
 \hline
-T1        &X &X & &X & \\ \hline
-T2        & & &X &X & \\ \hline
-T3        &X &X &X &X & \\ \hline
-DD1       &X &X &X &X & \\ \hline
+T1        &X &X &X &X &X \\ \hline
+DD1       &X &X &X &X &X \\ \hline
 IM1       &X &X &X &X &X \\ \hline
+IM2       &X  &X  &X  &X  &X  \\ \hline
 LC1       & & & & &  \\ 
 \hline
 \end{tabular}
@@ -771,104 +839,120 @@ Other Items}
 \label{Table:A_trace}
 \end{table}
 \end{landscape}
-} 
-
-\wrw{I don't know how to correctly mark row T3 and DD1 in table 2. T3 is
-  derived by substituting T2 into T1. So T3 cannot be changed independently. I
-  cannot just change T3. Also DD1 is a manipulation of T3.}
-
-\wss{The fact that figuring out the traceability table is a clue that you might
-  need to do further organization.  Shouldn't you have an assumption that allows
-T2 to be substituted into T1.  I don't think you can do this in general, but you
-have made an assumption that lets you make this simplification.  If this
-assumption changes than T3 will change.}
+}
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& T1& T2& T3& DD1& IM1  \\
+	& T1& DD1& IM1 & IM2 \\
 \hline
-T1     &X & &X &X &X    \\ \hline
-T2     & &X &X &X &   \\ \hline
-T3     & & &X &X &   \\ \hline
-DD1    & & & &X &  \\ \hline
-IM1    & & & & &X  \\ 
-
+T1     &X &X &X &X   \\ \hline
+DD1    & &X &X &X  \\ \hline
+IM1    & & &X &X  \\ \hline 
+IM2    & & & &X    \\ 
 \hline
 \end{tabular}\\
-\caption{Traceability Matrix Showing the Connections Between Items of Different 
+\caption{Traceability Matrix Showing the Connections Between Items of 
+Different 
 Sections}
-\label{Table:trace}
+\label{Table:B_trace}
 \end{table}
-
-\wrw{I do not know how to mark the first row in table 3. The Instance model is
-  essentially what the software is built around.}
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline
-	& IM1& R1& R2& R3& R4& R5 \\
-\hline
-IM1           &X &X &X &X &X &  \\ \hline
-R1            &X &X & & & &  \\ \hline
-R2            & & &X &X &X &  \\ \hline
-R3            & & & &X &X &  \\ \hline
-R4            & & & & &X &  \\ \hline 
-R5            & & & & & &X  \\ 
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
-\label{Table:R_trace}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		& IM1& IM2& Rin & Rfind & Rcon & Rplt & Rstl \\
+		\hline
+		IM1     &X &X &X &X & & &  \\ \hline
+		IM2    & &X &X & & & &X \\ \hline
+		Rin    &X &X &X &X & & & \\ \hline 
+		Rfind    &X &X &X &X &X &X &    \\ \hline 
+		Rcon   & & & & &X &X & \\ \hline
+		Rplt   & & & & & &X & \\ \hline
+		Rstl   & & & & & & &X \\
+		\hline
+	\end{tabular}\\
+	\caption{Traceability Matrix Showing the Connections Between Requirements 
+	and Instance Models}
+	\label{Table:R_trace}
 \end{table}
 
+%\caption{Traceability Matrix Showing the Connections Between Requirements and 
+%Instance Models}
 The purpose of the traceability graphs is also to provide easy references on
 what has to be additionally modified if a certain component is changed.  The
 arrows in the graphs represent dependencies. The component at the tail of an
 arrow is depended on by the component at the head of that arrow. Therefore, if a
 component is changed, the components that it points to should also be
 changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, likely changes, and
-assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
+general definitions, data definitions and instance models on each other. 
+Figure~\ref{Fig_RTrace} shows the dependencies of
 instance models, requirements, and data constraints on each other.
 
-% \begin{figure}[h!]
-%	\begin{center}
-%		%\rotatebox{-90}
-%		{
-%			\includegraphics[width=\textwidth]{ATrace.png}
-%		}
-%		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections 
-%		Between Items of Different Sections}
- %	\end{center}
-% \end{figure}
+\begin{figure}[h!]
+	\begin{center}
+		
+		{
+			\includegraphics[width=\textwidth]{ATrace.png}
+		}
+		\caption{\label{Fig_ATrace} Traceability Graph Showing the Connections 
+		Between Items of Different Sections}
+ 	\end{center}
+ \end{figure}
 
- %\begin{figure}[h!]
-%	\begin{center}
-%		%\rotatebox{-90}
- %		{
-%			\includegraphics[width=0.7\textwidth]{RTrace.png}
-%		}
- %%		Between Requirements, Instance Models, and Data Constraints}
-%	\end{center}
- %\end{figure}
+\begin{figure}[h!]
+	\begin{center}
+		{
+			\includegraphics[width=\textwidth]{RTrace.png}
+		}
+ 		\caption{\label{Fig_RTrace} Traceability Graph Showing the Connections 
+ 			Between Items of Different Sections}
+	\end{center}
+\end{figure}
+
+
+
+%\bibliographystyle {plainnat}
+%\bibliography {../../ReferenceMaterial/References} 
 
 \newpage
-
-\bibliographystyle {plainnat}
-\bibliography {../../ReferenceMaterial/References}
+\begin{thebibliography}{9}
+	\bibitem{latexcompanion} 
+	Spencer Smith and Lei Lai. 
+	A New Requirements Template for Scientific Computing. 
+	Proceedings of SREP'05, Paris, France 2005. 
+	
+	\bibitem{latexcompanion} 
+	Spencer Smith, Lei Lai and Ridha Khedri. 
+	Requirements Analysis for Engineering computation: A Systematic Approach 
+	for Improving Reliability. 
+	Springer, 2007. 
+	
+	\bibitem{latexcompanion} 
+	Dmitry E. Pelinovsky. 
+	Localization in Periodic Potentials. 
+	Cambridge University Press, 2011. 
+	
+	\bibitem{latexcompanion} 
+	Bernard Deconinck and Benjamin L.Segal. 
+	The stability spectrum for elliptic solutions to the focusing NLS equation. 
+	PhysicaD, 2017.  
+	
+	\bibitem{latexcompanion} 
+	J. Chen and D.E. Pelinovksy. 
+	Rogue periodic waves in the focusing nonlinear Schrodinger equation. 
+	Proceeding A of Roy.Soc. Lond., 2018. 
+	
+\end{thebibliography} 
 
 \newpage
 
 \section{Appendix}
 
-\wss{Your report may require an appendix.  For instance, this is a good point to
-show the values of the symbolic parameters introduced in the report.}
-
 \subsection{Symbolic Parameters}
 
-\wss{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
+There are no symbolic parameters.
 
 \end{document}
