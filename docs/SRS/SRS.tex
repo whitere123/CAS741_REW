@@ -78,8 +78,8 @@
 
 \begin{document}
 
-\title{CAS 741: SRS \\A numerical search for the spectrum related to travelling 
-periodic waves} 
+\title{CAS 741: SRS \\A Numerical Search For The Spectrum Related To Travelling 
+Periodic Waves} 
 \author{Robert White}
 \date{\today}
 	
@@ -162,6 +162,10 @@ $c$ & $\frac{m}{s}$ & wave speed
 \\
 $\omega$ & $\frac{1}{s}$ & angular frequency 
 \\ 
+$e$ & - & euler's Number \\ 
+$i$ & - & imaginary number\\ 
+$(g,d)$ & - & conserved quantities\\
+  
 \bottomrule
 \end{longtable*}
 
@@ -176,10 +180,9 @@ $\omega$ & $\frac{1}{s}$ & angular frequency
   $\mathbb{C}$ & Complex numbers\\
   cn & Elliptic cosine \\
   DD & Data Definition\\
-  dn & Delta amplitude \\
+  dn & Delta amplitude \\ 
   GD & General Definition\\
   GS & Goal Statement\\
-  $i$ & imaginary number\\
   IM & Instance Model\\
   LC & Likely Change\\
   NLS & Nonlinear Schrodinger\\
@@ -197,39 +200,67 @@ $\omega$ & $\frac{1}{s}$ & angular frequency
 
 \subsection{Mathematical Notation}
 
-Let $u$ be a complex number of the form $u= m + ni$ ($m,n \in 
+Let $\delta$ be a complex number of the form $\delta= m + ni$ ($m,n \in 
 \mathbb{R}$). The real part of u is m and the imaginary part of u is n. $i$ is 
 the imaginary number such that $i=\sqrt{-1}$.\\
 
 The complex 
-conjugate of $u$ is defined to be $\bar{u}= m - ni$. 
-The modulus of $u$ is defined to be $|u| = \sqrt{m^{2}+n^{2}}$.\\
+conjugate of $\delta$ is defined to be $\bar{\delta}= m - ni$. 
+The modulus of $u$ is defined to be $|\delta| = \sqrt{m^{2}+n^{2}}$.\\
 
 Let $z(x,t): \mathbb{R}^{2} \rightarrow \mathbb{C}$. We will let $z_{t}$ and 
 $z_{x}$ denote 
 the partial derivatives of $z$ with respect to t and x respectively. If $z$ has 
 one independent 
-variable we will denote its derivative by $z'$. If H is a matrix than $H_{t}$ 
+variable we will denote its derivative by $z'$. \\ 
+
+$ z_{t} = \lim_{h \to 0 } \frac{z(x,t+ t_{0}h) - z(x,t)}{h}$ \\ 
+
+Where $z_{t}$ is differentiable if the above limit is the same regardless of 
+the complex number (direction) $t_{0}$. \\
+
+If H is a matrix then $H_{t}$ 
 is the 
 matrix formed by taking the t derivative in each component of $H$.\\ 
 
 $ e^{i \omega t} = cos(\omega t) + i sin(\omega t)$. So it is clear from the 
-above definitions that \\$ |e^{i \omega t}| = \sqrt{cos^{2} (\omega t) + 
-sin^{2} (\omega t)} = 1$ \\ 
+above definitions that \\
 
+$ |e^{i \omega t}| = \sqrt{sin^{2} (\omega t) + cos^{2} (\omega t)} =1$ \\  
 
+To see this consider the angle $\omega t$ for fixed $t$. Let the opposite side 
+be $a$, denote 
+the adjacent side by $b$ and the hypotenuse by $c$. This forms a right angle 
+triangle (see picture below). By definition,  $sin(\omega t) = \frac{a}{c} $ 
+and $ cos(\omega t) = \frac{b}{c} $. Now, by pythagoras we have that\\
+
+$ \sqrt{sin^{2} (\omega t) + cos^{2} (\omega t)} = 
+\sqrt{\frac{a^{2}+b^{2}}{c^{2}} } = \sqrt{ \frac{c^{2}}{c^{2} } }= 1 $ \\ 
+
+For each t. So $e^{i \omega t}$ stays on the complex unit circle. \\
+
+\begin{figure}[h!]
+	\begin{center}
+		{
+			\includegraphics[width=\textwidth]{pytha.png}
+		} 
+	\caption{Trigonometric Ratios}
+	\end{center}
+\end{figure}
+
+\newpage
 \tableofcontents
 
-~\newpage
+
 
 \pagenumbering{arabic}
-
+\newpage 
 \section{Introduction}
 
 \subsection{Purpose of Document}
 The purpose of this document is to describe the requirements for the spectral 
 search program (SpecSearch). SpecSearch will search for the 
-continuous spectrum of a lax pair that is compatibile for solutions 
+continuous spectrum of a lax pair that is compatible with solutions 
 of the NLS 
 equation. \\ 
 
@@ -287,7 +318,8 @@ indicate the flow of data between software and environment.
 	\begin{center}
 		{
 			\includegraphics[width=15cm,height=6cm]{SystemContext.png}
-		}
+		} 
+	\caption{System Context}
 	\end{center}
  \end{figure}
 
@@ -298,7 +330,7 @@ indicate the flow of data between software and environment.
 to analyze.
 \item Ensure that the assumptions imposed on waves in this software are 
 reasonable 
-for your reasearch
+for your reasearch.
 \item Ensure that the software is used in a legal and ethical manner.
 
 \end{itemize}
@@ -322,11 +354,7 @@ conserved quantities. \\
 
 \subsection{System Constraints}
 
-The system only deals with general traveling periodic wave solutions of the 
-NLS equation. The system will start by assuming that the wave is stationary and 
-then use 
-the stationary solution to build the moving solution. The software will be 
-created in MATLAB.\\
+My supervisor requires that software will be created with MATLAB.\\
 
 
 \section{Specific System Description}
@@ -380,7 +408,7 @@ that travels with a constant speed, c, and angular frequency, $\omega$.
 \item \textbf{Compatibility Condition}: Conditions for which the lax pair of 
 equations is guaranteed. 
 \item \textbf{Stability}: A solution is stable if slight perturbations in 
-intial conditions lead 
+initial conditions lead 
 to slight perturbations in the entire solution.
 \item \textbf{Initial Data}: The graph of a wave (or its derivative) 
 at a fixed point in time, tyically t=0.
@@ -456,6 +484,9 @@ and frequency.
 wave is a solution to the NLS equation.
 \item[Afoc:]The 
 system only deals with focusing waves.
+\item[Astat:] The system will start by assuming that the wave is stationary and 
+then use 
+the stationary solution to build the moving solution.
 
 \end{itemize}
 
@@ -492,6 +523,9 @@ on.
 	\end{tabular}
 \end{minipage}\\ 
 
+\subsubsection{Derivatition of the Focusing NLS for General Traveling Periodic 
+Waves}
+
 We start with the focusing NLS equation: $iq_{t} + q_{xx} + 
 2|q|^{2}q=0$ \\ 
 
@@ -504,14 +538,14 @@ t}$.$(u: \mathbb{R} \rightarrow \mathbb{C})$.
 We will now search for general traveling periodic waves that are solutions to 
 the NLS equation. This is done by setting z=q in the NLS equation. This 
 yields: \\ 
-
+\begin{center}
 $ iz_{t} + z_{xx} + 2|z|^{2}z = 0$ \\ 
 $ \Rightarrow i(2cu'e^{i \omega t} + i \omega ue^{i \omega t}) + u''e^{i \omega 
 t} + 2|u|^{2}|e^{i \omega t}|^{2} u e^{i \omega t} = 0 $ \\
  $\Rightarrow e^{i \omega t} (2icu' + i^{2} \omega u + u'' + 2|u|^{2}u) = 0 $ 
  \\ 
 $ \Rightarrow 2icu' - \omega u + u'' + 2|u|^{2}u =0$ \\ 
-
+\end{center}
 Which is the result in T1. \\
 
 
@@ -554,23 +588,33 @@ Symbols &$g, c, d, \omega$\\
   Ref.\ By & IM1\\
   \hline
 \end{tabular}\\
-\end{minipage}
+\end{minipage} \\
 
-I will first multiply T3 by $\bar{u}$. \\ 
+\subsubsection{Justification of a Conserved Quantity}
+
+I will first multiply T1 by $\bar{u}$. \\ 
+\begin{center}
 $  u''\bar{u} + 2|u|^{2}u \bar{u}+2icu' \bar{u}=\omega u \bar{u}$ (*) \\ 
+\end{center}
 Taking the complex conjugate yields: \\ 
+\begin{center}
 $ \bar{u''} u + 2|u|^{2} \bar{u} u -2ic\bar{u'}u = \omega \bar{u} u$ (**) \\ 
-Subtraction of * with ** yields: \\
+\end{center} 
+Subtraction of * with ** yields: \\ 
+\begin{center} 
 $  u''\bar{u} + 2|u|^{2}u \bar{u}+2icu' \bar{u} - (\bar{u''} u + 2|u|^{2} 
 \bar{u} u -2ic\bar{u'}u) =\omega u \bar{u} - (\omega \bar{u} u)$\\ 
 $ \Rightarrow  u''\bar{u} - \bar{u''} u + 2ic (u' \bar{u} + \bar{u'}u ) = 0$ \\
 $ \Rightarrow \int u''\bar{u} - \int \bar{u''} u + 2ic \int (u' \bar{u} + 
-\bar{u'}u ) = 2ig  $ \\ 
-Noticing that the term in the integral attatched to 2ic is a product rule.\\
+\bar{u'}u ) = 2ig  $ \\  
+\end{center} 
+Noticing that the term in the integral attatched to 2ic is a product rule.\\ 
+\begin{center}
 $ \Rightarrow \int u''\bar{u} - \int \bar{u''} u + 2icu \bar{u} = 2ig $ \\
 $ \Rightarrow \bar{u}u' - \int \bar{u'} u' - u \bar{u'} + \int \bar{u'} u' + 
 2icu \bar{u} = 2ig$ \\ 
-$ \Rightarrow \bar{u}u' - u\bar{u}' + 2ic|u|^{2} = 2ig$ \\
+$ \Rightarrow \bar{u}u' - u\bar{u}' + 2ic|u|^{2} = 2ig$ \\ 
+\end{center} 
 The second conserved quantity is obtained by multiplying $\bar{u'}$ by T1, 
 adding the complex conjugate and integrating. \\ 
 
@@ -618,11 +662,14 @@ The goals GSlocate and GSstable are solved by IM1 and IM2 respectively.
   \hline
 \end{tabular}
 \end{minipage}\\
-\newline \\
+\newline \\ 
+
+\subsubsection{Justification of Compatibility Condition}
 For a smooth $C^{2}$ function ,$\phi$, we have that $\phi_{tx}=\phi_{xt}$. \\
 From IM1 $\Rightarrow \phi_{xt} = \delta_{t} U \phi + UV \phi$ and $\phi_{tx} = 
 \delta_{x} V \phi + VU \phi$. \\
-Combining the above two equations : \\
+Combining the above two equations : \\ 
+
 $\Rightarrow \delta_{t} U \phi + UV \phi = \delta_{x} V \phi + VU \phi$ \\
 $\Rightarrow \delta_{t} U + UV = \delta_{x} V + VU$ (--) \\ 
 $\Rightarrow$
@@ -684,7 +731,8 @@ $ \begin{pmatrix}
 0 & 0 \\
 0 & 0
 \end{pmatrix} $ \\ 
-\\
+
+
 This is true if u satisfies the NLS equation (T1). Thus, the NLS equation is a 
 compatibility 
 condition for the lax pair in IM1. \\
@@ -716,6 +764,8 @@ condition for the lax pair in IM1. \\
 	\end{tabular}
 \end{minipage}\\
 
+\subsubsection{Validation of Stability Criteria}
+
 Without loss of generality it is possible to set $c=0$. \\  
 
 We can write $\phi(x,t) = M(t) \chi (x,t) $. Here M(t) is the diagonal matrix 
@@ -724,25 +774,29 @@ $e^{\frac{-i \omega t}{2}}$ and $\sigma_{3}$ is the diagonal matrix with top
 entry 1 and bottom entry -1.\\  
 
 Substituting this into the lax pair in IM1 yields: \\ 
-
+\begin{center} 
 $\chi _{x} = U \chi $ and $\chi_{t} = V \chi - \frac{i \omega}{2} \sigma_{3} 
 \chi$ \\ 
 Let $\chi (x,t) = e^{t \Omega} \phi (x) $. \\ 
 $\Rightarrow \Omega \phi = V(u,\lambda) \phi - \frac{i \omega}{2} \sigma_{3} 
 \phi$ \\ 
-
+\end{center} 
 This matrix system admits a non zero solution when the determinant of the 
-following: 
+following:
+\begin{center}  
 $ R(\Omega, \lambda) = \begin{pmatrix} 
 i(2\lambda^{2} + |u|^{2} - \frac{\omega}{2}) - \Omega & i(u_{x}+2\lambda u) \\
 i(\bar{u}_{x}-2\lambda \bar{u}) & -i(2\lambda^{2} + |u|^{2} - \frac{\omega}{2}) 
 - \Omega
-\end{pmatrix} $ \\ 
-Is nonzero. Expanding the determinant of R it follows that: \\
+\end{pmatrix} $ \\  
+\end{center} 
+Is nonzero. Expanding the determinant of R it follows that: \\ 
+\begin{center}
 $|R| = \Omega^{2} + 4(\lambda^{4} - \frac{1}{2} \omega \lambda^{2} + 
 \frac{1}{16} \omega^{2} - \frac{1}{4}d ) = \Omega^{2} +4P(\lambda) = 0$ \\ 
 $ \Rightarrow \Omega^{2} = -4P(\lambda)$ \\ 
 $ \Rightarrow \Omega = \frac{+}{-}\sqrt{-4P(\lambda)} $\\ 
+\end{center} 
 By Theorem 5.1 of (Deconinck, 2017) any $\Omega$ with real part larger than 
 zero implies instability of the periodic wave u. \\
  
@@ -769,13 +823,14 @@ qualities that the software is expected to exhibit.\\
 
 \noindent \begin{itemize}
 
-\item[Rin:] SpecSearch will 
+\item[Rin:] SpecSearch shall 
 take in 
-conserved quantities $d,g$, wave parameters $c,\omega$, and initial wave data 
+conserved quantities ($d,g$), wave parameters ($c,\omega$), and initial wave 
+data 
 as input. 
 
 \item[Rfind:] SpecSearch 
-will find values of $\lambda$ within a certain resolution.
+will find values of $\lambda$.
 
 \item[Rcon:] SpecSearch will 
 connect the points in Rfind in an attempt to approximate the continuous 
@@ -793,10 +848,12 @@ will determine the stability of solutions.
 \subsection{Nonfunctional Requirements}
 \noindent \begin{itemize}
 \item[NFR1:] The software should be maintainable and manageable as it will 
-be modified and continually updated during the research process. 
-\item[NFR2:] The software should be servicable. It is meant to be used by 
-mathematicians and physcists for their research with rogue waves and modulated 
-wave packets.
+be modified and continually updated during the research process. It should be 
+simple to add new numerical methods for approximating the derivatives of 
+$\phi$.  
+\item[NFR2:] The software should be serviceable. Mathematicians and physicists 
+studying rogue waves and modulated wave packets should have no issues in 
+understanding the intended input or reading the spectrum plot. 
 \end{itemize}
 
 
@@ -888,7 +945,7 @@ Sections}
 The purpose of the traceability graphs is also to provide easy references on
 what has to be additionally modified if a certain component is changed.  The
 arrows in the graphs represent dependencies. The component at the tail of an
-arrow is depended on by the component at the head of that arrow. Therefore, if a
+arrow is dependent on the component at the head of that arrow. Therefore, if a
 component is changed, the components that it points to should also be
 changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
 general definitions, data definitions and instance models on each other. 
