@@ -275,8 +275,7 @@ quality attributes of the software, such as functionality,
 without dicussing any code, numerical algorithms or scientific computing 
 solutions. It is a precursor to the documents required in the development of 
 scientific software. One should read and understand this document before the 
-VnV, design or code itself. \\
-
+VnV, design or code itself. 
 
 \subsection{Scope of Requirements} 
 
@@ -289,7 +288,7 @@ the focusing NLS equation.
 
 The reader of this document should have taken an introductory course 
 in partial differential equations and complex analysis. They should also have a 
-first year undergraduate understanding of linear algebra.\\
+first year undergraduate understanding of linear algebra.
 
 \subsection{Organization of Document}
 
@@ -303,7 +302,7 @@ concludes with useful graphs and figures for tracebility. \\
 
 More details of the template can be found in Smith et al (2005) and Smith et al 
 (2007). The latex template is available in Dr. Spencer Smith's gitlab 
-repository CAS 741. \\
+repository CAS 741. 
 
 \section{General System Description}
 
@@ -350,11 +349,11 @@ for your reasearch.
 The user should have a basic understanding of wave mechanics (wave 
 speed, 
 amplitude and angular frequency). They should also understand the concept of 
-conserved quantities. \\ 
+conserved quantities. 
 
 \subsection{System Constraints}
 
-My supervisor requires that software will be created with MATLAB.\\
+My supervisor requires that software will be created with MATLAB.
 
 
 \section{Specific System Description}
@@ -388,8 +387,7 @@ parameter (Pelinovsky 2018)(Deconinck 2017). These attempts have only been
 successful at finding a countable number of points on the spectrum. This 
 software will 
 search for more points and "connect" the points in an attempt to approximate 
-and search for the continuous spectrum. 
-\\ 
+and search for the continuous spectrum.  
 
 \subsubsection{Terminology and  Definitions}
 
@@ -523,8 +521,15 @@ on.
 	\end{tabular}
 \end{minipage}\\ 
 
-\subsubsection{Derivatition of the Focusing NLS for General Traveling Periodic 
-Waves}
+\begin{center}
+\newpage
+\begin{flushleft}
+	\textbf{Derivatition of the Focusing NLS for 
+		General Traveling Periodic 
+		Waves}
+\end{flushleft} 
+
+\end{center} 
 
 We start with the focusing NLS equation: $iq_{t} + q_{xx} + 
 2|q|^{2}q=0$ \\ 
@@ -546,12 +551,11 @@ t} + 2|u|^{2}|e^{i \omega t}|^{2} u e^{i \omega t} = 0 $ \\
  \\ 
 $ \Rightarrow 2icu' - \omega u + u'' + 2|u|^{2}u =0$ \\ 
 \end{center}
-Which is the result in T1. \\
-
+Which is the result in T1.
 
 \subsubsection{General Definitions}\label{sec_gendef}
 
-There are no general definitions.\\
+There are no general definitions.
 
 \subsubsection{Data Definitions}\label{sec_datadef}
 
@@ -588,9 +592,15 @@ Symbols &$g, c, d, \omega$\\
   Ref.\ By & IM1\\
   \hline
 \end{tabular}\\
-\end{minipage} \\
+\end{minipage} 
 
-\subsubsection{Justification of a Conserved Quantity}
+\begin{center}
+	\newpage
+	\begin{flushleft}
+		\textbf{Justification of a Conserved Quantity}
+	\end{flushleft} 
+	
+\end{center} 
 
 I will first multiply T1 by $\bar{u}$. \\ 
 \begin{center}
@@ -616,14 +626,14 @@ $ \Rightarrow \bar{u}u' - \int \bar{u'} u' - u \bar{u'} + \int \bar{u'} u' +
 $ \Rightarrow \bar{u}u' - u\bar{u}' + 2ic|u|^{2} = 2ig$ \\ 
 \end{center} 
 The second conserved quantity is obtained by multiplying $\bar{u'}$ by T1, 
-adding the complex conjugate and integrating. \\ 
+adding the complex conjugate and integrating. 
 
 \subsubsection{Instance Models} \label{sec_instance}    
 
 This section transforms the problem defined in Section~\ref{Sec_pd} into 
 one which is expressed in mathematical terms. It uses concrete symbols defined 
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
-identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
+identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}. \\
 
 The goals GSlocate and GSstable are solved by IM1 and IM2 respectively.  
 
@@ -662,9 +672,14 @@ The goals GSlocate and GSstable are solved by IM1 and IM2 respectively.
   \hline
 \end{tabular}
 \end{minipage}\\
-\newline \\ 
+ 
 
-\subsubsection{Justification of Compatibility Condition}
+\begin{center}
+	\begin{flushleft}
+		\textbf{Justification of Compatibility Conditions}
+	\end{flushleft} 
+	
+\end{center} 
 For a smooth $C^{2}$ function ,$\phi$, we have that $\phi_{tx}=\phi_{xt}$. \\
 From IM1 $\Rightarrow \phi_{xt} = \delta_{t} U \phi + UV \phi$ and $\phi_{tx} = 
 \delta_{x} V \phi + VU \phi$. \\
@@ -762,9 +777,14 @@ condition for the lax pair in IM1. \\
 		Ref.\ By & IM2\\
 		\hline
 	\end{tabular}
-\end{minipage}\\
+\end{minipage} \\
 
-\subsubsection{Validation of Stability Criteria}
+\begin{center}
+	\begin{flushleft}
+		\textbf{Validation of Stability Criteria}
+	\end{flushleft} 
+	
+\end{center} 
 
 Without loss of generality it is possible to set $c=0$. \\  
 
@@ -798,7 +818,7 @@ $ \Rightarrow \Omega^{2} = -4P(\lambda)$ \\
 $ \Rightarrow \Omega = \frac{+}{-}\sqrt{-4P(\lambda)} $\\ 
 \end{center} 
 By Theorem 5.1 of (Deconinck, 2017) any $\Omega$ with real part larger than 
-zero implies instability of the periodic wave u. \\
+zero implies instability of the periodic wave u. 
  
 
 \subsubsection{Data Constraints} \label{sec_DataConstraints}    
@@ -817,7 +837,7 @@ continuous spectrum. The stability of solutions will be displayed as booleans
 
 This section provides the functional requirements, the business tasks that the
 software is expected to complete, and the nonfunctional requirements, the
-qualities that the software is expected to exhibit.\\
+qualities that the software is expected to exhibit.
 
 \subsection{Functional Requirements}
 
@@ -880,28 +900,6 @@ other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
 general definitions, data definitions, instance models, and likely changes on
 the assumptions.\\
 
-\afterpage{
-\begin{landscape}
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-	& Aham & Amom& Awav& Anls& Afoc \\
-\hline
-T1        &X &X &X &X &X \\ \hline
-DD1       &X &X &X &X &X \\ \hline
-IM1       &X &X &X &X &X \\ \hline
-IM2       &X  &X  &X  &X  &X  \\ \hline
-LC1       & & & & &  \\ 
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Assumptions and 
-Other Items}
-\label{Table:A_trace}
-\end{table}
-\end{landscape}
-}
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -938,10 +936,30 @@ Sections}
 	\caption{Traceability Matrix Showing the Connections Between Requirements 
 	and Instance Models}
 	\label{Table:R_trace}
-\end{table}
+\end{table} 
 
-%\caption{Traceability Matrix Showing the Connections Between Requirements and 
-%Instance Models}
+\newpage
+\begin{landscape}
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			& Aham & Amom& Awav& Anls& Afoc& Astat \\
+			\hline
+			T1        &X &X &X &X &X& X \\ \hline
+			DD1       &X &X &X &X &X &X \\ \hline
+			IM1       &X &X &X &X &X &X\\ \hline
+			IM2       &X  &X  &X  &X  &X &X \\ \hline
+			LC1       & & & & & & \\ 
+			\hline
+		\end{tabular}
+		\caption{Traceability Matrix Showing the Connections Between 
+		Assumptions and 
+			Other Items}
+		\label{Table:A_trace}
+	\end{table}
+\end{landscape}
+
 The purpose of the traceability graphs is also to provide easy references on
 what has to be additionally modified if a certain component is changed.  The
 arrows in the graphs represent dependencies. The component at the tail of an
@@ -978,8 +996,8 @@ instance models, requirements, and data constraints on each other.
 %\bibliographystyle {plainnat}
 %\bibliography {../../ReferenceMaterial/References} 
 
-\newpage
-\begin{thebibliography}{9}
+\clearpage 
+\begin{thebibliography}{9} 
 	\bibitem{latexcompanion} 
 	Spencer Smith and Lei Lai. 
 	A New Requirements Template for Scientific Computing. 
