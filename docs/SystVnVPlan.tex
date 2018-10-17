@@ -1,0 +1,376 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+
+\input{../Comments}
+
+\begin{document}
+
+\title{Project Title: System Verification and Validation Plan} 
+\author{Robert White}
+\date{\today}
+	
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+2018-10-13 & 1.0 & Creation of first draft for VnV plan presentation.\\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  T & Test\\
+  \bottomrule
+\end{tabular}\\
+
+\wss{symbols, abbreviations or acronyms -- you can simply reference the SRS
+  tables, if appropriate}
+
+\newpage
+
+\tableofcontents
+
+\listoftables
+
+\listoffigures
+
+\newpage
+
+\pagenumbering{arabic}
+
+This document discusses the verification and validation requirements for 
+SpecSearch. The Project Management Body of Knowledge (PMBOK) guide provides 
+unambigious definitions for verification and validation. It defines 
+verification as the evaluation of whether or not a product, service, or system 
+complies with a regulation, requirement, specification, or imposed condition. 
+It is often an internal process. It defines validation as the assurance that a 
+product, service, or system meets the needs of the customer and other 
+identified stakeholders. It often involves acceptance and suitability with 
+external customers. (PMBOK)
+
+\section{General Information}
+
+\subsection{Summary}
+
+\wss{Say what software is being tested.  Give its name and a brief overview of
+  its general functions.} \\
+The software being tested is called SpecSearch. SpeacSearch will search for the 
+spectrum of a particular lax equation from a lax pair that is compatbilible 
+with solutions to the Non-Linear Schrodinger (NLS) Equation. It will also use 
+the spectral information to determine the stability of the solutions. 
+\subsection{Objectives}
+
+\wss{State what is intended to be accomplished.  The objective will be around
+  the qualities that are most important for your project.  You might have
+  something like: ``build confidence in the software correctness,''
+  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
+  just those that are most important.} \\
+\begin{itemize}
+	\item Build confidence in software correctness.
+	\item Ensure maintainability and manageability (can easily 
+	have more features/numerical algorithms added).
+	\item Satisfy the requirements of my thesis supervisor and those outlined 
+	in the SRS. 
+	\item Verify effectiveness and ease of use (usability).	
+\end{itemize}
+
+\subsection{References}
+
+\wss{Reference relevant documentation. This will definitely include your SRS}
+\begin{itemize} 
+	\item Dr. Smith's VnV Template 
+	\item PMBOK 
+	\item 
+	https://www.wqusability.com/articles/more-tincorpohan-ease-of-use.html 
+	\item 
+	http://people.ucalgary.ca/~design/engg251/First%20Year%20Files/design_verif.pdf
+	\item Bernard Deconinck and Benjamin L.Segal.
+	
+\end{itemize}
+
+\section{Plan}
+	
+\subsection{Verification and Validation Team}
+
+The verification and validation team consists of my theis supervisor, Dr. 
+Dmitry Pelinovsky, and I. 
+
+\subsection{SRS Verification Plan}
+
+\wss{List any approaches you intend to use for SRS verification.  This may just
+  be ad hoc feedback from reviewers, like your classmates, or you may have
+  something more rigorous/systematic in mind..} \\ 
+\begin{itemize}
+	\item Feedback from thesis supervisor about mathematical theory, 
+	assumptions, constraints and goals.
+	\item Feedback from classmates and Dr. Smith about document outline, 
+	readability, clarity and requirements. 
+	
+\end{itemize}
+
+
+\subsection{Design Verification Plan}
+
+\wss{Plans for design verification} 
+\begin{itemize}
+	\item Inspection of the software by my thesis supervisor. 
+\end{itemize}
+
+\subsection{Implementation Verification Plan}
+
+\wss{You should at least point to the tests listed in this document and the unit
+  testing plan.} 
+\begin{itemize}
+\item A software verification checklist: Does the software allow the user to 
+fufill their responsibilities? Does the software fufill its intended 
+responsibilities? Can the intended user understand the software? Are the system 
+constraints violated? Does the software achieve its intended goals? Does the 
+solution have the required properties outlined in the SRS? 
+\item Did the functional and nonfunctional requirement tests pass (see below)? 
+\end{itemize}
+\subsection{Software Validation Plan}
+
+\wss{If there is any external data that can be used for validation, you should
+  point to it here.  If there are no plans for validation, you should state that
+  here.} 
+\begin{itemize} 
+	\item The stability spectrum for elliptic solutions to the focusing NLS 
+	equation. (paper) 
+\end{itemize}
+
+\section{System Test Description}
+	
+\subsection{Tests for Functional Requirements}
+
+\wss{Subsets of the tests may be in related, so this section is divided into
+  different areas.  If there are no identifiable subsets for the tests, this
+  level of document structure can be removed.}
+
+\begin{enumerate}
+
+\item{test-Rin1\\}
+
+Control: Enough versus Not Enough Information
+					
+Initial State: Software with no inputed data.
+					
+Input: Varying initial data configurations (ie missing certain inputs and 
+having all inputs)
+					
+Output: Error or pass message.
+					
+How test will be performed: All possible combinations of ommited variables (and 
+writing variables non-numerically, such as accidently characters or symbols) in 
+the input will be considered. A successful test in this case will be an error 
+message upon running the software with these inputs. On the other hand we will 
+test cases with each variable in the input having a numerical value. These 
+numerical values will vary between negative,positive and zero values. A 
+successful test in this case will be a pass message.
+					
+\item{test-Rfind1} 
+
+Control: Full versus non-full eigenvalue array. 
+
+Initial State: Software with prescribed input data. 
+
+Input: The array from SpecSearch that stores the eigenvalues. 
+
+Output: Binary output (Full or non-full array)
+
+How the test will be performed: A program will go through the eigen-value array 
+to ensure that each entry is filled with a complex number. 
+
+
+\item{test-Rcon1} 
+
+Initial State: The software system with prescribed input.
+
+Input: The approximated continuous spectrum with a tag on explicitly calculated 
+values.
+
+Output: Binary Variable (Connected or disconnected)
+
+How test will be performed: This test will check to see if there is a 
+sufficient amount of points between the tagged portions of the spectrum. This 
+will require a criteria for 'computer continuous'. 
+
+\item{test-Rplt} 
+
+Initial State: The software system with prescribed input. 
+
+Input: A plot of the spectrum. 
+
+Output: A plot with regions of calculated eigenvalues emphasized/circled. 
+
+How test will be performed: I will write a program that takes in the spectrum 
+as input and puts explicity labels on explicitly caculated eigen values. 
+
+\item{test-Rstl} 
+
+Initial State: A completed run of SpecSearch with prescribed input. 
+
+Input: The stability results from SpecSearch. 
+
+Output: Binary Variable (Verification of stability) 
+
+How test will be performed: The stability results will be compared with the 
+stability analysis in (ref1). 
+
+\end{enumerate}
+
+\subsection{Tests for Nonfunctional Requirements}
+
+
+\begin{enumerate}
+
+\item{test-NFR1\\}
+
+Type: Static
+					
+Initial State: -
+					
+Input/Condition: SpecSearch MATLAB code
+					
+Output/Result: Pass or Fail
+					
+How test will be performed: The software will be manually read by the developer 
+to see if there is a more effective code structure to allow implementation of 
+new numerical algorithms. 
+					
+\item{test-NFR2a\\}
+
+Type: Manual
+					
+Initial State: Software system with prescribed input.
+					
+Input: Matrix generated from an instance of SpecSearch.
+					
+Output: Pass or fail.
+					
+How test will be performed: The matrix created with the prescribed inputs in 
+SpecSearch will be extracted and its eigenvalues will be found using another 
+software package. The eigenvalues calculated from SpecSearch and the other 
+package will be compared. The test will be successful if SpecSearch deviates 
+within a certain percentage of the other software's eigenvalues.
+
+\item{test-NFR2b\\} 
+
+Type: Manual 
+
+Initial State: Software system with prescribed input.
+
+Input: Matrix derived from the time indepent lax equation.
+
+Output: Pass or fail.
+
+How test will be performed: The matrix output ought to have a specific form for 
+each instance of SpecSearch. This test will loop through each element of the 
+matrix to ensure it has the correct form (ie two of the quadrants are diagonal 
+matrices and the other have a certain 'diagonal pattern') 
+
+\item{test-NFR2c\\} 
+
+Type: Manual 
+
+Initial State: Software system with prescribed input.
+
+Input: Matrix derived from the time indepent lax equation.
+
+Output: Pass or fail.
+
+How test will be performed: The output will be tested against the boundary 
+value eigen-values derived analytically in Deconinck and Segal. The standard of 
+necessary accuracy will be determined by my supervisor.  
+
+\end{enumerate}
+
+\subsection{Traceability Between Test Cases and Requirements}
+
+\wss{Provide a table that shows which test cases are supporting which
+  requirements.}
+
+\section{Static Verification Techniques}
+
+\wss{In this section give the details of any plans for static verification of
+  the implementation.  Potential techniques include code walkthroughs, code
+  inspection, static analyzers, etc.} 
+
+\begin{itemize}
+	\item Code inspection : I will 
+	go through the code to see if each step is correct with respect to the
+	mathematical theory. In particular I will ensure that: 
+	\begin{itemize}
+		\item variables are being used in the right context. 
+		\item any discretization of functions is performed accurately about the 
+		origin. For example, equal step sizes in either directions. 
+		\item functions from other packages are being used in the right 
+		context. For example, some packages have different standards for 
+		constants. Theoretical convention may square a constant while the code 
+		may take the squared value directly as the constant. 
+		\item the dimensions of the vectors and matrices are appropriate. For 
+		example, multiplication of row with column versus column with row. Or 
+		that rows in matrices are seperated with semi-colons. 
+		\item ensure a varible is not accidently overwritten or cleared. 
+	\end{itemize} 
+	\item Code walkthrough: My supervisor and I will go through the code 
+	together to ensure that: 
+	\begin{itemize}
+		\item I correctly implemented the mathematical theory and numerical 
+		algorithms.
+		\item I made the code manageable and maintainable for future use.
+	\end{itemize}
+\end{itemize}
+				
+\bibliographystyle{plainnat}
+
+\bibliography{SRS}
+
+\newpage
+
+\section{Appendix}
+
+This is where you can place additional information.
+
+\subsection{Symbolic Parameters}
+
+The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
+Their values are defined in this section for easy maintenance.
+
+\subsection{Usability Survey Questions?}
+
+\wss{This is a section that would be appropriate for some projects.}
+
+\begin{itemize}
+	\item How long did it take to learn how to run the software? 
+	\item Was it easy to interpret the output? 
+	\item Was this program useful for your research? 
+	\item What aspects of this software do you feel need improvement?
+	\item Was the output recieved and processed in an adequate amount of time?
+	\item How does this program compare with other software that finds this 
+	particular spectrum?
+\end{itemize}
+
+\end{document}
