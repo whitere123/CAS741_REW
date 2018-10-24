@@ -35,6 +35,7 @@ presentation and made necessary changes. I also prepared the document for
 submission. \\ 
 2018-10-22 & 1.2 & Edit of 1.1. Removed comments, updated test cases, added 
 references, improved writing and added test-NFR2c. \\ 
+2018-10-23 & 1.3 & Edit of 1.2. Minor corrections and revisions. \\
 \bottomrule
 \end{tabularx}
 
@@ -90,7 +91,8 @@ spectrum (set of eigenvalues) of a particular lax equation from a lax pair that
 is compatbilible 
 with solutions to the Non-Linear Schrodinger (NLS) Equation. SpecSearch will 
 also use 
-the spectral information to determine the stability of the solutions. See the 
+the spectral information to determine the stability of the solutions. Refer to 
+the 
 instance models in the SRS for more details.
 \subsection{Objectives}
 
@@ -98,7 +100,8 @@ instance models in the SRS for more details.
 	this section. Many of these qualities are also presented in the SRS. \\
 	
 	My supervisor and I intend to use this program as a tool to search for the 
-	continuous spectrum of the previously mentioned specral problem. SpecSearch 
+	continuous spectrum of the previously mentioned spectral problem. 
+	SpecSearch 
 	will only provide the approximate 
 	location of the spectrum and a finite number of elements in the spectrum. 
 	We will 
@@ -150,7 +153,7 @@ instance models in the SRS for more details.
 	
 \subsection{Verification and Validation Team}
 
-The verification and validation team consists of my theis supervisor, Dr. 
+The verification and validation team consists of my thesis supervisor, Dr. 
 Dmitry Pelinovsky, and I. \\
 
 \subsection{SRS Verification Plan}
@@ -168,13 +171,13 @@ my thesis supervisor.
 
 \subsection{Implementation Verification Plan}
 
-The implementation and verification plan consists of two parts. The first part 
+The implementation verification plan consists of two parts. The first part 
 is a software verification checklist. The checklist will be completed by 
-researchers who use SpecSearch for their research, my supervisor and I. The 
-checklist checks if basic software features have been implemented successfully, 
-such as 
-allowing the user to fufill their responsibilities or if the software fufilled 
-its basic responsibilities (ie, plotting something that resembles a spectrum). 
+researchers , Dr. Pelinovksy and I. The 
+checklist verifies that basic software features have been implemented 
+successfully. 
+For example, it checks if the user was able to fufill their responsibilities 
+outlined in the SRS. 
 This checklist can be found in the appendix (7.4).\\
 
  The 
@@ -194,7 +197,7 @@ This section does not apply to SpecSearch.
 				
 Initial State: -
 					
-Input: See ``data input tables" in Appendix 7.3 for more detail.
+Input: Table 2 in Appendix 7.3.
 					
 Output: Error or pass message.
 					
@@ -203,64 +206,64 @@ input  (such as letters), or numerical values outside of their respective
 constraints, will be considered. A successful test in these instances will be 
 an error message. \\
 I will also test cases with each variable in the input having an 
-acceptable numerical value. A successful test in this case will be a pass 
+acceptable numerical value. A successful test in these cases will be a pass 
 message. 
 					
 \item{test-Rfind1} 
 
 Initial State: - 
 
-Input: Similar to test-Rin1
+Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
 
-Output: Binary output (Full or non-full array)
+Output: Size of spectrum array 
 
-How the test will be performed: Successful inputs from test-Rin1 should produce 
+How the test will be performed: Passing inputs from test-Rin1 should produce 
 $4n$ eigenvalues. Unsuccessful cases 
 from test-Rin1 should produce no eigenvalue array 
-or an empty eigenvalue array. We are not testing for accuracy in this test; see 
-nonfunctional tests for more detail. We are simply checking if the expected 
-number of eigenvalues are produced.
+or an empty eigenvalue array. We are not testing for accuracy in this test.
 
 \item{test-Rcon1} 
 
 Initial State: -
 
-Input: Similar to test-Rin1
+Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
 
-Output: Binary Variable (Connected or disconnected)
+Output: Approximated Spectrum (Connected or disconnected)
 
 How test will be performed: This test will check to see if there is a 
-sufficient amount of points between the tagged portions of the spectrum. This 
-number should coincide with the scaling parameter given by the user (ie, 
-$4*n*m$, where m is the scaling). Tagged 
+sufficient amount of points between the tagged portions of the spectrum. Tagged 
 portions are the explicitly calculated eigenvalues from the previous test. The 
 spectrum array should have $2*m-1$ approximated values between these "tagged 
-portions". 
+portions", where m is the scaling parameter. 
 Failed test cases from test-Rin1 should have no data for this section. 
-We are not testing for accuracy in this test. 
+We are not testing for accuracy in this test.\\
+ The scaling parameter has not 
+been studied yet. It will be incorporated in the final draft of the documents.
 
 \item{test-Rplt} 
 
 Initial State: -
 
-Input: Similar to test-Rin1 
+Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
 
-Output: Pass of fail message (Is there a graph or not)
+Output: A plot of the spectrum.
 
 How test will be performed: This will involve visual inspection by my 
 supervisor to see if the spectrum plot is adequate. \\
-These should be no plot for the failed test cases of test-Rin1. 
+There should be no plot for the failed test cases in test-Rin1. 
 
 \item{test-Rstl} 
 
 Initial State: -
 
-Input: Similar to test-Rin1 
+Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
 
 Output: Binary Variable (Verification of stability) 
 
 How test will be performed: The stability results will be compared with the 
-stability analysis in [Deconinck and Segal, 2017]. 
+stability analysis in [Deconinck and Segal, 2017].  My supervisor 
+and I are still working on test cases for Rstl.Test-Rstl will be updated in 
+the final draft of the documents. 
 
 \end{enumerate}
 
@@ -276,40 +279,37 @@ Initial State: -
 					
 Input/Condition: SpecSearch MATLAB code
 					
-Output/Result: Pass or Fail
-					
-How test will be performed: The software will be manually read by the developer 
-and his supervisor to see if there is a more effective code structure to allow 
+How test will be performed: The software will be manually read by Dr. 
+Pelinovksy and I to see if there is a more effective code structure to allow 
 implementation of new numerical algorithms. 
 
 \item{test-NFR2a\\} 
 
 Type: Manual 
 
-Initial State: Software system with prescribed input.
+Initial State: -
 
-Input: Matrix derived from the time indepent lax equation.
+Input: Integer n (same as test-Rin1).
 
-Output: Pass or fail (See "Matrix Structure" in Appendix 7.5).
+Output: Operator Matrix.
 
-How test will be performed: The matrix output ought to have a specific form for 
-each instance of SpecSearch. This test will loop through each element of the 
-matrix to ensure it has the correct form (ie two of the quadrants are diagonal 
-matrices and the other have a certain 'diagonal pattern') 
+How test will be performed: Test-NFR2a will check if the operator matrix is of 
+the correct form. See Appendix 7.5 for more detail. The values from table 2 
+will be used to inspect A1.   \\
 
 \item{test-NFR2b\\} 
 
 Type: Manual 
 
-Initial State: Software system with prescribed input.
+Initial State: -
 
-Input: See data input tables in the appendix (7.3) for more detail.
+Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
 
-Output: Pass or fail.
+Output: Spectrum.
 
 How test will be performed: The output will be tested against the boundary 
-value eigen-values derived analytically in Deconinck and Segal. The standard of 
-necessary accuracy will be determined by my supervisor. \\ 
+value eigen-values derived analytically in Deconinck and Segal. See details 
+below table 2 of appendix 7.3. \\ 
 
 \item{test-NFR2c\\} 
 
@@ -317,7 +317,7 @@ Type: Usability Survey (see appendix 7.2)
 
 How test will be performed: The survey will be administered to the future users 
 of SpecSearch. Feedback from the survey will be considered when updating 
-SpecSearch. 
+SpecSearch. The survey is in appendix 7.2. 
 
 \end{enumerate}
 
@@ -354,16 +354,14 @@ SpecSearch.
 	mathematical theory. In particular I will ensure that: 
 	\begin{itemize}
 		\item Variables are being used in the right context. 
-		\item Any discretization of functions is performed accurately about the 
-		origin. For example, equal step sizes in either directions. 
-		\item functions from other packages are being used in the right 
-		context. For example, some packages have different standards for 
-		constants. Theoretical convention may square a constant while the code 
-		may take the squared value directly as the constant. 
+		\item Functions from other packages are being used in the right 
+		context. Some packages have different standards for 
+		constants. For instance, one of the complete elliptic integral 
+		functions in matlab does not square the inputted variable. Theoretical 
+		convention dictates that this constant should be squared. 
 		\item The dimensions of the vectors and matrices are appropriate. For 
-		example, multiplication of row with column versus column with row. Or 
-		that rows in matrices are seperated with semi-colons. 
-		\item Equations translated correctly to matlab syntax.  
+		example, multiplication of row with column versus column with row.
+		\item Equations are translated correctly into matlab syntax.  
 	\end{itemize} 
 	\item Code walkthrough: My supervisor and I will go through the code 
 	together to ensure that: 
@@ -412,26 +410,21 @@ SpecSearch.
 
 \section{Appendix}
 
-This is where you can place additional information.
-
 \subsection{Symbolic Parameters}
-
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
 
 \subsection{Usability Survey Questions}
 
 \begin{itemize}
-	\item How long did it take to learn how to run the software? Or how many 
+	\item How long did it take before you could run the software? How many 
 	attempts at running SpecSeach did it take before you understood how to 
-	properly use it?
+	properly use it and interpret the output?
 	\item Was this program useful for your research and were you able to 
 	interpret the results? 
 	\item What aspects of this software do you feel need improvement?
 	\item How does this program compare with other software that finds this 
 	particular spectrum? 
 	\item Was it clear how and where to input the variables? 
-	\item Where the plots and stability results clear? 
+	\item Were the plots and stability results clear? 
 \end{itemize} 
 
 \newpage
@@ -447,7 +440,7 @@ or symbols).
 		\hline        
 		Input ID& a& b & k & n& Result \\
 		\hline
-		I1     &1 &1 &0.9 &100 & Runs \\ \hline
+		I1     &1 &1 &0.9 &100 & Pass \\ \hline
 		I2    &X &1 &0.9 &10 & Error \\ \hline
 		I3    &1 &X &0.9 &100 & Error\\ \hline 
 		I4    &1 &1 &X &100 &Error \\ \hline 
@@ -455,14 +448,14 @@ or symbols).
 		I6    &1 &1 &1 & 1.2& Error\\ \hline
 		I7    &1 &1 &1.2 & 100&Error\\ \hline 
 		I8    &1 &-1 &0.9 &100& Error \\ \hline
-		I9     &-1 &2 &0.9 &100 & Runs \\ \hline
-		I10    &1 &2 &0.99 &100 & Runs\\ \hline
-		I11    &1 &3 &0.99 &500 & Runs \\ \hline 
-		I13   &1 &1 &0 &150 &Runs  \\ \hline
-		I14     &-1 &2 &0.9 &330 & Runs \\ \hline
-		I15    &1 &1 &0.99 &170 & Runs\\ \hline
-		I16    &1 &5 &0.999 &590 & Runs \\ \hline 
-		I17   &1 &1 &0 &200 &Runs  \\ 
+		I9     &-1 &2 &0.9 &100 & Pass \\ \hline
+		I10    &1 &2 &0.99 &100 & Pass\\ \hline
+		I11    &1 &3 &0.99 &500 & Pass \\ \hline 
+		I13   &1 &1 &0 &150 & Pass  \\ \hline
+		I14     &-1 &2 &0.9 &330 & Pass \\ \hline
+		I15    &1 &1 &0.99 &170 & Pass\\ \hline
+		I16    &1 &5 &0.999 &590 & Pass \\ \hline 
+		I17   &1 &1 &0 &200 & Pass  \\ 
 		\hline
 	\end{tabular}\\
 	\caption{Prescribed input for testing Rin}
@@ -489,10 +482,10 @@ from previous literature. A 'V' means that the parameter is free to vary.
 For these cases all of the eigenvalues, except for four of them, will be purely 
 imaginary. The remaing four have the form: $\lambda = \frac{+}{-} \frac{1}{2} a 
 (1+\sqrt{1-k^{2}})$ and $\lambda = \frac{+}{-} \frac{1}{2} a 
-(1-\sqrt{1-k^{2}})$ for B1. \\ 
-As for B2 the eigenvalues have the form:  $\lambda =  \frac{1}{2} a 
+(1-\sqrt{1-k^{2}})$ for B1 (see table 3). \\ 
+As for B2, the eigenvalues will have the form:  $\lambda =  \frac{1}{2} a 
 (\frac{+}{-}k+ i \sqrt{1-k^{2}})$ and $\lambda = \frac{1}{2} a 
-(\frac{+}{-}k - i \sqrt{1-k^{2}})$. (source) \\ 
+(\frac{+}{-}k - i \sqrt{1-k^{2}})$. [Deonick and segal 2017] \\ 
 The plan is to run B1 with a=b=1 and k=0.999. B2 will be run with the same 
 input. The expected eigenvalues were previously mentioned. 
 
@@ -512,14 +505,14 @@ input. The expected eigenvalues were previously mentioned.
 
 test-NFR2a will ensure that the matrix for which the eigen values are 
 calculated, E, is of the correct form. For any given input n, the matrix is 4n 
-by 4n. It is of the form $ [A1 A2; A2 (-A1)] $ . Where $ A1, A2$ is the first 
+by 4n. It is of the form $ [A1 A2; A2 (-A1)] $ where $ A1, A2$ is the first 
 row 
 and $A2 -A1$ is the second row. A1 and A2 are matrices. A2 is a diagonal 2n by 
 2n matrix and A1 is 2n by 2n and defined as follows: A1(i,j) = n/2 for 
 (1,2),(2,3),... (2n-1,2n) and A1(i,j)=-n/2 for (2,1),(3,2) ... (2n,2n-1). 
 A1(1,2n)=-n/2 and A1(2n,1)=n/2. // 
 
-For example when n=3 it should have the form: 
+For example for arbitrary n it should have the form: 
 \[
 A1=
 \begin{bmatrix}
