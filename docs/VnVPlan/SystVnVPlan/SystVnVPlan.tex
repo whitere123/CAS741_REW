@@ -10,13 +10,14 @@
     linkcolor=red,
     urlcolor=blue
 }
-\usepackage[round]{natbib}
+
+%\usepackage[round]{natbib}
 
 \input{../Comments}
 
 \begin{document}
 
-\title{Project Title: System Verification and Validation Plan} 
+\title{SpecSearch: System Verification and Validation Plan} 
 \author{Robert White}
 \date{\today}
 	
@@ -50,9 +51,11 @@ references, improved writing and added test-NFR2c. \\
   \midrule 
   T & Test\\
   R & Requirement\\ 
-  NFR & Non-functional Requirement\\ 
+  NFR & Non-functional Requirement\\
   \bottomrule
 \end{tabular}\\
+
+Refer to the SRS Symbols, Abbreviations and Acronyms for a more complete list.  
 
 \newpage
 
@@ -60,7 +63,7 @@ references, improved writing and added test-NFR2c. \\
 
 \listoftables
 
-\listoffigures
+%\listoffigures
 
 \newpage
 
@@ -68,7 +71,8 @@ references, improved writing and added test-NFR2c. \\
 
 This document discusses the verification and validation requirements for 
 SpecSearch. The Project Management Body of Knowledge (PMBOK) guide provides 
-unambigious definitions for verification and validation. PMBOK defines 
+unambigious definitions for verification and validation [Project Management 
+Institute, 2017]. PMBOK defines 
 verification as ``the evaluation of whether or not a product, service, or 
 system 
 complies with a regulation, requirement, specification, or imposed condition. 
@@ -84,22 +88,25 @@ SpecSearch.
 \section{General Information}
 
 \subsection{Summary}
+\label{Summary} 
 
 The software that is going to be tested is called SpecSearch. SpeacSearch will 
 search for the 
 spectrum (set of eigenvalues) of a particular lax equation from a lax pair that 
 is compatbilible 
-with solutions to the Non-Linear Schrodinger (NLS) Equation. SpecSearch will 
+with solutions to the Non-Linear Schr\"{o}dinger (NLS) Equation. SpecSearch 
+will 
 also use 
 the spectral information to determine the stability of the solutions. Refer to 
 the 
 instance models in the SRS for more details.
 \subsection{Objectives}
-
+\label{Objectives}
 	The qualities that are most important for SpecSearch are highlighted in 
 	this section. Many of these qualities are also presented in the SRS. \\
 	
-	My supervisor and I intend to use this program as a tool to search for the 
+	My supervisor, Dr. Dmitry Pelinovsky, and me intend to use this program as 
+	a tool to search for the 
 	continuous spectrum of the previously mentioned spectral problem. 
 	SpecSearch 
 	will only provide the approximate 
@@ -113,14 +120,14 @@ instance models in the SRS for more details.
 	
 	There are various numerical methods that can be used to approximate the 
 	derivatives of the eigenfunctions [Graselli and Pelinovksy, 2007]. My 
-	supervisor and I intend to experiment with these different 
+	supervisor and me intend to experiment with these different 
 	methods in an attempt to create a more accurate picture of the spectrum. 
 	Therefore, it is important that SpecSeach is maintainable and 
 	manageable. \\
 	% This will allow for easy implementation of new algorithms.
 	
-	 SpecSearch will also be used by a team of researchers studying modulated 
-	 wave packets and rogue waves. These users may not have a strong software 
+	 SpecSearch will also be used by a team of researchers studying rogue 
+	 waves. These users may not have a strong software 
 	 developing background. Therefore, it is important that the code is easy to 
 	 use and has a simple user interface. \\
 	 
@@ -136,6 +143,7 @@ instance models in the SRS for more details.
 \end{itemize}
 
 \subsection{References}
+\label{REF1}
 
 \begin{itemize} 
 
@@ -150,14 +158,14 @@ instance models in the SRS for more details.
 \end{itemize}
 
 \section{Plan}
-	
+	 
 \subsection{Verification and Validation Team}
-
+\label{VnVTeam}
 The verification and validation team consists of my thesis supervisor, Dr. 
-Dmitry Pelinovsky, and I. \\
+Dmitry Pelinovsky, and me. \\
 
 \subsection{SRS Verification Plan}
-
+\label{SRSVerPlan}
 The SRS verification plan consists of feedback from Dr. Dmitry Pelinovsky 
 (supervisor), Dr. Spencer Smith and CAS 741 classmates. My supervisor will 
 provide feedback regarding mathematical theory, model assumptions, constraints 
@@ -165,39 +173,39 @@ and research goals. Feedback from classmates and Dr. Smith will criticize the
 document outline, readability and requirements. 
 
 \subsection{Design Verification Plan}
-
+\label{DesignVerificationPlan}
 The design verification plan will simply involve inspection of the software by 
 my thesis supervisor. 
 
 \subsection{Implementation Verification Plan}
-
+\label{ImplementationVerPlan}
 The implementation verification plan consists of two parts. The first part 
 is a software verification checklist. The checklist will be completed by 
-researchers , Dr. Pelinovksy and I. The 
+researchers , Dr. Pelinovksy and me. The 
 checklist verifies that basic software features have been implemented 
 successfully. 
 For example, it checks if the user was able to fufill their responsibilities 
 outlined in the SRS. 
-This checklist can be found in the appendix (7.4).\\
+This checklist can be found in the ~\ref{softwarevercheck}.\\
 
  The 
 second part involves running the software tests 
 outlined in sections 5 and 6. Unit testing will also be performed. 
 
 \subsection{Software Validation Plan}
-
+\label{SoftwareValidationPlan}
 This section does not apply to SpecSearch. 
 
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
-
+\label{FRtests}
 \begin{enumerate}
 \item{test-Rin1\\}	
 				
 Initial State: -
 					
-Input: Table 2 in Appendix 7.3.
+Input: Table ~\ref{Table:D_11} in ~\ref{datainput}.
 					
 Output: Error or pass message.
 					
@@ -213,7 +221,7 @@ message.
 
 Initial State: - 
 
-Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
+Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
 
 Output: Size of spectrum array 
 
@@ -226,14 +234,14 @@ or an empty eigenvalue array. We are not testing for accuracy in this test.
 
 Initial State: -
 
-Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
+Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
 
 Output: Approximated Spectrum (Connected or disconnected)
 
 How test will be performed: This test will check to see if there is a 
-sufficient amount of points between the tagged portions of the spectrum. Tagged 
+sufficient number of points between the tagged portions of the spectrum. Tagged 
 portions are the explicitly calculated eigenvalues from the previous test. The 
-spectrum array should have $2*m-1$ approximated values between these "tagged 
+spectrum array should have $2*m-1$ approximated values between these ``tagged 
 portions", where m is the scaling parameter. 
 Failed test cases from test-Rin1 should have no data for this section. 
 We are not testing for accuracy in this test.\\
@@ -244,7 +252,7 @@ been studied yet. It will be incorporated in the final draft of the documents.
 
 Initial State: -
 
-Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
+Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
 
 Output: A plot of the spectrum.
 
@@ -256,19 +264,19 @@ There should be no plot for the failed test cases in test-Rin1.
 
 Initial State: -
 
-Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
+Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
 
 Output: Binary Variable (Verification of stability) 
 
 How test will be performed: The stability results will be compared with the 
 stability analysis in [Deconinck and Segal, 2017].  My supervisor 
-and I are still working on test cases for Rstl.Test-Rstl will be updated in 
+and me are still working on test cases for Rstl.Test-Rstl will be updated in 
 the final draft of the documents. 
 
 \end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
-
+\label{NFRtests}
 \begin{enumerate}
 
 \item{test-NFR1\\}
@@ -294,7 +302,8 @@ Input: Integer n (same as test-Rin1).
 Output: Operator Matrix.
 
 How test will be performed: Test-NFR2a will check if the operator matrix is of 
-the correct form. See Appendix 7.5 for more detail. The values from table 2 
+the correct form. See ~\ref{matrixform} for more detail. The values from table 
+2 
 will be used to inspect A1.   \\
 
 \item{test-NFR2b\\} 
@@ -303,27 +312,27 @@ Type: Manual
 
 Initial State: -
 
-Input: Table 2 in Appendix 7.3 (Similar to test-Rin1).
+Input: Table 2 in ~\ref{datainput} (Similar to test-Rin1). 
 
 Output: Spectrum.
 
 How test will be performed: The output will be tested against the boundary 
 value eigen-values derived analytically in Deconinck and Segal. See details 
-below table 2 of appendix 7.3. \\ 
+below table 2 of ~\ref{datainput}. \\ 
 
 \item{test-NFR2c\\} 
 
-Type: Usability Survey (see appendix 7.2) 
+Type: Usability Survey (see ~\ref{UsabilitySurvey}) 
 
 How test will be performed: The survey will be administered to the future users 
 of SpecSearch. Feedback from the survey will be considered when updating 
-SpecSearch. The survey is in appendix 7.2. 
+SpecSearch. The survey is in ~\ref{UsabilitySurvey}. 
 
 \end{enumerate}
 
 \newpage
 \subsection{Traceability Between Test Cases and Requirements}
-
+\label{traceability}
 \begin{table}[h]
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -347,7 +356,7 @@ SpecSearch. The survey is in appendix 7.2.
 
 
 \section{Static Verification Techniques}
-
+\label{staticVertech}
 \begin{itemize}
 	\item Code inspection : I will 
 	go through the code to see if each part is correct with respect to the
@@ -357,19 +366,22 @@ SpecSearch. The survey is in appendix 7.2.
 		\item Functions from other packages are being used in the right 
 		context. Some packages have different standards for 
 		constants. For instance, one of the complete elliptic integral 
-		functions in matlab does not square the inputted variable. Theoretical 
+		functions in MATLAB does not square the inputted variable. Theoretical 
 		convention dictates that this constant should be squared. 
 		\item The dimensions of the vectors and matrices are appropriate. For 
 		example, multiplication of row with column versus column with row.
-		\item Equations are translated correctly into matlab syntax.  
+		\item Equations are translated correctly into MATLAB syntax.  
 	\end{itemize} 
-	\item Code walkthrough: My supervisor and I will go through the code 
+	\item Code walkthrough: My supervisor and me will go through the code 
 	together to ensure that: 
 	\begin{itemize}
 		\item I correctly implemented the mathematical theory and numerical 
 		algorithms.
 		\item I made the code manageable and maintainable for future use.
-	\end{itemize}
+	\end{itemize} 
+
+	\item Linter: A linter is a program that checks the source code for 
+	programmatic and stylistic errors
 \end{itemize}
 				
 \bibliographystyle{plainnat}
@@ -392,28 +404,26 @@ SpecSearch. The survey is in appendix 7.2.
 	The stability spectrum for elliptic solutions to the focusing NLS equation. 
 	PhysicaD, 2017. 
 	 
-	\bibitem{latexcompanio} 
+	\bibitem{latexcompanion} 
 	Robert White. 
 	System Requirements Specification for SpecSearch. 
 	Github, 2018. 
 	
-	\bibitem{latexcompanio} 
+	\bibitem{latexcompanion} 
 	Matheus Grasselli and Dmitry Pelinovsky. 
 	Numerical Methods. 
 	Jones and Bartlett Learning; 1 edition, Aug. 13 2007
 	
 \end{thebibliography} 
 
-%http://people.ucalgary.ca/~design/engg251/First%20Year%20Files/design_verif.pdf
-
 \newpage
 
 \section{Appendix}
 
 \subsection{Symbolic Parameters}
-
+\label{SymbolicParameters} 
 \subsection{Usability Survey Questions}
-
+\label{UsabilitySurvey}
 \begin{itemize}
 	\item How long did it take before you could run the software? How many 
 	attempts at running SpecSeach did it take before you understood how to 
@@ -429,9 +439,10 @@ SpecSearch. The survey is in appendix 7.2.
 
 \newpage
 \subsection{Data Input Tables} 
-
-The following data table is for test-Rin1. An "X" indicates no-input or 
-incorrect input. Incorrect input is anything that is non-numerical (ie letters 
+\label{datainput}
+The following data table is for test-Rin1. An ``X" indicates no-input or 
+incorrect input. Incorrect input is anything that is non-numerical (i.e. 
+letters 
 or symbols). 
 
 \begin{table}[h!]
@@ -459,7 +470,7 @@ or symbols).
 		\hline
 	\end{tabular}\\
 	\caption{Prescribed input for testing Rin}
-	\label{Table:D_1}
+	\label{Table:D_11}
 \end{table} 
 
 The following table outlines the boundary value test cases that can be verified 
@@ -476,7 +487,7 @@ from previous literature. A 'V' means that the parameter is free to vary.
 		\hline
 	\end{tabular}\\
 	\caption{Prescribed input for Rin}
-	\label{Table:D_2}
+	\label{Table:D_22}
 \end{table} 
 
 For these cases all of the eigenvalues, except for four of them, will be purely 
@@ -490,7 +501,7 @@ The plan is to run B1 with a=b=1 and k=0.999. B2 will be run with the same
 input. The expected eigenvalues were previously mentioned. 
 
 \subsection{Software Verification Checklist} 
-
+\label{softwarevercheck}
 \begin{itemize}
 	\item Does the software allow the user to fufill their responsibilities 
 	(as outlined in the SRS)?
@@ -502,7 +513,7 @@ input. The expected eigenvalues were previously mentioned.
 
 \newpage	
 \subsection{Correct Matrix Form} 
-
+\label{matrixform}
 test-NFR2a will ensure that the matrix for which the eigen values are 
 calculated, E, is of the correct form. For any given input n, the matrix is 4n 
 by 4n. It is of the form $ [A1 A2; A2 (-A1)] $ where $ A1, A2$ is the first 
@@ -524,5 +535,6 @@ A1=
 \frac{n}{2} & 0 & 0 & 0 & -\frac{n}{2} & 0 
 \end{bmatrix}
 \] 
+
 
 \end{document}
