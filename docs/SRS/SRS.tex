@@ -17,7 +17,7 @@
 \usepackage{pdflscape}
 \usepackage{afterpage}
 \usepackage{enumitem}
-\usepackage[round]{natbib}
+%\usepackage[round]{natbib} %natbib and enumitem do not play well together - SS
 
 %\usepackage{refcheck}
 
@@ -79,7 +79,7 @@
 \begin{document}
 
 \title{CAS 741: SRS \\A Numerical Search For The Spectrum Related To Travelling 
-Periodic Waves} 
+Periodic Waves}  \wss{Use your program name in the title.}
 \author{Robert White}
 \date{\today}
 	
@@ -261,7 +261,9 @@ For each t. So $e^{i \omega t}$ stays on the complex unit circle. \\
 
 \subsection{Purpose of Document}
 The purpose of this document is to describe the requirements for the spectral 
-search program (SpecSearch). SpecSearch will search for the 
+search program (SpecSearch). SpecSearch \wss{You should define the \LaTeX
+  command progname to hold the name of your program.  Then you can easily change
+  the name.} will search for the 
 continuous spectrum of a lax pair that is compatible with solutions 
 of the NLS 
 equation. \\ 
@@ -302,9 +304,10 @@ between inputs
 and outputs, judging output and then foreshadows changes to the software. It 
 concludes with useful graphs and figures for tracebility. \\ 
 
-More details of the template can be found in Smith et al (2005) and Smith et al 
+More details of the template can be found in Smith et al (2005) \wss{You should
+  use BibTeX for this.  The sample blank template has examples of citations.} and Smith et al 
 (2007). The latex template is available in Dr. Spencer Smith's gitlab 
-repository CAS 741. 
+repository CAS 741. \wss{You could include the url of the gitlab repo.}
 
 \section{General System Description}
 
@@ -443,8 +446,11 @@ wave.
 \subsubsection{Goal Statements}
 
 \noindent Given the constant wave speed,c , angular frequency ,$\omega$, 
-conserved quantities, (g,d), and the intial profile of a general traveling 
-periodic wave, the goal statements are:
+conserved quantities, (g,d), and the intial \wss{initial is spelled incorrectly
+  - use spell checking} profile of a general traveling 
+periodic wave, the goal statements are: \wss{The spacing of the commas is
+  strange.  Put variables in math mode, so that the proper fonts are used.  For
+  instance, it should be wave speed, $c$, etc.}
 
 \begin{itemize}[leftmargin=.75in]
 
@@ -454,6 +460,12 @@ complex plane. }
 \item[GSstable:] {Determine the stability of the solutions.}
 
 \end{itemize}
+
+\wss{This goal statement does not seem abstract enough.  I don't know what
+  consered quantities are.  Are the conserved quantities a tuple?  What are
+  elements of the continuous spectrum?  When you say ``stability of the
+  solutions'' what are the solutions?  The initial profile of the travelling
+  wave?  The elements of the continuous spectrum?}
 
 \subsection{Solution Characteristics Specification}
 
