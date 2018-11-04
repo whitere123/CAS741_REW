@@ -47,7 +47,9 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-October 26 & 1.0 & Creation of first draft for presentation.\\
+October 26 & 1.0 & Creation of first draft for presentation.\\ 
+Nov 4 & 1.1 & Post presentation edits. Creation of final draft before 
+submission.\\
 \bottomrule
 \end{tabularx}
 
@@ -162,7 +164,6 @@ This section provides an overview of the module design. Modules are summarized
 in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
-
 \begin{description}
 \item[M1:] Hardware-Hiding.\\
 \item[M2:] Input Parameters.\\
@@ -177,7 +178,8 @@ actually be implemented.
 \item[M11:] Elliptic Integral Module. \\
 \item[M12:] Elliptic Functions Module. \\
 \item[M13:] Plotting Module. \\ 
-\item[M14:] Linspace Module. \\
+\item[M14:] Linspace Module. \\ 
+\item[M15:] Control Module. \\
 \end{description}
 
 \begin{table}[h]
@@ -197,7 +199,8 @@ actually be implemented.
 & Spectrum Matrix \\
 & Exact Eigenvalue Equations \\
 & Spectrum Error Equation \\
-& Numerical Parameters \\ 
+& Numerical Parameters \\  
+& Control \\ 
 \midrule
 
 \multirow{3}{0.3\textwidth}{Software Decision Module} 
@@ -259,16 +262,18 @@ selected.
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
   module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Implemented By:] SpecSearch
 \end{description}
 
 \subsubsection{Input Parameters Module (M2)}
 
 \begin{description}
 	\item[Secrets:] The data structure for input parameters, how the values are 
-	input and how the values are verified. 
-	\item[Services:] Gets input from the user, stores input and verifies that 
-	the inputs satistfy the constraints in the SRS. Throws an error if any of 
+	inputted and how the values are verified. 
+	\item[Services:] Gets input from the user, stores the input and verifies 
+	that 
+	the input variables satistfy the constraints in the SRS. Throws an error if 
+	any of 
 	the inputs violate a constraint. 
 	\item[Implemented By:]SpecSearch 
 \end{description} 
@@ -276,9 +281,10 @@ selected.
 \subsubsection{Input Format Module (M3)}
 
 \begin{description} 
-\item[Secrets:]The format and structure of the input data used by Input 
+\item[Secrets:]The format and structure of the input data used by the Input 
 Parameters Module.
-\item[Services:]Converts the input data into a data structure for the other 
+\item[Services:]Converts the input data into a data structure that is 
+appropriate for the other 
 modules.
 \item[Implemented By:]SpecSearch 
 \end{description} 
@@ -286,8 +292,9 @@ modules.
 \subsubsection{Output Format Module (M4)}
 
 \begin{description}
-	\item[Secrets:]The format and structure of the output data.
-	\item[Services:]Converts the output data into the data structure used by the
+	\item[Secrets:] The format and structure of the output data.
+	\item[Services:] Converts the output data from the spectrum error module 
+	and eigenvalue solver module into a data structure necessary for the 
 	plotting module. 
 	\item[Implemented By:] SpecSearch
 \end{description}
@@ -330,11 +337,21 @@ modules.
 
 \begin{description}
 	\item[Secrets:] The range of the eigenfunction domain, points in the 
-	reduced domain and equation for numerical scaling factor for computing the 
+	periodic domain and equation for the numerical scaling factor that computes 
+	the 
 	eigenfunction derivatives. 
-	\item[Services:] Creates the domain for which the eigenfunctions will be 
-	calculated and computes the numerical factor for approximating derivaties. 
+	\item[Services:] Creates the numerical parameters used for approximating 
+	the derivatives of the eigenfunctions. 
 	This module will be used by the spectrum matrix module. 
+	\item[Implemented By:] SpecSearch
+\end{description} 
+
+\subsubsection{Control Module (M15)} 
+
+\begin{description}
+	\item[Secrets:] The algorithm that coordinates the overall program and 
+	interaction between modules. 
+	\item[Services:] Is the main program.
 	\item[Implemented By:] SpecSearch
 \end{description}
 
@@ -348,7 +365,7 @@ modules.
   do not provide direct interaction with the user. 
   % Changes in these modules are more likely to be motivated by a desire to
   % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Implemented By:] SpecSearch
 \end{description}
 
 \subsubsection{Eigenvalue and Vector Solver Module (M9)} 
@@ -360,7 +377,7 @@ modules.
 	\item[Services:] The eig MATLAB function finds the eigenvalues and vectors 
 	of an 
 	arbitrary n by n matrix.
-	\item[Implemented By:] SpecSearch
+	\item[Implemented By:] MATLAB
 \end{description} 
 
 \subsubsection{Diagonal Matrix Module (M10)} 
@@ -372,7 +389,7 @@ modules.
 	from a 1 by n vector. The diagonal entries correspond to the matrix. The 
 	diag function also creates a 1 by n vector from a diagonal matrix. This 
 	module will be used by the operator matrix module. 
-	\item[Implemented By:] SpecSearch
+	\item[Implemented By:] MATLAB
 \end{description} 
 
 \subsubsection{Elliptic Integral Module (M11)} 
@@ -383,7 +400,7 @@ modules.
 	\item[Services:] The elliptK MATLAB function calculates the integral of $$ 
 	\int_{0}^{\frac{\pi}{2}} \frac{dx}{\sqrt{1-msin^{2}(x)}}$$. \\ 
 	This module will be used by the Domain Creation Module. 
-	\item[Implemented By:] SpecSearch
+	\item[Implemented By:] MATLAB
 \end{description} 
 
 \subsubsection{Elliptic Functions Module (M12)} 
@@ -394,7 +411,7 @@ modules.
 	\item[Services:] The ellipj MATLAB function calculates the values of dn,cn 
 	and sn for a particular domain. This module will be used by the operator 
 	matrix module. 
-	\item[Implemented By:] SpecSearch
+	\item[Implemented By:] MATLAB
 \end{description} 
 
 \subsubsection{Plotting Module (M13)} 
@@ -403,17 +420,17 @@ modules.
 	\item[Secrets:] The plotting methods/algorithms.
 	\item[Services:] Creates a two dimensional plot given a domain vector and a 
 	range vector of equal size.  
-	\item[Implemented By:] SpecSearch
+	\item[Implemented By:] MATLAB
 \end{description} 
 
 \subsubsection{Linpsace Module (M14)} 
 
 \begin{description}
-	\item[Secrets:] The software algorithm for creating an equally spaced 
-	bounded vector. 
+	\item[Secrets:] The software algorithm for creating a vector with equally 
+	spaced entries. 
 	\item[Services:] The linspace MATLAB function creates an array with equally 
 	spaced adjacent points and prescribed endpoints. 
-	\item[Implemented By:] SpecSearch
+	\item[Implemented By:] MATLAB
 \end{description} 
 
 \section{Traceability Matrix} \label{SecTM}
@@ -469,7 +486,7 @@ implementation of B.  Figure \ref{FigUH} illustrates the use relation between
 the modules. It can be seen that the graph is a directed acyclic graph
 (DAG). Each level of the hierarchy offers a testable and usable subset of the
 system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
+because they use modules from the lower levels. \\
 
 %\begin{figure}[H]
 %\centering
@@ -486,7 +503,7 @@ text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
 text width=5em, text centered, rounded corners, minimum height=4em]
 \tikzstyle{line} = [draw, -latex']
 \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-minimum height=2em]
+minimum height=2em] 
 
 \begin{figure}[h!]
 \begin{tikzpicture}[node distance = 2cm, auto]
@@ -498,13 +515,14 @@ minimum height=2em]
 \node [block, below of=identify] (evaluate) {Elliptic Integral (M11)};
 \node [block, left of=evaluate, node distance=3cm] (update) {Exact Eigenvalue 
 Equations (M6)};
-\node [block, right of=evaluate,node distance=3cm] (decide) {Numerical 
+\node [block, right of=evaluate,node distance=4cm] (decide) {Numerical 
 Parameters (M8)};
 \node [block, below of=evaluate, node distance=2cm] (stop) {linspace (M14)};
 \node [block, below of=stop, node distance=2cm] (elfun) {Elliptic Functions 
 (M12)}; 
 \node [block, right of=elfun, node distance=4cm] (Spec) {Spectrum Matrix (M5)};
-\node [block, below of=elfun, node distance=2cm] (Diag) {Diagonal Matrix (M10)};
+\node [block, below of=elfun, node distance=2.5cm] (Diag) {Diagonal Matrix 
+(M10)};
 \node [block, below of=Diag, node distance=3.5cm] (err) {Spectrum Error (M7)} ;
 \node [block, below of=Spec, node distance=4cm] (eigen) {Eigenvale and vector 
 solver (M9)};
@@ -517,12 +535,13 @@ solver (M9)};
 %\path [line] (evaluate) -- (decide);
 \path [line] (identify) -| node [near start] {} (decide);
 \path [line] (identify) -| node [near start] {} (update);
-\path [line] (evaluate) -- (stop);
+\path [line] (evaluate) -- (decide);
 \path [line] (decide) |- node [near start] {} (stop);
+\path [line] (decide) -- (Spec); 
 \path [line] (stop) -- (elfun);
 \path [line] (elfun) -- (Spec);
 \path [line] (elfun) -- (Diag);
-\path [line] (Diag) -| (Spec); 
+\path [line] (Diag) -- (Spec); 
 \path [line] (update) |- (err); 
 \path [line] (eigen) -| (err);
 \path [line] (eigen) -- (out);
@@ -543,11 +562,5 @@ solver (M9)};
 \newpage 
 \bibliographystyle {plainnat}
 \bibliography{../../../ReferenceMaterial/References} 
-
-\begin{itemize}
-	\item SRS
-	\item matlab docs 
-	\item template 
-\end{itemize}
 
 \end{document}
