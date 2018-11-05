@@ -48,8 +48,8 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 October 26 & 1.0 & Creation of first draft for presentation.\\ 
-Nov 4 & 1.1 & Post presentation edits. Creation of final draft before 
-submission.\\
+Nov 4 & 1.1 & Post presentation edits. Feedback from Dr. Smith regarding 
+hierarchy and control module.\\
 \bottomrule
 \end{tabularx}
 
@@ -167,19 +167,18 @@ actually be implemented.
 \begin{description}
 \item[M1:] Hardware-Hiding.\\
 \item[M2:] Input Parameters.\\
-\item[M3:] Input Format.\\
-\item[M4:] Output Format.\\
-\item[M5:] Spectrum Matrix.\\
-\item[M6:] Exact Eigenvalue Equations.\\ 
-\item[M7:] Spectrum Error Equation.\\
-\item[M8:] Numerical Parameters. \\
-\item[M9:] Eigenvalue and Eigenvector Solver Module. \\
-\item[M10:] Diagonal Matrix Generator Module.\\ 
-\item[M11:] Elliptic Integral Module. \\
-\item[M12:] Elliptic Functions Module. \\
-\item[M13:] Plotting Module. \\ 
-\item[M14:] Linspace Module. \\ 
-\item[M15:] Control Module. \\
+\item[M3:] Output Format.\\
+\item[M4:] Spectrum Matrix.\\
+\item[M5:] Exact Eigenvalue Equations.\\ 
+\item[M6:] Spectrum Error Equation.\\
+\item[M7:] Numerical Parameters. \\
+\item[M8:] Eigenvalue and Eigenvector Solver Module. \\
+\item[M9:] Diagonal Matrix Generator Module.\\ 
+\item[M10:] Elliptic Integral Module. \\
+\item[M11:] Elliptic Functions Module. \\
+\item[M12:] Plotting Module. \\ 
+\item[M13:] Linspace Module. \\ 
+\item[M14:] Control Module. \\
 \end{description}
 
 \begin{table}[h]
@@ -194,7 +193,6 @@ actually be implemented.
 
 \multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} 
 & Input Parameters \\
-& Input Format \\
 & Output Format \\
 & Spectrum Matrix \\
 & Exact Eigenvalue Equations \\
@@ -268,28 +266,21 @@ selected.
 \subsubsection{Input Parameters Module (M2)}
 
 \begin{description}
-	\item[Secrets:] The data structure for input parameters, how the values are 
-	inputted and how the values are verified. 
+	\item[Secrets:] The data structure for input parameters and how the values 
+	are verified. The format and structure of the 
+	input data used by other modules is also a secret.
 	\item[Services:] Gets input from the user, stores the input and verifies 
 	that 
 	the input variables satistfy the constraints in the SRS. Throws an error if 
 	any of 
-	the inputs violate a constraint. 
+	the inputs violate a constraint and converts the input data into a data 
+	structure that is 
+	appropriate for the other 
+	modules. 
 	\item[Implemented By:]SpecSearch 
 \end{description} 
 
-\subsubsection{Input Format Module (M3)}
-
-\begin{description} 
-\item[Secrets:]The format and structure of the input data used by the Input 
-Parameters Module.
-\item[Services:]Converts the input data into a data structure that is 
-appropriate for the other 
-modules.
-\item[Implemented By:]SpecSearch 
-\end{description} 
-
-\subsubsection{Output Format Module (M4)}
+\subsubsection{Output Format Module (M3)}
 
 \begin{description}
 	\item[Secrets:] The format and structure of the output data.
@@ -299,11 +290,11 @@ modules.
 	\item[Implemented By:] SpecSearch
 \end{description}
 
-\subsubsection{Spectrum Matrix Module (M5)}
+\subsubsection{Spectrum Matrix Module (M4)}
 
 \begin{description}
 	\item[Secrets:]The structure of the spectrum matrix, its data entries, how 
-	it is created and the numerical method for approximating its 
+	it is created, and the numerical method for approximating its 
 	eigenfunctions. 
 	\item[Services:]Creates the matrix that approximates the operator matrix 
 	from the lax pair (see SRS). This matrix will be used by the Eigenvalue and 
@@ -311,29 +302,29 @@ modules.
 	\item[Implemented By:] SpecSearch
 \end{description}
 
-\subsubsection{Exact Eigenvalue Equations Module (M6)}
+\subsubsection{Exact Eigenvalue Equations Module (M5)}
 
 \begin{description}
 	\item[Secrets:]The analytical expression for the two real eigenvalues. 
 	\item[Services:]Calculates the two purely real eigenvalues from 
-	Segal et al. These two values will be used by the Lambda Error Equation 
+	literature. These two values will be used by the Lambda Error Equation 
 	Module. 
 	\item[Implemented By:] SpecSearch
 \end{description}
 
-\subsubsection{Spectrum Error Equation Module (M7)}
+\subsubsection{Spectrum Error Equation Module (M6)}
 
 \begin{description}
 	\item[Secrets:] The measure for error between exact and approximated 
 	eigenvalues.
 	\item[Services:]Calculates the absolute value of the difference between the 
 	the numerical (calculated with M9 and M5) and 
-	theoretical eigenvalues (Segal et al). This module will be used by the 
+	theoretical eigenvalues. This module will be used by the 
 	plotting module. 
 	\item[Implemented By:] SpecSearch
 \end{description} 
 
-\subsubsection{Numerical Parameters Module (M8)} 
+\subsubsection{Numerical Parameters Module (M7)} 
 
 \begin{description}
 	\item[Secrets:] The range of the eigenfunction domain, points in the 
@@ -346,7 +337,7 @@ modules.
 	\item[Implemented By:] SpecSearch
 \end{description} 
 
-\subsubsection{Control Module (M15)} 
+\subsubsection{Control Module (M14)} 
 
 \begin{description}
 	\item[Secrets:] The algorithm that coordinates the overall program and 
@@ -368,10 +359,10 @@ modules.
 \item[Implemented By:] SpecSearch
 \end{description}
 
-\subsubsection{Eigenvalue and Vector Solver Module (M9)} 
+\subsubsection{Eigenvalue and Vector Solver Module (M8)} 
 
 \begin{description}
-	\item[Secrets:] The numerical algorithm for finding the eigenvalues and 
+	\item[Secrets:] The numerical algorithm for calculating the eigenvalues and 
 	eigenvectors of an 
 	$n$ by $n$ matrix.
 	\item[Services:] The eig MATLAB function finds the eigenvalues and vectors 
@@ -380,19 +371,20 @@ modules.
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Diagonal Matrix Module (M10)} 
+\subsubsection{Diagonal Matrix Module (M9)} 
 
 \begin{description}
 	\item[Secrets:] The numerical algorithm for creating an n by n diagonal 
-	matrix.
+	matrix from an n by 1 vector (and other way). 
 	\item[Services:] The diag MATLAB function creates an n by n diagonal matrix 
-	from a 1 by n vector. The diagonal entries correspond to the matrix. The 
+	from a 1 by n vector. The diagonal entries of the matrix are the elements 
+	of the vector. The 
 	diag function also creates a 1 by n vector from a diagonal matrix. This 
 	module will be used by the operator matrix module. 
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Elliptic Integral Module (M11)} 
+\subsubsection{Elliptic Integral Module (M10)} 
 
 \begin{description}
 	\item[Secrets:] The numerical algorithm for calculating the complete 
@@ -403,18 +395,19 @@ modules.
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Elliptic Functions Module (M12)} 
+\subsubsection{Elliptic Functions Module (M11)} 
 
 \begin{description}
 	\item[Secrets:] The numerical algorithm for calculating the values of the 
-	jacobi elliptic functions. 
+	Jacobi elliptic functions. 
 	\item[Services:] The ellipj MATLAB function calculates the values of dn,cn 
-	and sn for a particular domain. This module will be used by the operator 
+	and sn for a particular domain/vector. This module will be used by the 
+	operator 
 	matrix module. 
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Plotting Module (M13)} 
+\subsubsection{Plotting Module (M12)} 
 
 \begin{description}
 	\item[Secrets:] The plotting methods/algorithms.
@@ -423,13 +416,14 @@ modules.
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Linpsace Module (M14)} 
+\subsubsection{Linpsace Module (M13)} 
 
 \begin{description}
 	\item[Secrets:] The software algorithm for creating a vector with equally 
 	spaced entries. 
-	\item[Services:] The linspace MATLAB function creates an array with equally 
-	spaced adjacent points and prescribed endpoints. 
+	\item[Services:] The linspace MATLAB function creates an array with 
+	prescribed 
+	endpoints and an equal difference between adjacent points.
 	\item[Implemented By:] MATLAB
 \end{description} 
 
@@ -446,11 +440,11 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-Rin & M1 , M2, M3 \\
-Rfind & M5, M8, M9, M10, M11, M12,M13\\
-Rcon & M13\\
-Rplt & M13 \\
-Rstl & M19\\
+Rin & M1 , M2 \\
+Rfind & M4, M7, M8, M9, M10, M11,M12\\
+Rcon & M12\\
+Rplt & M12 \\
+Rstl & M13\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -465,10 +459,10 @@ Rstl & M19\\
 \midrule
 AC1 & M1\\
 AC2 & M2\\
-AC3 & M4\\
-AC4 & M5, M14\\
-AC5 & M9\\ 
-AC6 & M5 , M10\\
+AC3 & M3\\
+AC4 & M4, M13\\
+AC5 & M8\\ 
+AC6 & M4 , M9\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -509,10 +503,7 @@ minimum height=2em]
 \begin{tikzpicture}[node distance = 2cm, auto]
 % Place nodes
 \node [block] (init) {Input Parameters (M2)};
-%\node [cloud, left of=init] (expert) {expert};
-%\node [cloud, right of=init] (system) {system};
-\node [block, below of=init] (identify) {Input Format (M3)};
-\node [block, below of=identify] (evaluate) {Elliptic Integral (M11)};
+\node [block, below of=init] (evaluate) {Elliptic Integral (M11)};
 \node [block, left of=evaluate, node distance=3cm] (update) {Exact Eigenvalue 
 Equations (M6)};
 \node [block, right of=evaluate,node distance=4cm] (decide) {Numerical 
@@ -527,14 +518,11 @@ Parameters (M8)};
 \node [block, below of=Spec, node distance=4cm] (eigen) {Eigenvale and vector 
 solver (M9)};
 \node [block, right of=eigen, node distance=3cm] (out) {Output format (M4)};
-\node [block, right of=out, node distance=3cm] (plot) {Plotting (M13)}; 
-\node [block, right of=init, node distance=7cm] (control) {Control};
+\node [block, right of=out, node distance=3cm] (plot) {Plotting (M13)};
+\node [block,right of=init, node distance=7cm] (control) {Control}; 
 % Draw edges
-\path [line] (init) -- (identify);
-\path [line] (identify) -- (evaluate);
-%\path [line] (evaluate) -- (decide);
-\path [line] (identify) -| node [near start] {} (decide);
-\path [line] (identify) -| node [near start] {} (update);
+\path [line] (init) -- (evaluate);
+\path [line] (init) -| (update);
 \path [line] (evaluate) -- (decide);
 \path [line] (decide) |- node [near start] {} (stop);
 \path [line] (decide) -- (Spec); 
@@ -548,12 +536,7 @@ solver (M9)};
 \path [line] (out) -- (plot); 
 \path [line] (Spec) -- (eigen); 
 \path [line] (err) -| (out); 
-\path [line] (control) -- (init); 
-\path [line] (control) -- (out); 
-%\path [line] (identify) -- (decide);
-%\path [line,dashed] (expert) -- (init);
-%\path [line,dashed] (system) -- (init);
-%\path [line,dashed] (system) |- (evaluate);
+\path [line] (init) -| (decide);
 \end{tikzpicture}
 \caption{Use hierarchy among modules}
 \label{FigUH}
