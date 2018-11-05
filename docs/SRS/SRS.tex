@@ -200,11 +200,17 @@ $(g,d)$ & - & conserved quantities\\
   \bottomrule
 \end{tabular}\\
 
+\wss{You should define the \LaTeX command \progname{} to be your program name,
+  SpecSearch.}
+
 \subsection{Mathematical Notation}
 
 Let $\delta$ be a complex number of the form $\delta= m + ni$ ($m,n \in 
 \mathbb{R}$). The real part of u is m and the imaginary part of u is n. $i$ is 
-the imaginary number such that $i=\sqrt{-1}$.\\
+the imaginary number such that $i=\sqrt{-1}$.\\ \wss{You should be consistent in
+  your use of mathematical notation.  When $u$ and $m$ etc appear outside of
+  your equation, they should still be in italic font.  This problem comes up
+  several times in the document.  Please proof read carefully.}
 
 The complex 
 conjugate of $\delta$ is defined to be $\bar{\delta}= m - ni$. 
@@ -256,23 +262,32 @@ For each t. So $e^{i \omega t}$ stays on the complex unit circle. \\
 
 
 \pagenumbering{arabic}
-\newpage 
+\newpage
+
 \section{Introduction}
 
+\wss{Add an introductory ``blurb.''  What is your problem?  What motivates its
+  solution?  I (and other readers) rely on the introduction to tell us what
+  problem is being solved and why.  We use this to orient ourselves as we
+  proceed through reading the document.  You'll need to phrase it in an abstract
+  way, since the reader hasn't yet read your definitions and terminology etc.}
+
 \subsection{Purpose of Document}
+
 The purpose of this document is to describe the requirements for the spectral 
 search program (SpecSearch). SpecSearch \wss{You should define the \LaTeX
   command progname to hold the name of your program.  Then you can easily change
   the name.} will search for the 
-continuous spectrum of a lax pair that is compatible with solutions 
-of the NLS 
-equation. \\ 
+continuous spectrum of a lax pair \wss{you should either give a rough definition
+  of lax pair here, or not use the terminology} that is compatible with solutions 
+of the NLS \wss{acronyms should be defined on their first usage.}
+equation.
 
 This document will explain the mathematical models, assumptions, 
 solution characterisitcs and goals of the software. After reading this document 
 one should be able to understand the mathematical and physical context of the 
 inputs and outputs. They should also recognize the connections and 
-dependencies between these SRS topics. \\
+dependencies between these SRS topics.
 
 The SRS is meant to be simaltaneously unambigious and abstract. It details the 
 quality attributes of the software, such as functionality, 
@@ -302,7 +317,9 @@ followed by a general overview of the system and then an outline of the goals
 and mathematical theory. The document continues by describing the behaviour 
 between inputs 
 and outputs, judging output and then foreshadows changes to the software. It 
-concludes with useful graphs and figures for tracebility. \\ 
+concludes with useful graphs and figures for tracebility. \\ \wss{You don't need
+  these blank lines between paragraphs.  \LaTeX knows when a paragraph ends
+  because of the hard return.  You don't need to mark the end of paragraphs.}
 
 More details of the template can be found in Smith et al (2005) \wss{You should
   use BibTeX for this.  The sample blank template has examples of citations.} and Smith et al 
@@ -327,6 +344,11 @@ indicate the flow of data between software and environment.
 	\end{center}
  \end{figure}
 
+ \wss{Can you make this figure less abstract?  You just say inputs and outputs.
+   What are they?   You don't need to list everything, but some astract
+   statement that characterizes the inputs and outputs would convey more
+   information.}
+ 
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
@@ -373,7 +395,9 @@ A lax pair is a set of matrices or operators that satisfy differential
 equations. The NLS equation, a PDE used to model rogue waves and modulated wave 
 packets, appears as a compatibility condition of a particular lax pair of 
 equations. One equation is a spectral problem, with matrix U, and the other is 
-a time evolution problem, with matrix V. See instance model 1 for more 
+a time evolution problem, with matrix V. See instance model 1 \wss{You should
+  take advantage of \LaTeX and use cross referencing for this.  It will be a
+  maintenance problem if you try to manually update information like this} for more 
 details.\\
 
  The 
@@ -391,7 +415,8 @@ Previous attempts have used an algebraic method to calculate the spectral
 parameter (Pelinovsky 2018)(Deconinck 2017). These attempts have only been 
 successful at finding a countable number of points on the spectrum. This 
 software will 
-search for more points and "connect" the points in an attempt to approximate 
+search for more points and "connect" \wss{Opening and closing quotes are
+  different in \LaTeX; this should be ``connect''} the points in an attempt to approximate 
 and search for the continuous spectrum.  
 
 \subsubsection{Terminology and  Definitions}
@@ -418,7 +443,7 @@ at a fixed point in time, tyically t=0.
 \item \textbf{Rogue Wave}: A wave is considered rogue if its amplitude is more 
 than double of the average of the upper third wave amplitudes in its 
 surroundings. 
-\item \textbf{PDE}: A partial differential equation.An equation containing one 
+\item \textbf{PDE}: A partial differential equation. An equation containing one 
 or more partial derivatives. The partial derivative of a multivariable function 
 is a derivative with respect to one of its arguments. 
 \item \textbf{Countable:} A set that is finite or has the same cardinality as 
@@ -488,7 +513,7 @@ likely change [LC], in which the respective assumption is used.
 wave equation is a complex hamiltonian evolution equation. 
 \item[Amom:]The 
 linear momentum densities are proportional to the integrands of the 
-corresponding velocity functionals 
+corresponding velocity functionals.
 \item[Awav:]All 
 waves in the model are general traveling perioidic waves with constant speed 
 and frequency. 
@@ -501,6 +526,11 @@ then use
 the stationary solution to build the moving solution.
 
 \end{itemize}
+
+\wss{I know it isn't fun to do, but you should include with each of your
+  assumptions a list of where it is used in the document.  Also, each assumption
+  should be explicitly invoked in at least one spot in your document, not just
+  here and in the traceability matrix.}
 
 \subsubsection{Theoretical Models}\label{sec_theoretical}
 
@@ -523,14 +553,17 @@ on.
 		Description & 
 		General traveling periodic waves that satisfy the Schr\"{o}dinger 
 		equation 
-		will have this form. \\
+		will have this form. \wss{Your description should define all of
+                              the symbols used in the equation.}\\
 		\hline
 		Source &
-		Deconinck (2017)\\
+		Deconinck (2017) \wss{use BibTeX}\\
 		% The above web link should be replaced with a proper citation to a 
 		%publication
 		\hline
-		Ref.\ By & DD1, IM1\\
+		Ref.\ By & DD1, IM1 \wss{use cross-referencing - if you use the
+                           hyperref package you even get hyperlinks for
+                           ``free''} \wss{DD1 doesn't actually reference T1 anywhere.}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\ 
@@ -546,7 +579,9 @@ on.
 \end{center} 
 
 We start with the focusing NLS equation: $iq_{t} + q_{xx} + 
-2|q|^{2}q=0$ \\ 
+2|q|^{2}q=0$ \\ \wss{Where did this equation come from?  It looks like it should
+  be a theoretical model.  Maybe your T1 is a general definition that is derived
+  from this unspecified theoretical model?}
 
 The NLS equation is a PDE meant to model modulated wave packets and rogue waves 
 in physics. $u$ is the complex envelope of the wave, $t$ is time and $x$ is the 
@@ -569,7 +604,8 @@ Which is the result in T1.
 
 \subsubsection{General Definitions}\label{sec_gendef}
 
-There are no general definitions.
+There are no general definitions. \wss{Maybe your T1 is actually a general
+  definition, as mentioned in a comment above.}
 
 \subsubsection{Data Definitions}\label{sec_datadef}
 
@@ -632,7 +668,7 @@ $ \Rightarrow  u''\bar{u} - \bar{u''} u + 2ic (u' \bar{u} + \bar{u'}u ) = 0$ \\
 $ \Rightarrow \int u''\bar{u} - \int \bar{u''} u + 2ic \int (u' \bar{u} + 
 \bar{u'}u ) = 2ig  $ \\  
 \end{center} 
-Noticing that the term in the integral attatched to 2ic is a product rule.\\ 
+Noticing that the term in the integral attatched \wss{check spelling} to 2ic is a product rule.\\ 
 \begin{center}
 $ \Rightarrow \int u''\bar{u} - \int \bar{u''} u + 2icu \bar{u} = 2ig $ \\
 $ \Rightarrow \bar{u}u' - \int \bar{u'} u' - u \bar{u'} + \int \bar{u'} u' + 
@@ -640,7 +676,9 @@ $ \Rightarrow \bar{u}u' - \int \bar{u'} u' - u \bar{u'} + \int \bar{u'} u' +
 $ \Rightarrow \bar{u}u' - u\bar{u}' + 2ic|u|^{2} = 2ig$ \\ 
 \end{center} 
 The second conserved quantity is obtained by multiplying $\bar{u'}$ by T1, 
-adding the complex conjugate and integrating. 
+adding the complex conjugate and integrating.  \wss{You say for fixed $g$ and
+  $d$ in the description, but then you never invoke this requirement in your
+  derivation.  Should the fixed $g$ and $d$ be an assumption?}
 
 \subsubsection{Instance Models} \label{sec_instance}    
 
@@ -663,7 +701,8 @@ The goals GSlocate and GSstable are solved by IM1 and IM2 respectively.
   \hline
   Label& \bf Searching for the continuous spectrum\\
   \hline
-  Input&$c, \omega, g, d$, initial wave profile\\
+  Input&$c, \omega, g, d$, initial wave profile \wss{How is an initial wave
+         profile specified?  What is the ``type'' of initial wave profile?}\\
   \hline
   Output&$\lambda$ such that:\\
   &$\phi_x = U(u,\lambda) \phi$\\
@@ -694,7 +733,8 @@ The goals GSlocate and GSstable are solved by IM1 and IM2 respectively.
 	\end{flushleft} 
 	
 \end{center} 
-For a smooth $C^{2}$ function ,$\phi$, we have that $\phi_{tx}=\phi_{xt}$. \\
+For a smooth \wss{Is smoothness an assumption?  You should invoke the assumption
+  here} $C^{2}$ function,$\phi$, we have that $\phi_{tx}=\phi_{xt}$. \\
 From IM1 $\Rightarrow \phi_{xt} = \delta_{t} U \phi + UV \phi$ and $\phi_{tx} = 
 \delta_{x} V \phi + VU \phi$. \\
 Combining the above two equations : \\ 
@@ -845,7 +885,14 @@ There are no data constraints.
 A correct solution will be an array of numbers that appear on the continuous 
 spectrum. The plot will connect these points in an attempt to model the entire 
 continuous spectrum. The stability of solutions will be displayed as booleans 
-(stable or unstable). 
+(stable or unstable).
+
+\wss{Your properties are just a restatement of your requirements.  This isn't
+  the correct content for this section.  Instead you are looking for additional properties
+  that must be true of a correct solution.  Do you know any bounds on the
+  outputs?  Is there any conservation law at play that can be mentioned?  If
+  there isn't anything new to say here, then you can say that there are no
+  additional properties, other than those implied by satisfying the requirements.}
 
 \section{Requirements}
 
@@ -861,35 +908,42 @@ qualities that the software is expected to exhibit.
 take in 
 conserved quantities ($d,g$), wave parameters ($c,\omega$), and initial wave 
 data 
-as input. 
+as input. \wss{What is the initial wave data.  You need to be specific.}
 
 \item[Rfind:] SpecSearch 
 will find values of $\lambda$.
 
 \item[Rcon:] SpecSearch will 
 connect the points in Rfind in an attempt to approximate the continuous 
-spectrum.
+spectrum. \wss{What does connect the points mean?}
 
 \item[Rplt:] SpecSearch 
-will plot the spectrum on the complex plane. 
+will plot the spectrum on the complex plane. \wss{What are the labels for the
+  $x$ and $y$ axes?}
 
 \item[Rstl:] SpecSearch 
-will determine the stability of solutions.  
-
+will determine the stability of solutions.
 
 \end{itemize}
+
+\wss{You should reference your instance models as appropriate above.  For
+  instance the last requirement depends on IM2.}
 
 \subsection{Nonfunctional Requirements}
 \noindent \begin{itemize}
 \item[NFR1:] The software should be maintainable and manageable as it will 
 be modified and continually updated during the research process. It should be 
 simple to add new numerical methods for approximating the derivatives of 
-$\phi$.  
+$\phi$.  \wss{ambiguous}
 \item[NFR2:] The software should be serviceable. Mathematicians and physicists 
 studying rogue waves and modulated wave packets should have no issues in 
-understanding the intended input or reading the spectrum plot. 
+understanding the intended input or reading the spectrum plot. \wss{ambiguous}
 \end{itemize}
 
+\wss{To make your NFRs not be ambiguous specify specific tasks that could be
+  done and the time/effort it would take to do them.  For instance, making any
+  of the likely changes should take at most 1/4 of the development time of the
+  original development effort.}
 
 \section{Likely Changes}    
 
@@ -899,6 +953,8 @@ understanding the intended input or reading the spectrum plot.
 add constraints or bounds to the input variables. 
 
 \end{itemize}
+
+\wss{Are any of the assumptions likely to change?}
 
 \section{Traceability Matrices and Graphs}
 
