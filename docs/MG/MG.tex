@@ -138,6 +138,13 @@ change.
 \item[AC4:] Format of the eigenfunction domain. \\
 \item[AC5:] Numerical method of finding eigenvalues. \\ 
 \item[AC6:] Construction of Spectrum Matrix \\ 
+\item[AC7:] Analytical calculation of eigenvalues. \\
+\item[AC8:] Definition of error. \\
+\item[AC9:] Numerical method algorithm. \\ 
+\item[AC10:] Running speed (or data storage) standards. \\ 
+\item[AC11:] Necessary accuracy of integral values. \\ 
+\item[AC12:] Method used for approximating functions. \\
+\item[AC13:] Method used for plotting data. \\
 \end{description}
 
 \subsection{Unlikely Changes (UC)} \label{SecUchange}
@@ -152,10 +159,13 @@ decisions will be changed.
 \begin{description}
 \item[UC1:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).\\
+\item[UC2:] The output (spectrum) is always displayed on the screen as a set of 
+points on the complex plane. \\ 
+\item[UC3:] The operator matrix and spectrum error can always be created from 
+the inputs. \\
 
 \end{description}
 
-\newpage 
 \section{Module Hierarchy} \label{SecMH}
 
 This section provides an overview of the module design. Modules (M) are 
@@ -453,9 +463,16 @@ Rstl & M13\\
 AC1 & M1\\
 AC2 & M2\\
 AC3 & M3\\
-AC4 & M4, M13\\
+AC4 & M13\\
 AC5 & M8\\ 
-AC6 & M4 , M9\\
+AC6 & M4\\ 
+AC7 & M5\\ 
+AC8 & M6\\ 
+AC9 & M7\\ 
+AC10 & M9\\ 
+AC11 & M10\\
+AC12 & M11\\ 
+AC13 & M12\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
