@@ -125,7 +125,7 @@ unlikely changes are listed in Section \ref{SecUchange}.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
-Anticipated changes are the source of the information that is to be hidden
+Anticipated changes (AC) are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
 adapted here is called design for
@@ -140,7 +140,7 @@ change.
 \item[AC6:] Construction of Spectrum Matrix \\ 
 \end{description}
 
-\subsection{Unlikely Changes} \label{SecUchange}
+\subsection{Unlikely Changes (UC)} \label{SecUchange}
 
 The module design should be as general as possible. However, a general system is
 more complex. Sometimes this complexity is not necessary. Fixing some design
@@ -152,15 +152,14 @@ decisions will be changed.
 \begin{description}
 \item[UC1:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).\\
-\item[UC2:] There will always be
-  a source of input data external to the software.\\
 
 \end{description}
 
 \newpage 
 \section{Module Hierarchy} \label{SecMH}
 
-This section provides an overview of the module design. Modules are summarized
+This section provides an overview of the module design. Modules (M) are 
+summarized
 in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
@@ -172,13 +171,13 @@ actually be implemented.
 \item[M5:] Exact Eigenvalue Equations.\\ 
 \item[M6:] Spectrum Error Equation.\\
 \item[M7:] Numerical Parameters. \\
-\item[M8:] Eigenvalue and Eigenvector Solver Module. \\
-\item[M9:] Diagonal Matrix Generator Module.\\ 
-\item[M10:] Elliptic Integral Module. \\
-\item[M11:] Elliptic Functions Module. \\
-\item[M12:] Plotting Module. \\ 
-\item[M13:] Linspace Module. \\ 
-\item[M14:] Control Module. \\
+\item[M8:] Eigenvalue and Eigenvector Solver. \\
+\item[M9:] Diagonal Matrix Generator.\\ 
+\item[M10:] Elliptic Integral. \\
+\item[M11:] Elliptic Functions. \\
+\item[M12:] Plotting. \\ 
+\item[M13:] Linspace. \\ 
+\item[M14:] Control. \\
 \end{description}
 
 \begin{table}[h]
@@ -205,7 +204,7 @@ actually be implemented.
 & Eigenvalue and Eigenvector Solver \\
 & Diagonal Matrix Generator\\
 & Elliptic Integral\\ 
-& Ellipitic Functions\\ 
+& Elliptic Functions\\ 
 & Plotting \\ 
 & Linspace \\
 \bottomrule
@@ -240,7 +239,7 @@ that the module is not a leaf and will not have to be implemented. Whether or
 not this module is implemented depends on the programming language
 selected.
 
-\subsection{Hardware Hiding Module (M1)}
+\subsection{Hardware Hiding (M1)}
 
 \begin{description}
 \item[Secrets:]The data structure and algorithm used to implement the virtual
@@ -256,14 +255,14 @@ selected.
 \begin{description}
 \item[Secrets:]The contents of the required behaviours.
 \item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
+  the system as specified in the SRS
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
   module will need to change if there are changes in the SRS.
-\item[Implemented By:] SpecSearch
+\item[Implemented By:] -
 \end{description}
 
-\subsubsection{Input Parameters Module (M2)}
+\subsubsection{Input Parameters (M2)}
 
 \begin{description}
 	\item[Secrets:] The data structure for input parameters and how the values 
@@ -280,7 +279,7 @@ selected.
 	\item[Implemented By:]SpecSearch 
 \end{description} 
 
-\subsubsection{Output Format Module (M3)}
+\subsubsection{Output Format (M3)}
 
 \begin{description}
 	\item[Secrets:] The format and structure of the output data.
@@ -290,41 +289,38 @@ selected.
 	\item[Implemented By:] SpecSearch
 \end{description}
 
-\subsubsection{Spectrum Matrix Module (M4)}
+\subsubsection{Spectrum Matrix (M4)}
 
 \begin{description}
 	\item[Secrets:]The structure of the spectrum matrix, its data entries, how 
 	it is created, and the numerical method for approximating its 
 	eigenfunctions. 
 	\item[Services:]Creates the matrix that approximates the operator matrix 
-	from the lax pair (see SRS). This matrix will be used by the Eigenvalue and 
-	Eigenvector Solver Module. 
+	from the lax pair (see SRS). 
 	\item[Implemented By:] SpecSearch
 \end{description}
 
-\subsubsection{Exact Eigenvalue Equations Module (M5)}
+\subsubsection{Exact Eigenvalue Equations (M5)}
 
 \begin{description}
 	\item[Secrets:]The analytical expression for the two real eigenvalues. 
 	\item[Services:]Calculates the two purely real eigenvalues from 
-	literature. These two values will be used by the Lambda Error Equation 
-	Module. 
+	literature for $k$. $k$ is the elliptic parameter. 
 	\item[Implemented By:] SpecSearch
 \end{description}
 
-\subsubsection{Spectrum Error Equation Module (M6)}
+\subsubsection{Spectrum Error Equation (M6)}
 
 \begin{description}
 	\item[Secrets:] The measure for error between exact and approximated 
 	eigenvalues.
 	\item[Services:]Calculates the absolute value of the difference between the 
 	the numerical (calculated with M9 and M5) and 
-	theoretical eigenvalues. This module will be used by the 
-	plotting module. 
+	theoretical eigenvalues.
 	\item[Implemented By:] SpecSearch
 \end{description} 
 
-\subsubsection{Numerical Parameters Module (M7)} 
+\subsubsection{Numerical Parameters (M7)} 
 
 \begin{description}
 	\item[Secrets:] The range of the eigenfunction domain, points in the 
@@ -333,11 +329,10 @@ selected.
 	eigenfunction derivatives. 
 	\item[Services:] Creates the numerical parameters used for approximating 
 	the derivatives of the eigenfunctions. 
-	This module will be used by the spectrum matrix module. 
 	\item[Implemented By:] SpecSearch
 \end{description} 
 
-\subsubsection{Control Module (M14)} 
+\subsubsection{Control (M14)} 
 
 \begin{description}
 	\item[Secrets:] The algorithm that coordinates the overall program and 
@@ -356,10 +351,10 @@ selected.
   do not provide direct interaction with the user. 
   % Changes in these modules are more likely to be motivated by a desire to
   % improve performance than by externally imposed changes.
-\item[Implemented By:] SpecSearch
+\item[Implemented By:] -
 \end{description}
 
-\subsubsection{Eigenvalue and Vector Solver Module (M8)} 
+\subsubsection{Eigenvalue and Vector Solver (M8)} 
 
 \begin{description}
 	\item[Secrets:] The numerical algorithm for calculating the eigenvalues and 
@@ -367,47 +362,45 @@ selected.
 	$n$ by $n$ matrix.
 	\item[Services:] The eig MATLAB function finds the eigenvalues and vectors 
 	of an 
-	arbitrary n by n matrix.
+	arbitrary $n$ by $n$ matrix.
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Diagonal Matrix Module (M9)} 
+\subsubsection{Diagonal Matrix (M9)} 
 
 \begin{description}
-	\item[Secrets:] The numerical algorithm for creating an n by n diagonal 
-	matrix from an n by 1 vector (and other way). 
-	\item[Services:] The diag MATLAB function creates an n by n diagonal matrix 
-	from a 1 by n vector. The diagonal entries of the matrix are the elements 
+	\item[Secrets:] The numerical algorithm for creating an $n$ by $n$ diagonal 
+	matrix from an $n$ by 1 vector (and other way). 
+	\item[Services:] The diag MATLAB function creates an $n$ by $n$ diagonal 
+	matrix 
+	from a 1 by $n$ vector. The diagonal entries of the matrix are the elements 
 	of the vector. The 
-	diag function also creates a 1 by n vector from a diagonal matrix. This 
-	module will be used by the operator matrix module. 
+	diag function also creates a 1 by $n$ vector from a diagonal matrix.
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Elliptic Integral Module (M10)} 
+\subsubsection{Elliptic Integral (M10)} 
 
 \begin{description}
 	\item[Secrets:] The numerical algorithm for calculating the complete 
-	elliptic integral for some constant k. 
+	elliptic integral for some real constant $k$. 
 	\item[Services:] The elliptK MATLAB function calculates the integral of $$ 
 	\int_{0}^{\frac{\pi}{2}} \frac{dx}{\sqrt{1-msin^{2}(x)}}$$. \\ 
-	This module will be used by the Domain Creation Module. 
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Elliptic Functions Module (M11)} 
+\subsubsection{Elliptic Functions (M11)} 
 
 \begin{description}
 	\item[Secrets:] The numerical algorithm for calculating the values of the 
 	Jacobi elliptic functions. 
-	\item[Services:] The ellipj MATLAB function calculates the values of dn,cn 
-	and sn for a particular domain/vector. This module will be used by the 
-	operator 
-	matrix module. 
+	\item[Services:] The ellipj MATLAB function calculates the values of 
+	$dn,cn$ 
+	and $sn$ for a particular domain/vector. 
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Plotting Module (M12)} 
+\subsubsection{Plotting (M12)} 
 
 \begin{description}
 	\item[Secrets:] The plotting methods/algorithms.
@@ -416,7 +409,7 @@ selected.
 	\item[Implemented By:] MATLAB
 \end{description} 
 
-\subsubsection{Linpsace Module (M13)} 
+\subsubsection{Linspace (M13)} 
 
 \begin{description}
 	\item[Secrets:] The software algorithm for creating a vector with equally 
@@ -477,7 +470,7 @@ correct execution of B may be necessary for A to complete the task described in
 its specification. That is, A {\em uses} B if there exist situations in which
 the correct functioning of A depends upon the availability of a correct
 implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
+the modules. It can be seen that the graph is a Directed Acyclic Graph
 (DAG). Each level of the hierarchy offers a testable and usable subset of the
 system, and modules in the higher level of the hierarchy are essentially simpler
 because they use modules from the lower levels. \\
@@ -503,22 +496,23 @@ minimum height=2em]
 \begin{tikzpicture}[node distance = 2cm, auto]
 % Place nodes
 \node [block] (init) {Input Parameters (M2)};
-\node [block, below of=init] (evaluate) {Elliptic Integral (M11)};
+\node [block, below of=init] (evaluate) {Elliptic Integral (M10)};
 \node [block, left of=evaluate, node distance=3cm] (update) {Exact Eigenvalue 
-Equations (M6)};
+Equations (M5)};
 \node [block, right of=evaluate,node distance=4cm] (decide) {Numerical 
-Parameters (M8)};
-\node [block, below of=evaluate, node distance=2cm] (stop) {linspace (M14)};
+Parameters (M7)};
+\node [block, below of=evaluate, node distance=2cm] (stop) {linspace (M13)};
 \node [block, below of=stop, node distance=2cm] (elfun) {Elliptic Functions 
-(M12)}; 
-\node [block, right of=elfun, node distance=4cm] (Spec) {Spectrum Matrix (M5)};
+(M11)}; 
+\node [block, right of=elfun, node distance=4cm] (Spec) {Spectrum Matrix (M4)};
 \node [block, below of=elfun, node distance=2.5cm] (Diag) {Diagonal Matrix 
-(M10)};
-\node [block, below of=Diag, node distance=3.5cm] (err) {Spectrum Error (M7)} ;
+(M9)};
+\node [block, below of=Diag, node distance=3.5cm] (err) {Spectrum Error 
+Equations (M6)} ;
 \node [block, below of=Spec, node distance=4cm] (eigen) {Eigenvale and vector 
-solver (M9)};
-\node [block, right of=eigen, node distance=3cm] (out) {Output format (M4)};
-\node [block, right of=out, node distance=3cm] (plot) {Plotting (M13)};
+solver (M8)};
+\node [block, right of=eigen, node distance=3cm] (out) {Output format (M3)};
+\node [block, right of=out, node distance=3cm] (plot) {Plotting (M12)};
 \node [block,right of=init, node distance=7cm] (control) {Control}; 
 % Draw edges
 \path [line] (init) -- (evaluate);
