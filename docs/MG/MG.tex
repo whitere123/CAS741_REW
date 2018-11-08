@@ -510,45 +510,48 @@ text width=5em, text centered, rounded corners, minimum height=4em]
 \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
 minimum height=2em] 
 
+\newpage
 \begin{figure}[h!]
 \begin{tikzpicture}[node distance = 2cm, auto]
 % Place nodes
-\node [block] (init) {Input Parameters (M2)};
-\node [block, below of=init] (evaluate) {Elliptic Integral (M10)};
-\node [block, left of=evaluate, node distance=3cm] (update) {Exact Eigenvalue 
-Equations (M5)};
-\node [block, right of=evaluate,node distance=4cm] (decide) {Numerical 
+\node [block] (SpecErr) {Spectrum Error Equations (M6)};
+\node [block, below of=SpecErr,node distance=2.5cm] (out) {Output Format (M3)};
+\node [block, right of=out,node distance=3cm] (plot) {Plotting (M12)}; 
+\node [block, left of=out,node distance=3cm] (eigen) {Eigenvalue and 
+Eigenvector solver (M8)}; 
+\node [block, below of=out,node distance=3.5cm] (diag) {Diagonal Matrix (M9)} ;
+\node [block, below of=diag,node distance=2.5cm] (elipfun) {Elliptic Functions 
+(M11)} ;
+\node [block, below of=elipfun,node distance=2.5cm] (linspace) {linspace (M13)} 
+;
+\node [block, below of=linspace,node distance=2.5cm] (elipint) {Elliptic 
+Integral 
+(M10)} ; 
+\node [block, below of=elipint,node distance=2.5cm] (input) {Input Parameters 
+(M2)} ;
+\node [block, left of=diag, node distance=3cm] (specmat) {Spectrum Matrix (M4)};
+\node [block, left of=linspace, node distance=3cm] (numpar) {Numerical 
 Parameters (M7)};
-\node [block, below of=evaluate, node distance=2cm] (stop) {linspace (M13)};
-\node [block, below of=stop, node distance=2cm] (elfun) {Elliptic Functions 
-(M11)}; 
-\node [block, right of=elfun, node distance=4cm] (Spec) {Spectrum Matrix (M4)};
-\node [block, below of=elfun, node distance=2.5cm] (Diag) {Diagonal Matrix 
-(M9)};
-\node [block, below of=Diag, node distance=3.5cm] (err) {Spectrum Error 
-Equations (M6)} ;
-\node [block, below of=Spec, node distance=4cm] (eigen) {Eigenvale and vector 
-solver (M8)};
-\node [block, right of=eigen, node distance=3cm] (out) {Output format (M3)};
-\node [block, right of=out, node distance=3cm] (plot) {Plotting (M12)};
-\node [block,right of=init, node distance=7cm] (control) {Control}; 
+\node [block, right of=linspace, node distance=6cm] (exacteig) {Exact Eigen 
+Value Equations (M5)};
+\node [block, left of= SpecErr, node distance= 7cm] (control) {Control (M14)};
 % Draw edges
-\path [line] (init) -- (evaluate);
-\path [line] (init) -| (update);
-\path [line] (evaluate) -- (decide);
-\path [line] (decide) |- node [near start] {} (stop);
-\path [line] (decide) -- (Spec); 
-\path [line] (stop) -- (elfun);
-\path [line] (elfun) -- (Spec);
-\path [line] (elfun) -- (Diag);
-\path [line] (Diag) -- (Spec); 
-\path [line] (update) |- (err); 
-\path [line] (eigen) -| (err);
-\path [line] (eigen) -- (out);
-\path [line] (out) -- (plot); 
-\path [line] (Spec) -- (eigen); 
-\path [line] (err) -| (out); 
-\path [line] (init) -| (decide);
+\path [line] (out) -- (SpecErr);
+\path [line] (SpecErr) -| (eigen);
+\path [line] (plot) -- (out);
+\path [line] (out) -- (eigen); 
+\path [line] (SpecErr) -| (exacteig);
+\path [line] (eigen) -- (specmat); 
+\path [line] (specmat) -- (numpar); 
+\path [line] (specmat) -- (diag);
+\path [line] (specmat) -- (elipfun);
+\path [line] (diag) -- (elipfun); 
+\path [line] (elipfun) -- (linspace); 
+\path [line] (linspace) -- (numpar); 
+\path [line] (numpar) -- (elipint); 
+\path [line] (elipint) -- (input); 
+\path [line] (numpar) |- (input); 
+\path [line] (exacteig) |- (input);
 \end{tikzpicture}
 \caption{Use hierarchy among modules}
 \label{FigUH}
