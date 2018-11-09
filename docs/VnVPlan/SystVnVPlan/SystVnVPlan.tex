@@ -13,7 +13,7 @@
 
 %\usepackage[round]{natbib}
 
-\input{../Comments}
+\input{../../Comments} %why was this line changed from the template?
 
 \begin{document}
 
@@ -72,7 +72,7 @@ Refer to the SRS Symbols, Abbreviations and Acronyms for a more complete list.
 This document discusses the verification and validation requirements for 
 SpecSearch. The Project Management Body of Knowledge (PMBOK) guide provides 
 unambigious definitions for verification and validation [Project Management 
-Institute, 2017]. PMBOK defines 
+Institute, 2017]. \wss{Use BibTeX; it will make your work much easier} PMBOK defines 
 verification as ``the evaluation of whether or not a product, service, or 
 system 
 complies with a regulation, requirement, specification, or imposed condition. 
@@ -90,10 +90,11 @@ SpecSearch.
 \subsection{Summary}
 \label{Summary} 
 
-The software that is going to be tested is called SpecSearch. SpeacSearch will 
+The software that is going to be tested is called SpecSearch. SpeacSearch
+\wss{proof read} will 
 search for the 
 spectrum (set of eigenvalues) of a particular lax equation from a lax pair that 
-is compatbilible 
+is compatbilible \wss{spell check}
 with solutions to the Non-Linear Schr\"{o}dinger (NLS) Equation. SpecSearch 
 will 
 also use 
@@ -105,15 +106,19 @@ instance models in the SRS for more details.
 	The qualities that are most important for SpecSearch are highlighted in 
 	this section. Many of these qualities are also presented in the SRS. \\
 	
-	My supervisor, Dr. Dmitry Pelinovsky, and me intend to use this program as 
-	a tool to search for the 
-	continuous spectrum of the previously mentioned spectral problem. 
-	SpecSearch 
-	will only provide the approximate 
-	location of the spectrum and a finite number of elements in the spectrum. 
-	We will 
-	use this output as a guide in analytically solving for the 
-	entire continuous spectrum.  Therefore, the 
+	My supervisor, Dr. Dmitry Pelinovsky, \wss{\LaTeX{} has a rule that it
+          inserts two spaces at the end of a sentence.  It detects a sentence as
+          a period followed by a capital letter.  This comes up, for instance,
+          with Dr. Pelinovsky.  Since the period after Dr.\ isn't actually the
+          end of a sentence, you need to tell \LaTeX{} to insert one space.  You
+          do this either by Dr.\ Pelinovsky (if you don't mind a line-break
+          between Dr.\ and Pelinovsky), or Dr.~Pelinovsky (to force \LaTeX{} to
+          not insert a line break).} and me intend to use this program as a tool
+        to search for the continuous spectrum of the previously mentioned
+        spectral problem.  SpecSearch will only provide the approximate location
+        of the spectrum and a finite number of elements in the spectrum.  We
+        will use this output as a guide in analytically solving for the entire
+        continuous spectrum.  Therefore, the
 	code should be reliable and accurate within my supervisor's standards. \\
 	% An unreliable and inaccurate output will provide a misleading direction 
 	%for the next stage of our research. 
@@ -122,7 +127,8 @@ instance models in the SRS for more details.
 	derivatives of the eigenfunctions [Graselli and Pelinovksy, 2007]. My 
 	supervisor and me intend to experiment with these different 
 	methods in an attempt to create a more accurate picture of the spectrum. 
-	Therefore, it is important that SpecSeach is maintainable and 
+	Therefore, it is important that SpecSeach \wss{proof read - better yet,
+          use the progname command from the SRS} is maintainable and 
 	manageable. \\
 	% This will allow for easy implementation of new algorithms.
 	
@@ -145,6 +151,10 @@ instance models in the SRS for more details.
 \subsection{References}
 \label{REF1}
 
+\wss{You should explain te purpose behind any reference, not just list them.  An
+  important reference is missing.  You should list your SRS and give a link to
+  the project GitHub page.}
+
 \begin{itemize} 
 
 	\item 	Bernard Deconinck and Benjamin L.Segal. 
@@ -162,7 +172,7 @@ instance models in the SRS for more details.
 \subsection{Verification and Validation Team}
 \label{VnVTeam}
 The verification and validation team consists of my thesis supervisor, Dr. 
-Dmitry Pelinovsky, and me. \\
+Dmitry Pelinovsky, and me. \wss{You should give your name here.}\\
 
 \subsection{SRS Verification Plan}
 \label{SRSVerPlan}
@@ -170,23 +180,26 @@ The SRS verification plan consists of feedback from Dr. Dmitry Pelinovsky
 (supervisor), Dr. Spencer Smith and CAS 741 classmates. My supervisor will 
 provide feedback regarding mathematical theory, model assumptions, constraints 
 and research goals. Feedback from classmates and Dr. Smith will criticize the 
-document outline, readability and requirements. 
+document outline, readability and requirements. \wss{You can be more specific
+  about the names of your colleagues, since they are given in the Repos.xlsx
+  file for all reviews.}
 
 \subsection{Design Verification Plan}
 \label{DesignVerificationPlan}
 The design verification plan will simply involve inspection of the software by 
-my thesis supervisor. 
+my thesis supervisor.  \wss{What about the inspection by myself and your classmates?}
 
 \subsection{Implementation Verification Plan}
 \label{ImplementationVerPlan}
 The implementation verification plan consists of two parts. The first part 
 is a software verification checklist. The checklist will be completed by 
-researchers , Dr. Pelinovksy and me. The 
+researchers , Dr. Pelinovksy \wss{proof read} and me. The 
 checklist verifies that basic software features have been implemented 
 successfully. 
-For example, it checks if the user was able to fufill their responsibilities 
+For example, it checks if the user was able to fufill \wss{spell check} their responsibilities 
 outlined in the SRS. 
-This checklist can be found in the ~\ref{softwarevercheck}.\\
+This checklist can be found in the ~\ref{softwarevercheck}.\\ \wss{great to see
+  a checklist being proposed.}
 
  The 
 second part involves running the software tests 
@@ -194,7 +207,7 @@ outlined in sections 5 and 6. Unit testing will also be performed.
 
 \subsection{Software Validation Plan}
 \label{SoftwareValidationPlan}
-This section does not apply to SpecSearch. 
+This section does not apply to SpecSearch. \wss{You should say why not.}
 
 \section{System Test Description}
 	
@@ -207,7 +220,8 @@ Initial State: -
 					
 Input: Table ~\ref{Table:D_11} in ~\ref{datainput}.
 					
-Output: Error or pass message.
+Output: Error or pass message. \wss{You put your expected output here.  There
+  shouldn't be an or for a deterministic system.}
 					
 How test will be performed: Combinations of inputing non-numerical values as 
 input  (such as letters), or numerical values outside of their respective 
@@ -215,7 +229,11 @@ constraints, will be considered. A successful test in these instances will be
 an error message. \\
 I will also test cases with each variable in the input having an 
 acceptable numerical value. A successful test in these cases will be a pass 
-message. 
+message. \wss{You actually need a separate test for every error input error case
+  you want to test.  You cannot summarize all of the tests like this.  The good
+  news is that you can build a table that lists many tests.  All you need to do
+  is show what input varies between each test and show the expected output for
+  that test.}
 					
 \item{test-Rfind1} 
 
@@ -223,7 +241,9 @@ Initial State: -
 
 Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
 
-Output: Size of spectrum array 
+Output: Size of spectrum array \wss{It looks like you are talking about more
+  than one test again. For specific inputs that you get to pick, can't you say
+  what the size should be?}
 
 How the test will be performed: Passing inputs from test-Rin1 should produce 
 $4n$ eigenvalues. Unsuccessful cases 
@@ -271,9 +291,14 @@ Output: Binary Variable (Verification of stability)
 How test will be performed: The stability results will be compared with the 
 stability analysis in [Deconinck and Segal, 2017].  My supervisor 
 and me are still working on test cases for Rstl.Test-Rstl will be updated in 
-the final draft of the documents. 
+the final draft of the documents.  \wss{This looks like a good test case.  You
+  should also work out what you mean by comparing the results.  Are you just
+  comparing a Boolean value, or are there other measures being compared?}
 
 \end{enumerate}
+
+\wss{Your tests are not specific enough.  There should be one set of inputs for
+  each test and one expected output.}
 
 \subsection{Tests for Nonfunctional Requirements}
 \label{NFRtests}
@@ -288,8 +313,10 @@ Initial State: -
 Input/Condition: SpecSearch MATLAB code
 					
 How test will be performed: The software will be manually read by Dr. 
-Pelinovksy and I to see if there is a more effective code structure to allow 
-implementation of new numerical algorithms. 
+Pelinovksy \wss{proof read} and I to see if there is a more effective code structure to allow 
+implementation of new numerical algorithms.  \wss{What nonfunctional requirement
+  is this test testing?  Reference your SRS and remind the reader which quality
+  you are investigating.}
 
 \item{test-NFR2a\\} 
 
@@ -302,13 +329,13 @@ Input: Integer n (same as test-Rin1).
 Output: Operator Matrix.
 
 How test will be performed: Test-NFR2a will check if the operator matrix is of 
-the correct form. See ~\ref{matrixform} for more detail. The values from table 
+the correct form. See~\ref{matrixform} for more detail. The values from table 
 2 
 will be used to inspect A1.   \\
 
-\item{test-NFR2b\\} 
+\item{test-NFR2b\\} \wss{You can generate test numbers automatically with \LaTeX{}}
 
-Type: Manual 
+Type: Manual \wss{Why is this manual?}
 
 Initial State: -
 
@@ -318,7 +345,7 @@ Output: Spectrum.
 
 How test will be performed: The output will be tested against the boundary 
 value eigen-values derived analytically in Deconinck and Segal. See details 
-below table 2 of ~\ref{datainput}. \\ 
+below Table 2 of ~\ref{datainput}.\\ 
 
 \item{test-NFR2c\\} 
 
@@ -326,7 +353,7 @@ Type: Usability Survey (see ~\ref{UsabilitySurvey})
 
 How test will be performed: The survey will be administered to the future users 
 of SpecSearch. Feedback from the survey will be considered when updating 
-SpecSearch. The survey is in ~\ref{UsabilitySurvey}. 
+SpecSearch. The survey is in~\ref{UsabilitySurvey}. 
 
 \end{enumerate}
 
@@ -383,7 +410,15 @@ SpecSearch. The survey is in ~\ref{UsabilitySurvey}.
 	\item Linter: A linter is a program that checks the source code for 
 	programmatic and stylistic errors
 \end{itemize}
-				
+
+\wss{You can remove this section and move the contents to the implementation
+  verification plan.  I like that you are proposing inspection and
+  walkthroughs.  If you are going to use the term walkthrough you should
+  reference the specific steps you are going to follow.  A walkthrough is
+  actually a rigorous set of steps.  You can do a simplified version, but if
+  what you intend is just a meeting with your supervisor to discuss the code,
+  you shouldn't call it a walkthrough.}
+
 \bibliographystyle{plainnat}
 
 \newpage 
@@ -426,7 +461,7 @@ SpecSearch. The survey is in ~\ref{UsabilitySurvey}.
 \label{UsabilitySurvey}
 \begin{itemize}
 	\item How long did it take before you could run the software? How many 
-	attempts at running SpecSeach did it take before you understood how to 
+	attempts at running SpecSeach \wss{proof read} did it take before you understood how to 
 	properly use it and interpret the output?
 	\item Was this program useful for your research and were you able to 
 	interpret the results? 
@@ -449,7 +484,7 @@ or symbols).
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 		\hline        
-		Input ID& a& b & k & n& Result \\
+		Input ID& $a$ & $b$ & $k$ & $n$ & Result \\
 		\hline
 		I1     &1 &1 &0.9 &100 & Pass \\ \hline
 		I2    &X &1 &0.9 &10 & Error \\ \hline
@@ -510,6 +545,14 @@ input. The expected eigenvalues were previously mentioned.
 	output for their research purposes?
 	\item Are any of the system constraints violated (see SRS)?
 \end{itemize}  
+
+\wss{A checklist is a great idea, but this checklist is more abstract than you
+  want to be.  It is ambiguous because so much of the decision making is left to
+  judgement.  You want something that has more questions, but simpler
+  questions.  It is great to reference your SRS, but rather than open-ended
+  questions, ask specific questions about specific requirements.  If you google
+  ``software verification checklist,'' you should get some useful results and
+  inspiration.}
 
 \newpage	
 \subsection{Correct Matrix Form} 
