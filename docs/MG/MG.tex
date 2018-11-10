@@ -98,13 +98,13 @@ based on the principle of information hiding~\citep{Parnas1972a}.  This
 principle supports design for change, because the ``secrets'' that each module
 hides represent likely future changes.  Design for change is valuable in SC,
 where modifications are frequent, especially during initial development as the
-solution space is explored.  
+solution space is explored.
 
 Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \begin{itemize}
 \item System details that are likely to change independently should be the
   secrets of separate modules.
-\item Each data structure is used in only one module.
+\item Each data structure is used in only one module. 
 \item Any other program that requires information stored in a module's data
   structures must obtain it by calling access programs belonging to that module.
 \end{itemize}
@@ -301,8 +301,7 @@ to be implemented.
 
 \begin{description}
 	\item[Secrets:] The data structure for input parameters and how the values 
-	are verified. The format and structure of the 
-	input data used by other modules is also a secret.
+	are verified. 
 	\item[Services:] Gets input from the user, stores the input and verifies 
 	that 
 	the input variables satistfy the constraints in the SRS. Throws an error if 
