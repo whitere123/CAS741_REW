@@ -542,22 +542,23 @@ minimum height=2em]
 \node [block, right of=out,node distance=3cm] (plot) {Plotting (M12)}; 
 \node [block, left of=out,node distance=3cm] (eigen) {Eigenvalue and 
 Eigenvector solver (M8)}; 
-\node [block, below of=out,node distance=3.5cm] (diag) {Diagonal Matrix (M9)} ;
-\node [block, below of=diag,node distance=2.5cm] (elipfun) {Elliptic Functions 
-(M11)} ;
-\node [block, below of=elipfun,node distance=2.5cm] (linspace) {linspace (M13)} 
-;
-\node [block, below of=linspace,node distance=2.5cm] (elipint) {Elliptic 
+\node [block, below of=out,node distance=11cm] (elipint) {Elliptic 
 Integral 
 (M10)} ; 
 \node [block, below of=elipint,node distance=2.5cm] (input) {Input Parameters 
 (M2)} ;
-\node [block, left of=diag, node distance=3cm] (specmat) {Spectrum Matrix (M4)};
-\node [block, left of=linspace, node distance=3cm] (numpar) {Numerical 
+\node [block, below of=eigen, node distance=3.5cm] (specmat) {Spectrum Matrix 
+(M4)};
+\node [block, below of=specmat, node distance=3cm] (numpar) {Numerical 
 Parameters (M7)};
-\node [block, right of=linspace, node distance=6cm] (exacteig) {Exact Eigen 
+\node [block, left of=elipint,node distance=6cm] (linspace) {linspace (M13)};
+\node [block, left of=numpar,node distance=3cm] (elipfun) {Elliptic Functions 
+(M11)} ; 
+\node [block, right of=numpar, node distance=9cm] (exacteig) {Exact Eigen 
 Value Equations (M5)};
 \node [block, left of= SpecErr, node distance= 7cm] (control) {Control (M14)};
+\node [block, left of=specmat,node distance=3cm] (diag) {Diagonal Matrix 
+(M9)} ;
 % Draw edges
 \path [line] (out) -- (SpecErr);
 \path [line] (SpecErr) -| (eigen);
@@ -566,15 +567,14 @@ Value Equations (M5)};
 \path [line] (SpecErr) -| (exacteig);
 \path [line] (eigen) -- (specmat); 
 \path [line] (specmat) -- (numpar); 
-\path [line] (specmat) -- (diag);
-\path [line] (specmat) -- (elipfun);
-\path [line] (diag) -- (elipfun); 
-\path [line] (elipfun) -- (linspace); 
-\path [line] (linspace) -- (numpar); 
+\path [line] (numpar) -- (diag);
+\path [line] (numpar) -- (elipfun);
+\path [line] (numpar) -- (linspace); 
 \path [line] (numpar) -- (elipint); 
 \path [line] (elipint) -- (input); 
 \path [line] (numpar) |- (input); 
 \path [line] (exacteig) |- (input);
+\path [line] (out) |- (numpar);
 \end{tikzpicture}
 \caption{Use hierarchy among modules}
 \label{FigUH}
