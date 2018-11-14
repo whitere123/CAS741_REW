@@ -20,7 +20,7 @@
     urlcolor=blue
 }
 
-%\input{../../Comments}
+\input{../Comments}
 
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
@@ -182,11 +182,14 @@ decisions will be changed.
 
 \begin{description}
 \item[UC1:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).\\
+  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[UC2:] The output (spectrum) is always displayed on the screen as a set of 
-points on the complex plane. \\ 
+points on the complex plane. \wss{Why is this an unlikely change?  Why does the
+  output have to go to the screen?  It is an easy (and possibly useful change)
+  to send the output to a file, or to make the output a table of values, rather
+  than a plot.}
 \item[UC3:] The operator matrix and spectrum error can always be created from 
-the inputs. \\
+the inputs.
 
 \end{description}
 
@@ -304,7 +307,7 @@ to be implemented.
 	are verified. 
 	\item[Services:] Gets input from the user, stores the input and verifies 
 	that 
-	the input variables satistfy the constraints in the SRS. Throws an error if 
+	the input variables satistfy \wss{spell check} the constraints in the SRS. Throws an error if 
 	any of 
 	the inputs violate a constraint and converts the input data into a data 
 	structure that is 
@@ -330,7 +333,8 @@ to be implemented.
 	it is created, and the numerical method for approximating its 
 	eigenfunctions. 
 	\item[Services:]Creates the matrix that approximates the operator matrix 
-	from the lax pair (see SRS). 
+	from the lax pair (see SRS). \wss{A more specific reference to the SRS
+          would be great.} 
 	\item[Implemented By:] SpecSearch
 \end{description}
 
@@ -348,9 +352,12 @@ to be implemented.
 \begin{description}
 	\item[Secrets:] The measure for error between exact and approximated 
 	eigenvalues.
-	\item[Services:]Calculates the absolute value of the difference between the 
-	the numerical (calculated with M9 and M5) and 
-	theoretical eigenvalues.
+      \item[Services:]Calculates the absolute value of the difference between
+        the the \wss{proof read} numerical (calculated with M9 and M5) and
+        theoretical eigenvalues. \wss{Do you need a specific module for this?
+          Is there an algorithm here that justifies making this a secret? Why
+          not relative error?  Isn't this a one line formula in the code?  Maybe
+          I'll understand better when you write your MIS.}
 	\item[Implemented By:] SpecSearch
 \end{description} 
 
@@ -360,7 +367,10 @@ to be implemented.
 	\item[Secrets:] The range of the eigenfunction domain, points in the 
 	periodic domain and equation for the numerical scaling factor that computes 
 	the 
-	eigenfunction derivatives. 
+	eigenfunction derivatives. \wss{How are these different from input?
+          Instead of changing from execution to execution, are these values
+          constant between runs?  Are they like configuration parameters for the
+          numerical algorithm?}
 	\item[Services:] Creates the numerical parameters used for approximating 
 	the derivatives of the eigenfunctions. 
 	\item[Implemented By:] SpecSearch
@@ -409,7 +419,9 @@ to be implemented.
 	matrix 
 	from a 1 by $n$ vector. The diagonal entries of the matrix are the elements 
 	of the vector. The 
-	diag function also creates a 1 by $n$ vector from a diagonal matrix.
+	diag function also creates a 1 by $n$ vector from a diagonal
+        matrix. \wss{This is more of a function than a module.  This is a
+          service provided by the ``matrix'' module in MatLab.}
 	\item[Implemented By:] MATLAB
 \end{description} 
 
@@ -448,9 +460,9 @@ to be implemented.
 \begin{description}
 	\item[Secrets:] The software algorithm for creating a vector with equally 
 	spaced entries. 
-	\item[Services:] The linspace MATLAB function creates an array with 
-	prescribed 
-	endpoints and an equal difference between adjacent points.
+      \item[Services:] The linspace MATLAB function creates an array with
+        prescribed endpoints and an equal difference between adjacent
+        points. \wss{I think this is more of a function than a module.}
 	\item[Implemented By:] MATLAB
 \end{description} 
 
@@ -579,9 +591,25 @@ Value Equations (M5)};
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure} 
-%\section*{References}
-\newpage 
+% \section*{References}
+
+\wss{Nice use of tikz.}
+
+\wss{Why doesn't the Control module use any other modules?  Try to draw your
+  uses relation so that all arrows are down.  Why does numerical parameters use
+  the Diagonal Matrix (and other services)?  I had the impression that numerical
+parameters were configuration constants.  Why does numerical parameters use
+input parameters?  I'm sorry, but I really don't understand your design.}
+\newpage
+
+\wss{Your bibliography didn't compile properly.  I had to modify the path.  I
+  had to do the same thing for the Comments.tex file.}
+
+\wss{Throughout this document you hard code in your references to other modules
+  (M2, M9 etc.).  You should make your life easier and use labels and references
+  in \LaTeX{}.}
+
 \bibliographystyle {plainnat}
-\bibliography{../../../ReferenceMaterial/References} 
+\bibliography{../../ReferenceMaterial/References} 
 
 \end{document}
