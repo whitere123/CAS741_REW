@@ -1,0 +1,736 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{amsmath, mathtools}
+
+\usepackage[round]{natbib}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fullpage}
+
+\hypersetup{
+bookmarks=true,     % show bookmarks bar?
+colorlinks=true,       % false: boxed links; true: colored links
+linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+citecolor=blue,      % color of links to bibliography
+filecolor=magenta,  % color of file links
+urlcolor=cyan          % color of external links
+}
+
+\usepackage{array}
+
+\externaldocument{../../SRS/SRS}
+
+\input{../../Comments}
+
+\newcommand{\progname}{Program Name}
+
+\begin{document}
+
+\title{Module Interface Specification for SpecSearch}
+
+\author{Robert E. White}
+
+\date{\today}
+
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+2018-11-09 & 1.0 & Creation of first draft for presentation. \\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+See SRS Documentation at \wss{give url}
+
+\wss{Also add any additional symbols, abbreviations or acronyms}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+The following document details the Module Interface Specifications for
+SpecSearch. SpecSearch is scientific computing software that computes and plots 
+the spectrum of a matrix operator that appears in a LAX pair that is compatible 
+for solutions of the Non-Linear Schr\dots{o}dinger (NLS) equation. 
+Consequently, this spectrum carries useful information regarding the stability 
+of solutions to the NLS equation. Physicists are interested in this spectrum as 
+the NLS equation models many physical phenomena, such as rogue waves or 
+modulated wave packets. Mathematicans are interested in the analytical 
+behaviour of this spectrum. 
+
+Complementary documents include the System Requirement Specifications
+and Module Guide.  The full documentation and implementation can be
+found at \url{...}.  \wss{provide the url for your repo}
+
+The purpose of this document is to describe the intended behaviour of the 
+access routines for SpecSearch's modules. In particular, mathematical notation 
+will be used to describe the input/output relationships and external behaviour 
+of the 
+modules. The MIS is still abstract since it does not cover implementation of 
+the modules and does not outline any code.  
+\section{Notation}
+
+The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+with the addition that template modules have been adapted from
+\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
+\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+multiple assignment statement and conditional rules follow the form $(c_1
+\Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
+
+The following table summarizes the primitive data types used by \progname. 
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\noindent 
+\begin{tabular}{l l p{7.5cm}} 
+\toprule 
+\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
+\midrule
+character & char & a single symbol or digit\\
+integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+complex & $\mathbb{C}$ &any number $x + iy$ with $x \in \mathbb{R}$ , $y \in 
+\mathbb{R}$ and $i^{2} = -1$. \\
+\bottomrule
+\end{tabular} 
+\end{center}
+
+\noindent
+The specification of \progname \ uses some derived data types: sequences, strings, and
+tuples. Sequences are lists filled with elements of the same data type. Strings
+are sequences of characters. Tuples contain a list of values, potentially of
+different types. In addition, \progname \ uses functions, which
+are defined by the data types of their inputs and outputs. Local functions are
+described by giving their type signature followed by their specification.
+
+\section{Module Decomposition}
+
+The following table is taken directly from the Module Guide document for this project.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Level 1} & \textbf{Level 2}\\
+\midrule
+
+{Hardware-Hiding} & ~ \\
+\midrule
+
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding} 
+& Input Parameters \\
+& Output Format \\
+& Spectrum Matrix \\
+& Exact Eigenvalue Equations \\
+& Spectrum Error Equation \\
+& Numerical Parameters \\  
+& Control \\ 
+\midrule
+
+\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
+& Eigenvalue and Eigenvector Solver \\
+& Diagonal Matrix Generator\\
+& Elliptic Integral\\ 
+& Elliptic Functions\\ 
+& Plotting \\ 
+& Linspace \\
+\bottomrule
+
+\end{tabular}
+\caption{Module Hierarchy}
+\label{TblMH}
+\end{table}
+
+\newpage
+
+\section{MIS of Input Parameters} \label{IPM} 
+
+The secrets of this module are the data structure for input parameters and 
+methods for verifying input. 
+
+\subsection{Module}
+
+InParams
+
+\subsection{Uses}
+
+-
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+\toprule
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Call\_params & $(k,N) \in \mathbb{R}$ x $\mathbb{N}$ & - & NonNumericalError \\
+Verify\_params & - & - & BadkRange, BadNRange \\
+k & - & $\mathbb{R}$ & - \\
+N & - & $\mathbb{N}$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$k \in \mathbb{R}$ \\ 
+$N \in \mathbb{N}$ 
+
+\subsubsection{Environment Variables}
+
+InputParameters: The two values entered by the user. 
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item Call\_params is called before the values of any state variables will 
+	be accessed.
+	\item The user inputs the state variables in the following order: $(k,N)$
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent InParams.k():
+\begin{itemize}
+\item output: $out = k$
+\item exception: None
+\end{itemize}
+
+\noindent InParams.N():
+\begin{itemize}
+	\item output: $out = N$
+	\item exception: None
+\end{itemize}
+
+\noindent Call\_Params():
+\begin{itemize}
+	\item transition: The data is read sequentially from the command line. The 
+	data are seperated by the return key. This data is used to populate the 
+	previously mentioned state variables. 
+	\item exception: If non-numerical data is entered. 
+\end{itemize} 
+
+\noindent Verify\_Params():
+\begin{itemize}
+	\item exception: exc:=
+\end{itemize}  
+
+\noindent $\neg (k \in (0,1)) \Rightarrow \ $ BadkRange\\
+$\neg (N \in \mathbb{N}) \Rightarrow \ $ BadNRange
+
+\subsubsection{Local Functions}
+\wrw{cells and data structures in MATLAB??}
+\newpage
+
+\section{MIS of Output Format} 
+
+The secret of this module is the format and structure of the output data.
+
+\subsection{Module}
+
+OutForm
+
+\subsection{Uses}
+
+Eigenvalue solver, Spectrum Error Equations and Numerical Parameters. 
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		capture & $(D,Er,V,Vl) \in
+		\mathbb{R}^{2n}$x$\mathbb{R}$x$M_{4n(4n+1)}(\mathbb{C})$
+		x$\mathbb{C}^{4n}$ & $Spectrum$ & - \\
+		Spectral & - & $M_{4n(4n+2)}(\mathbb{C})$ & - \\
+		D & - & $\mathbb{R}^{2n}$ & - \\
+		Er & - & $\mathbb{R}$ & - \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+Spectral $\in M_{4n(4n+1)}(\mathbb{C})$ \\
+$D \in \mathbb{R}^{2n}$ \\
+$Er \in \mathbb{R}^{2}$ \\ 
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item Eigenvalue solver, Spectrum Error Equations and Numerical Parameters 
+	are called and their values are temporarily stored prior to OutForm.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent OutForm.D():
+\begin{itemize}
+	\item output: $out = D$
+	\item exception: None
+\end{itemize}
+
+\noindent OutForm.Er():
+\begin{itemize}
+	\item output: $out = Er$
+	\item exception: None
+\end{itemize} 
+
+\noindent OutForm.Spectral():
+\begin{itemize}
+	\item output: $out = Spectral$
+	\item exception: None
+\end{itemize}
+
+\noindent capture():
+\begin{itemize}
+	\item Transition: The data (D,Er,V,Vl) will be captured from the other 
+	modules and then stored into Spectral for convienience. Spectral is a 
+	$4n$ by $4n + 2$ matrix created as follows: the $4n$ by $1$ vector of 
+	eigenvalues, Vl, will be transposed and turned into the $(4n+1)^{th}$ row 
+	of 
+	spectral. The previous $4n$ rows of spectral will be the matrix, V, 
+	composed 
+	of the eigenvectors as columns. D will be the $(4n+2)$ row of spectral. 
+	\item Exception: None
+\end{itemize}  
+
+\subsubsection{Local Functions}
+
+\wrw{what are local functions??}
+
+\newpage
+\section{MIS of Spectrum Matrix} 
+
+The structure of the spectrum matrix, its data entries, how 
+it is created, and the numerical method for approximating its 
+eigenfunctions are the secrets of this module.  
+
+\subsection{Module}
+
+SpecMat
+
+\subsection{Uses}
+
+This module uses Numerical Parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		create & $(n,h,elipdn,k) \in
+		\mathbb{N}$x$\mathbb{R}$x$\mathbb{R}^{2n}$x$\mathbb{R}$ & 
+		SpecMatO1,
+		SpecMatO4,
+		SpecCheb & - \\
+		SpecMatO1 & - & $M_{4n(4n)}(\mathbb{C})$ & - \\
+		SpecMatO4 & - & $M_{4n(4n)}(\mathbb{C})$ & - \\ 
+		SpecCheb & - & $M_{4n(4n)}(\mathbb{C})$ & - \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+SpecMatO1, SpecMatO4, SpecCheb $\in M_{4n(4n)}(\mathbb{C})$ 
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item All of the numerical parameters are calculated correctly and used as 
+	arguments in create. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+SpecMat.SpecMatO1:
+\begin{itemize}
+	\item output: out = SpecMatO1 
+	\item exception: None 
+\end{itemize}
+
+SpecMat.SpecMatO4:
+\begin{itemize}
+	\item output: out = SpecMatO4
+	\item exception: None
+\end{itemize}
+
+SpecMat.SpecFour:
+\begin{itemize}
+	\item output: out = SpecCheb 
+	\item exception: None
+\end{itemize}
+
+SpecMat.create():
+\begin{itemize}
+	\item transition: The data (n,h,elipdn,k) will be captured from the other 
+	modules and used to create the spectral matrices. There will be three 
+	instances of the spectral matrix. Each corresponds do a different numerical 
+	algorithm for approximating the eigenfunction derivatives. Top top left and 
+	bottom right sections of the matrices are diagonal matrices with elements 
+	equal to the elipdn function evaluated at points in the discretized domain. 
+	The remain parts of the matrix are coffecients such that when multiplied by 
+	the eigenfunctions will create the appropriate approximation of the 
+	derivatives. 
+	\item exception: None
+\end{itemize}
+
+\newpage
+
+\section{MIS of Exact Eigenvalue Equations} 
+
+The secrets of this module are the analytical expressions for the two real 
+eigenvalues. 
+
+\subsection{Module}
+
+TheorEigenValues
+
+\subsection{Uses}
+
+This module uses input parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		$lambda_O1$ & $k \in \mathbb{R}$ & $\mathbb{R}$ & - \\
+		$lambda_O2$ & $k \in \mathbb{R}$ & $\mathbb{R}$ & - \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item These are the eigenvalues computed from segal et al. Refer to (segal) 
+	for more details regarding assumptions.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+
+$lambda_O1$:
+\begin{itemize}
+	\item output: $\frac{1}{2} (1+\sqrt{1-k^{2}})$ 
+	\item exception: None
+\end{itemize}
+
+
+\noindent $lambda_O2$
+\begin{itemize} 
+	\item output: $\frac{1}{2} (1-\sqrt{1-k^{2}})$ 
+	\item exception: None
+\end{itemize}
+
+
+\newpage
+
+\section{MIS of Spectrum Error Equation} 
+
+The secret of this module is the equation for error between exact and 
+approximated eigenvalues.
+
+\subsection{Module}
+
+ErrCalc
+
+\subsection{Uses}
+
+This module uses Exact Eigenvalue equations and Eigenvalue solver. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{6cm} p{3cm} >{\raggedright\arraybackslash}p{3cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		$lambda_O1$ & - & $\mathbb{R}$ & - \\
+		$lambda_O2$ & - & $\mathbb{R}$ & - \\ 
+		$lambda_C1$ & - & $\mathbb{R}$ & - \\
+		$lambda_C2$ & - & $\mathbb{R}$ & - \\
+		$Err1$ & $(lambda_O1,lambda_C1)\in \mathbb{R}^{2}$ & $\mathbb{R}$ &- \\
+		$Err2$ & $(lambda_O2,lambda_C2)\in \mathbb{R}^{2}$ & $\mathbb{R}$ &- \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$(lambda_O1,lambda_O2,lambda_C1,lambda_C2) \in \mathbb{R}^{4}$
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item These are the eigenvalues computed from segal et al. Refer to (segal) 
+	for more details regarding assumptions.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+
+$Err1$:
+\begin{itemize}
+	\item output: $| lambda_O1 - lambda_C1| $ 
+	\item exception: None
+\end{itemize}
+
+
+\noindent $Err2$
+\begin{itemize} 
+	\item output: $| lambda_O2 - lambda_C2| $ 
+	\item exception: None
+\end{itemize} 
+
+\noindent $ErrCalc.lambda_O1$:
+\begin{itemize}
+	\item output: out = $lambda_O1$
+	\item exception: None 
+\end{itemize}
+
+\noindent $ErrCalc.lambda_O2$:
+\begin{itemize}
+	\item output: out = $lambda_O2$
+	\item exception: None
+\end{itemize}
+
+\noindent $ErrCalc.lambda_C1$:
+\begin{itemize}
+	\item output: out = $lambda_C1$
+	\item exception: None
+\end{itemize}
+
+\noindent $ErrCalc.lambda_C2$:
+\begin{itemize}
+	\item output: out = $lambda_C2$ 
+	\item exception: None
+\end{itemize}
+
+\newpage 
+
+\section{MIS of Numerical Parameters} 
+
+The secrets of this module are the range of the eigenfunction domain, points in 
+the 
+periodic domain and equation for the numerical scaling factor that computes 
+the 
+eigenfunction derivatives. 
+
+\subsection{Module}
+
+Numpars
+
+\subsection{Uses}
+
+This module uses Elliptic Functions, Diagonal Matrix, linspace, Elliptic 
+Integral and input parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{7cm} >{\raggedright\arraybackslash}p{3cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		CreateVars & $(k,N) \in \mathbb{R}$x$\mathbb{N}$ & 
+		$(xend,Domain,ellipj,ellipjMAT)$ & - \\
+		xend & - & $\mathbb{R}$ & - \\
+		Domain & - & $\mathbb{R}^{2N}$ &- \\
+		ellipjdn & - & $\mathbb{R}^{2N}$ &- \\
+		ellipjMAT & - & $M_{2n(2n)}(\mathbb{R})$ &- \\
+		h & - & $\mathbb{R}$ - \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$(xend,Domain,ellipjdn,ellipjMAT) \in 
+\mathbb{R}$x$\mathbb{R}^{2N}$x$\mathbb{R}^{2N}$x$M_{2n(2n)}(\mathbb{R})$ 
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item Input parameters is called before Numerical parameters. 
+	\item Input parameters does not throw an exception. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+
+$Numpars.xend$:
+\begin{itemize}
+	\item output: $xend$ 
+	\item exception: None
+\end{itemize}
+
+
+\noindent $Numpars.Domain$
+\begin{itemize} 
+	\item output: $Domain$ 
+	\item exception: None
+\end{itemize} 
+
+\noindent $Numpars.ellipjdn$:
+\begin{itemize}
+	\item output: out = $ellipjdn$
+	\item exception: None 
+\end{itemize}
+
+\noindent $Numpars.ellipjMAT$:
+\begin{itemize}
+	\item output: out = $ellipjMAT$
+	\item exception: None
+\end{itemize}
+
+\noindent $Numpars.h$:
+\begin{itemize}
+	\item output: out = $h$ 
+	\item exception: None
+\end{itemize} 
+
+\noindent $Numpars.CreateVars$:
+\begin{itemize}
+	\item transition: The data $(N,k)$ will be captured from the input 
+	parameters and used to create the state variables. $k$ will be inputted as 
+	an argument into the elliptic integral module. The resulting integral is 
+	equal to $xend$. \\ 
+	The domain is created using linspace. The endpoint arguments of linspace 
+	are $-xend$ and $xend$, respectively. The distance between partition points 
+	in the resulting domain is $h=\frac{xend}{N}$. Ellipjdn is derived from 
+	from computing the ellipjdn value of each point in Domain. EllipjMAT is a 
+	diagonal matrix whose diagonal is Ellipjdn. 
+	\item exception: None
+\end{itemize}
+
+\newpage
+
+\section{MIS of Eigenvalue and Eigenvector Solver} 
+
+The secret of this module is the numerical algorithm for calculating the 
+eigenvalues and eigenvectors of an $n$ by $n$ matrix.
+
+\subsection{Module}
+
+eig
+
+\subsection{Uses}
+
+This module uses Spectrum Matrix. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		solver & $A\in M_{(nxn)}(\mathbb{R})$  & 
+		$\mathbb{C}^{n}$x$M_{(nxn)}(\mathbb{R})$ & NotsquareMat \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item The input is a square matrix. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent eig():
+\begin{itemize}
+	\item output: out:= $(\lambda, \bar{v})$ such that:\\
+	$A\bar{v} = \lambda \bar{v}$ 
+	\item exception: exce:= $A \not\in M_{(nxn)}(\mathbb{R}) \Rightarrow 
+	NotSquareMatrix$ 
+\end{itemize}
+
+\newpage
+
+
+\bibliographystyle {plainnat}
+\bibliography {../../../ReferenceMaterial/References}
+
+\newpage
+
+\section{Appendix} \label{Appendix}
+
+\wss{Extra information if required}
+
+\end{document}
