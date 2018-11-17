@@ -1,0 +1,1105 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{amsmath, mathtools}
+
+\usepackage[round]{natbib}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fullpage} 
+
+\hypersetup{
+bookmarks=true,     % show bookmarks bar?
+colorlinks=true,       % false: boxed links; true: colored links
+linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+citecolor=blue,      % color of links to bibliography
+filecolor=magenta,  % color of file links
+urlcolor=cyan          % color of external links
+}
+
+\usepackage{array}
+
+\externaldocument{../../SRS/SRS}
+
+\input{../../Comments}
+
+\newcommand{\progname}{Program Name}
+
+\begin{document}
+
+\title{Module Interface Specification for SpecSearch}
+
+\author{Robert E. White}
+
+\date{\today}
+
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+2018-11-09 & 1.0 & Creation of first draft for presentation. \\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+See SRS Documentation at \wss{give url}
+
+\wss{Also add any additional symbols, abbreviations or acronyms}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+The following document details the Module Interface Specifications for
+SpecSearch. SpecSearch is scientific computing software that computes and plots 
+the spectrum of a matrix operator that appears in a LAX pair that is compatible 
+for solutions of the Non-Linear Schr\dots{o}dinger (NLS) equation. 
+Consequently, this spectrum carries useful information regarding the stability 
+of solutions to the NLS equation. Physicists are interested in this spectrum as 
+the NLS equation models many physical phenomena, such as rogue waves or 
+modulated wave packets. Mathematicans are interested in the analytical 
+behaviour of this spectrum. 
+
+Complementary documents include the System Requirement Specifications
+and Module Guide.  The full documentation and implementation can be
+found at \url{https://github.com/whitere123/CAS741_REW}.
+
+The purpose of this document is to describe the intended behaviour of the 
+access routines for SpecSearch's modules. In particular, mathematical notation 
+will be used to describe the input/output relationships and external behaviour 
+of the 
+modules. The MIS is still abstract since it does not cover implementation of 
+the modules and does not outline any code.  
+\section{Notation}
+
+The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+with the addition that template modules have been adapted from
+\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
+\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+multiple assignment statement and conditional rules follow the form $(c_1
+\Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
+
+The following table summarizes the primitive data types used by \progname. 
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\noindent 
+\begin{tabular}{l l p{7.5cm}} 
+\toprule 
+\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
+\midrule
+character & char & a single symbol or digit\\
+integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+complex & $\mathbb{C}$ &any number $x + iy$ with $x \in \mathbb{R}$ , $y \in 
+\mathbb{R}$ and $i^{2} = -1$. \\
+\bottomrule
+\end{tabular} 
+\end{center}
+
+\noindent
+The specification of \progname \ uses some derived data types: sequences, strings, and
+tuples. Sequences are lists filled with elements of the same data type. Strings
+are sequences of characters. Tuples contain a list of values, potentially of
+different types. In addition, \progname \ uses functions, which
+are defined by the data types of their inputs and outputs. Local functions are
+described by giving their type signature followed by their specification.
+
+\section{Module Decomposition}
+
+The following table is taken directly from the Module Guide document for this project.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Level 1} & \textbf{Level 2}\\
+\midrule
+
+{Hardware-Hiding} & ~ \\
+\midrule
+
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding} 
+& Input Parameters \\
+& Output Format \\
+& Spectrum Matrix \\
+& Exact Eigenvalue Equations \\
+& Spectrum Error Equation \\
+& Numerical Parameters \\  
+& Control \\ 
+\midrule
+
+\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
+& Eigenvalue and Eigenvector Solver \\
+& Diagonal Matrix Generator\\
+& Elliptic Integral\\ 
+& Elliptic Functions\\ 
+& Plotting \\ 
+& Linspace \\
+\bottomrule
+
+\end{tabular}
+\caption{Module Hierarchy}
+\label{TblMH}
+\end{table}
+
+\newpage
+
+\section{MIS of Input Parameters} \label{IPM} 
+
+The secrets of this module are the data structure for input parameters and 
+methods for verifying input. 
+
+\subsection{Module}
+
+InParams
+
+\subsection{Uses}
+
+-
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+\toprule
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Call\_params & $k : \mathbb{R}$ & - & NonNumericalError \\
+& $N : \mathbb{N}$ &  &  \\
+Verify\_params & - & - & BadkRange, BadNRange \\
+k & - & $\mathbb{R}$ & - \\
+N & - & $\mathbb{N}$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$k : \mathbb{R}$ \\ 
+$N : \mathbb{N}$ 
+
+\subsubsection{Environment Variables}
+
+InputParameters: The two values entered by the user. 
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item Call\_params is called before the values of any state variables will 
+	be accessed.
+	\item The user inputs the state variables in the following order: $(k,N)$
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent InParams.k():
+\begin{itemize}
+\item output: $out = k$
+\item exception: None
+\end{itemize}
+
+\noindent InParams.N():
+\begin{itemize}
+	\item output: $out = N$
+	\item exception: None
+\end{itemize}
+
+\noindent Call\_Params():
+\begin{itemize}
+	\item transition: The data is read sequentially from the command line. The 
+	data are seperated by the return key. This data is used to populate the 
+	previously mentioned state variables. 
+	\item exception: If non-numerical data is entered. 
+\end{itemize} 
+
+\noindent Verify\_Params():
+\begin{itemize}
+	\item exception: exc:=
+\end{itemize}  
+
+\noindent $\neg (k \in (0,1)) \Rightarrow \ $ BadkRange\\
+$\neg (N \in \mathbb{N}) \Rightarrow \ $ BadNRange
+
+\subsubsection{Local Functions}
+None
+\newpage
+
+\section{MIS of Output Format} 
+
+The secret of this module is the format and structure of the output data.
+
+\subsection{Module}
+
+OutForm
+
+\subsection{Uses}
+
+Eigenvalue solver, Spectrum Error Equations and Numerical Parameters. 
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		capture & $D_{j} :\mathbb{R}^{2n}$ & Spectrum & - \\ 
+		 & $Er_{j} :\mathbb{R}^{2}$ &  & - \\ 
+		 & $V_{j} :\mathbb{C}^{4nx4n}$ &  & - \\ 
+		 & $Vl_{j} :\mathbb{R}^{4n}$ & & - \\
+		Spectral & - & $\mathbb{C}^{4n(4n+2)}$ & - \\
+		D & - & $\mathbb{R}^{2n}$ & - \\
+		Er & - & $\mathbb{R}$ & - \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+The j refers to the $j^{th}$ numerical method. $j \in {O(1), O(4), cheb}$.   
+
+\subsubsection{State Variables}
+
+$Spectral_{j}$: $\mathbb{C}^{4n(4n+2)}$ \\
+$D_j \in \mathbb{R}^{2n}$ \\
+$Er_j \in \mathbb{R}^{2}$ \\  
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item Eigenvalue solver, Spectrum Error Equations and Numerical Parameters 
+	are called and their values are temporarily stored prior to OutForm.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent OutForm.Dj():
+\begin{itemize}
+	\item output: $out = D_{j}$
+	\item exception: None
+\end{itemize}
+
+\noindent OutForm.Erj():
+\begin{itemize}
+	\item output: $out = Er_{j}$
+	\item exception: None
+\end{itemize} 
+
+\noindent OutForm.Spectralj():
+\begin{itemize}
+	\item output: $out = Spectral_{j}$
+	\item exception: None
+\end{itemize}
+
+\noindent capture():
+\begin{itemize}
+	\item Transition: The data ($D_{j}$,$Er_{j}$,$V_{j}$,$Vl_{j}$) will be 
+	captured from the other 
+	modules and then stored into $Spectral$ for convienience. Spectral is a 
+	data 
+	structure with four cell components. The first four cells are
+	$4n$ by $4n + 1$ matrices created as follows: the $4n$ by $1$ vector of 
+	eigenvalues, $Vl_j$, will be transposed and turned into the $(4n+1)^{th}$ 
+	row 
+	of 
+	spectral. The previous $4n$ rows of spectral will be the matrix,$ V_j$, 
+	composed 
+	of the eigenvectors for the $j$ numerical method. Each column of $V_j$ is 
+	an eigenvector from the $j$ numerical method. D will be stored in Spectral 
+	as the fourth 
+	cell component.  
+	\item Exception: None
+\end{itemize}  
+
+\subsubsection{Local Functions}
+
+None
+
+\newpage
+\section{MIS of Spectrum Matrix} 
+
+The structure of the spectrum matrix, its data entries, how 
+it is created, and the numerical method for approximating its 
+eigenfunctions are the secrets of this module.  
+
+\subsection{Module}
+
+SpecMat
+
+\subsection{Uses}
+
+This module uses Numerical Parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		create & $n : \mathbb{N} $ &SpecMat01 & - \\ 
+		 & $h : \mathbb{R} $& SpecMat04 & - \\ 
+		 & $elipdn : \mathbb{R}^{2n} $ &SpecCheb & - \\ 
+		 & $k : \mathbb{R} $ & & - \\
+		SpecMatO1 & - & $\mathbb{R}^{4nx4n}$ & - \\
+		SpecMatO4 & - & $\mathbb{R}^{4nx4n}$ & - \\ 
+		SpecCheb & - & $\mathbb{R}^{4nx4n}$ & - \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$SpecCheb : \mathbb{R}^{4nx4n}$\\ 
+$SpecMat04 : \mathbb{R}^{4nx4n}$\\
+$SpecMat01 : \mathbb{R}^{4nx4n}$
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item All of the numerical parameters are calculated correctly and used as 
+	arguments in create. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+SpecMat.SpecMatO1:
+\begin{itemize}
+	\item output: out = SpecMatO1 
+	\item exception: None 
+\end{itemize}
+
+SpecMat.SpecMatO4:
+\begin{itemize}
+	\item output: out = SpecMatO4
+	\item exception: None
+\end{itemize}
+
+SpecMat.SpecFour:
+\begin{itemize}
+	\item output: out = SpecCheb 
+	\item exception: None
+\end{itemize}
+
+SpecMat.create():
+\begin{itemize}
+	\item transition: The data (n,h,elipdn,k) will be captured from the other 
+	modules and used to create the spectral matrices. There will be three 
+	instances of the spectral matrix. Each corresponds do a different numerical 
+	algorithm for approximating the eigenfunction derivatives. Top top left and 
+	bottom right sections of the matrices are diagonal matrices with elements 
+	equal to the elipdn function evaluated at points in the discretized domain. 
+	The remain parts of the matrix are coffecients such that when multiplied by 
+	the eigenfunctions will create the appropriate approximation of the 
+	derivatives. 
+	\item exception: None
+\end{itemize}
+
+\newpage
+
+\section{MIS of Exact Eigenvalue Equations} 
+
+The secrets of this module are the analytical expressions for the two real 
+eigenvalues. 
+
+\subsection{Module}
+
+TheorEigenValues
+
+\subsection{Uses}
+
+This module uses input parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		$\lambda_O1$ & $k \in \mathbb{R}$ & $\mathbb{R}$ & - \\
+		$\lambda_O2$ & $k \in \mathbb{R}$ & $\mathbb{R}$ & - \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item These are the eigenvalues computed from segal et al. Refer to (segal) 
+	for more details regarding assumptions.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+
+$lambda_O1$:
+\begin{itemize}
+	\item output: $\frac{1}{2} (1+\sqrt{1-k^{2}})$ 
+	\item exception: None
+\end{itemize}
+
+
+\noindent $lambda_O2$
+\begin{itemize} 
+	\item output: $\frac{1}{2} (1-\sqrt{1-k^{2}})$ 
+	\item exception: None
+\end{itemize}
+
+
+\newpage
+
+\section{MIS of Spectrum Error Equation} 
+
+The secret of this module is the equation for error between exact and 
+approximated eigenvalues.
+
+\subsection{Module}
+
+ErrCalc
+
+\subsection{Uses}
+
+This module uses Exact Eigenvalue equations and Eigenvalue solver. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{6cm} p{3cm} >{\raggedright\arraybackslash}p{3cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		$\lambda_O1$ & - & $\mathbb{R}$ & - \\
+		$\lambda_O2$ & - & $\mathbb{R}$ & - \\ 
+		$\lambda_C1$ & - & $\mathbb{R}$ & - \\
+		$\lambda_C2$ & - & $\mathbb{R}$ & - \\
+		$Err1$ & $\lambda_O1 : \mathbb{R}$ & $\mathbb{R}$ &- \\
+		 & $\lambda_C1 : \mathbb{R}$ &  &- \\
+		$Err2$ & $\lambda_C2 : \mathbb{R}$ & $\mathbb{R}$ &- \\
+		 & $\lambda_C2 : \mathbb{R}$ &  &- \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$\lambda_O1 : \mathbb{R}$ \\
+$\lambda_O2 : \mathbb{R}$ \\
+$\lambda_C1 : \mathbb{R}$ \\ 
+$\lambda_C2 : \mathbb{R}$
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item These are the eigenvalues computed from segal et al. Refer to (segal) 
+	for more details regarding assumptions.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+
+$Err1$:
+\begin{itemize}
+	\item output: $| \lambda_O1 - \lambda_C1| $ 
+	\item exception: None
+\end{itemize}
+
+
+\noindent $Err2$
+\begin{itemize} 
+	\item output: $| \lambda_O2 - \lambda_C2| $ 
+	\item exception: None
+\end{itemize} 
+
+\noindent $ErrCalc.\lambda_O1$:
+\begin{itemize}
+	\item output: out = $\lambda_O1$
+	\item exception: None 
+\end{itemize}
+
+\noindent $ErrCalc.lambda_O2$:
+\begin{itemize}
+	\item output: out = $\lambda_O2$
+	\item exception: None
+\end{itemize}
+
+\noindent $ErrCalc.\lambda_C1$:
+\begin{itemize}
+	\item output: out = $\lambda_C1$
+	\item exception: None
+\end{itemize}
+
+\noindent $ErrCalc.\lambda_C2$:
+\begin{itemize}
+	\item output: out = $\lambda_C2$ 
+	\item exception: None
+\end{itemize}
+
+\newpage 
+
+\section{MIS of Numerical Parameters} 
+
+The secrets of this module are the range of the eigenfunction domain, points in 
+the 
+periodic domain and equation for the numerical scaling factor that computes 
+the 
+eigenfunction derivatives. 
+
+\subsection{Module}
+
+Numpars
+
+\subsection{Uses}
+
+This module uses Elliptic Functions, Diagonal Matrix, linspace, Elliptic 
+Integral and input parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{7cm} >{\raggedright\arraybackslash}p{3cm}}
+		\toprule
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		CreateVars & $k :\mathbb{R}$ & 
+		$xend: \mathbb{R}$ & - \\ 
+		  &$N: \mathbb{N}$ & $Domain:\mathbb{R}^{2N}$ &  \\
+		  &  & $ellipj: \mathbb{R}^{2N}$ &  \\ 
+		  &  & $ellipMAT: \mathbb{R}^{2Nx2N}$ &  \\
+		xend & - & $\mathbb{R}$ & - \\
+		Domain & - & $\mathbb{R}^{2N}$ &- \\
+		ellipjdn & - & $\mathbb{R}^{2N}$ &- \\
+		ellipjMAT & - & $\mathbb{R}^{2Nx2N}$ &- \\
+		h & - & $\mathbb{R}$ & -\\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$k :\mathbb{R}$ \\  
+$Domain:\mathbb{R}^{2N}$ \\  
+$ellipj: \mathbb{R}^{2N}$ \\ 
+$ellipMAT: \mathbb{R}^{2Nx2N}$ \\  
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item Input parameters is called before Numerical parameters. 
+	\item Input parameters does not throw an exception. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+
+$Numpars.xend$:
+\begin{itemize}
+	\item output: $xend$ 
+	\item exception: None
+\end{itemize}
+
+
+\noindent $Numpars.Domain$
+\begin{itemize} 
+	\item output: $Domain$ 
+	\item exception: None
+\end{itemize} 
+
+\noindent $Numpars.ellipjdn$:
+\begin{itemize}
+	\item output: out = $ellipjdn$
+	\item exception: None 
+\end{itemize}
+
+\noindent $Numpars.ellipjMAT$:
+\begin{itemize}
+	\item output: out = $ellipjMAT$
+	\item exception: None
+\end{itemize}
+
+\noindent $Numpars.h$:
+\begin{itemize}
+	\item output: out = $h$ 
+	\item exception: None
+\end{itemize} 
+
+\noindent $Numpars.CreateVars$:
+\begin{itemize}
+	\item transition: The data $(N,k)$ will be captured from the input 
+	parameters and used to create the state variables. $k$ will be inputted as 
+	an argument into the elliptic integral module. The resulting integral is 
+	equal to $xend$. \\ 
+	The domain is created using linspace. The endpoint arguments of linspace 
+	are $-xend$ and $xend$, respectively. The distance between partition points 
+	in the resulting domain is $h=\frac{xend}{N}$. Ellipjdn is derived from 
+	from computing the ellipjdn value of each point in Domain. EllipjMAT is a 
+	diagonal matrix whose diagonal is Ellipjdn. 
+	\item exception: None
+\end{itemize}
+
+\newpage
+
+\section{MIS of Eigenvalue and Eigenvector Solver} 
+
+The secret of this module is the numerical algorithm for calculating the 
+eigenvalues and eigenvectors of an $n$ by $n$ matrix.
+
+\subsection{Module}
+
+eig (\url{https://www.mathworks.com/help/matlab/ref/eig.html})
+
+\subsection{Uses}
+
+This module uses Spectrum Matrix. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{4cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		solver & $A : \mathbb{C}^{nxn}$  & 
+		$\mathbb{C}^{n}$ x $\mathbb{R}^{nxn}$ & NotsquareMat \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item The input is a square matrix. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent eig():
+\begin{itemize}
+	\item output: out:= $\lambda$ and $\bar{v}$ such that:\\
+	$A\bar{v} = \lambda \bar{v}$ \\
+	$\bar{v} : \mathbb{C}^{n}$ and $\lambda : \mathbb{C}$\\
+	\item exception: exce:= $A \not\in \mathbb{R}^{nxn} \Rightarrow$ 
+	NotSquareMatrix 
+\end{itemize}
+
+\newpage
+
+\section{MIS of Diagonal Matrix} 
+
+The secrets of this module are the numerical algorithm for creating an $n$ by 
+$n$ diagonal 
+matrix from an $n$ by 1 vector and the numerical algorithm for creating an $n$ 
+by 1 vector from an $n$ by $n$ diagonal 
+matrix. 
+
+\subsection{Module}
+
+diag (\url{https://www.mathworks.com/help/matlab/ref/diag.html})
+
+\subsection{Uses}
+
+This module uses Numerical Parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{6cm} p{6cm} p{3cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		solver & $A :$ Diagonal $n$ by $n$ matrix  & $\mathbb{C}^{n}$ & 
+		NotDiagMat \\ 
+		solver & $v :\mathbb{C}^{n}$  & Diagonal $n$ by $n$ matrix & 
+		NotVector \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item The input is a square matrix or column vector.  
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent diag.solver():
+\begin{itemize}
+	\item output (if In=A): out:= v such that:\\
+	$A(j,j) = v(j)$ for j=1,2,...,n \\
+	\item exception (if In=A): exce:= $A \not\in (Diagonal Matrix) \Rightarrow$ 
+	NotSquareMatrix 
+	\item output (if In=v): out:= A such that:\\
+	$A(j,j) = v(j)$ for j=1,2,...,n and zero else. \\
+	\item exception (if In=v): exce:= $v \not\in \mathbb{C}^{n} \Rightarrow$ 
+	Not vector 
+\end{itemize}
+
+\newpage 
+
+\section{MIS of Elliptic Integral} 
+
+The secret of this module is the the numerical algorithm for calculating the 
+complete 
+elliptic integral for some real constant $k$.
+
+\subsection{Module}
+
+ellipK (\url{https://www.mathworks.com/help/symbolic/elliptick.html})
+
+\subsection{Uses}
+
+This module uses Numerical Parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{6cm} p{6cm} p{3cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		solver & $k : \mathbb{R}$ & $\mathbb{R}$ & 
+		NonNumeric \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item The argument is a real number. 
+	\item The user understands the physical context of the number k.  
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent ellipK.solver():
+\begin{itemize}
+	\item output : \\
+	$$ 
+	\int_{0}^{\frac{\pi}{2}} \frac{dx}{\sqrt{1-ksin^{2}(x)}}$$ \\
+	\item exception : exce:= $\neg(k\in \mathbb{R}) \Rightarrow$ 
+	NonNumeric
+\end{itemize}
+
+\newpage
+
+\section{MIS of Elliptic Functions} 
+
+The secret of this module is the the numerical algorithm for calculating the 
+values of the elliptic functions.
+
+\subsection{Module}
+
+ellipj (\url{https://www.mathworks.com/help/matlab/ref/ellipj.html})
+
+\subsection{Uses}
+
+This module uses Numerical Parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{6cm} p{6cm} p{3cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		solver & $X : \mathbb{R}^{n}$ & $\mathbb{R}^{3xn}$ & 
+		BadVal \\ 
+		 & $k : \mathbb{R}$ &  &  \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+None.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent ellipj.solver():
+\begin{itemize}
+	\item output : $Y: \mathbb{R}^{n}$ such that $Y(1,j)= sn(X(j),k)$, 
+	$Y(2,j)=cn(X(j),k)$ and $Y(3,j)=dn(X(j),k)$. See Module link for more 
+	detail regarding jacobi ellptic functions sn,dn and cn. 
+	\item exception : exce:= $\neg(X \in \mathbb{R}^{n}) \Rightarrow$ 
+	BadVal
+\end{itemize}
+
+\newpage 
+
+\section{MIS of Plotting} 
+
+The secret of this module is the plotting methods/algorithms. 
+
+\subsection{Module}
+
+plot (\url{https://www.mathworks.com/help/matlab/ref/plot.html})
+
+\subsection{Uses}
+
+This module uses Output. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{6cm} p{6cm} p{3cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		plot & $X : \mathbb{R}^{n}$ & graph(Y) & 
+		BadVal, DimensionErr \\ 
+		& $Y : \mathbb{R}^{n}$ &  &  \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+None.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent plot.plot():
+\begin{itemize}
+	\item Transition: Plot accepts two vectors as input. A figure is created 
+	with the following properties. The domain ranges from the minimum of X to 
+	the maximum of X. The range ranges from the minimum of Y to the maximum of 
+	Y. The pairs $(X(j),Y(j))$ for $j=1,2,...,n$ are plotted on a figure with 
+	respect to the aforementioned axes. 
+	\item exception : exce1:= $\neg(X,Y \in \mathbb{C}^{n}) \Rightarrow$ 
+	BadVal \\
+	exce2:= $\neg (dim(Y) = dim(X)) \Rightarrow$ DimensionErr \\
+\end{itemize}
+
+\newpage 
+
+\section{MIS of Linspace} 
+
+The secret of this module is the software algorithm for creating a vector with 
+equally spaced entries. 
+
+\subsection{Module}
+
+Linspace (\url{https://www.mathworks.com/help/matlab/ref/linspace.html})
+
+\subsection{Uses}
+
+This module uses Numerical Parameters. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{6cm} p{6cm} p{3cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		create & $a : \mathbb{R}$ & $\mathbb{R}^{c}$ & 
+		BadVal,notInt \\ 
+		& $b : \mathbb{R}$ &  &  \\  
+		& $c : \mathbb{N}$ &  &  \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+None.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent linspace.create():
+\begin{itemize}
+	\item output : $X \in \mathbb{R}^{c}$ such that X(1)=a, X(n)=b and 
+	$|x(k)-x(k-1)|=\frac{b-a}{n-1}$ for $k \in {2,3,4,..,n}$. 
+	\item exception : exce:= $\neg(c \in \mathbb{N}) \Rightarrow$ 
+	notInt 
+	\item exception : exce:= $\neg(a: \mathbb{R}) \Rightarrow$ BadVal 
+	\item exception : exce:= $\neg(b: \mathbb{R}) \Rightarrow$ BadVal
+\end{itemize}
+
+\newpage 
+
+\section{MIS of Control} 
+
+The secret of this module is the algorithm that coordinates the overall program 
+and 
+interaction between modules.
+
+\subsection{Module}
+
+Main
+
+\subsection{Uses}
+
+This module uses Input Parameters, Numerical Parameters, Spectrum Matrix, 
+Eigenvalue solver, Spectrum Error , Output and plotting.
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{6cm} p{6cm} p{3cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		main & - & - & - \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+None.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent main():
+\begin{itemize}
+	\item transition: This function controls the running of the scientific 
+	software. First, input is taken from the user. This input is used to create 
+	useful numerical parameters that will drive the rest of the calculations. 
+	The input is brought to the numerical parameters module where useful 
+	constants, matrices and elliptic function values are calculated. The state 
+	variables from Numerical parameters are used as arguments in Spectrum 
+	Matrix. The spectrum (eigenvalues) can be calculated once the spectrum 
+	matrix is created. These eigenvalues are plotted and their deviation from 
+	theoretical values are computed (err modules). 
+\end{itemize}
+
+\newpage 
+
+
+\bibliographystyle {plainnat}
+\bibliography {../../../ReferenceMaterial/References}
+
+\newpage
+
+\section{Appendix} \label{Appendix}
+
+\wss{Extra information if required}
+
+\end{document}
