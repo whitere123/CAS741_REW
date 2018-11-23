@@ -106,12 +106,14 @@ See SRS Documentation at \url{https://github.com/whitere123/CAS741_REW}.
 
 The following document details the Module Interface Specifications for
 SpecSearch. It will describe the intended behaviour of the 
-access routines from SpecSearch's modules. Mathematical notation 
-will be used to detail the input/output relationships and external behaviour 
-of the modules. The MIS is still abstract since it does not outline any code. 
+access routines in SpecSearch's modules. Mathematical notation 
+will be used to explain the external 
+behaviour 
+of the modules and the relationships between input and output. The MIS is still 
+abstract since it does not outline any code. 
 
 SpecSearch is scientific computing software that computes and plots 
-the spectrum of a matrix operator that appears in a LAX pair that is compatible 
+the spectrum of a matrix operator from a LAX pair that is compatible 
 for solutions of the Non-Linear Schr\"{o}dinger (NLS) equation. 
 This spectrum carries useful information regarding the stability 
 of solutions to the NLS equation. Physicists are interested in this spectrum 
@@ -365,7 +367,7 @@ None.
 
 \noindent capture():
 \begin{itemize}
-	\item Transition: The data ($D_{j}$,$Er_{j}$,$V_{j}$,$Vl_{j}$) will be 
+	\item Transition: The data ($D$,$Er_{j}$,$V_{j}$,$Vl_{j}$) will be 
 	captured from the other 
 	modules and then stored into $Spectral$ for convienience. Spectral is a 
 	data 
@@ -654,7 +656,8 @@ ErrCalc
 
 \subsection{Uses}
 
-This module uses Exact Eigenvalue equations \ref{SEE} and Eigenvalue solver 
+This module uses Exact Eigenvalue equations \ref{SEE} and Eigenvalue and 
+Eigenvector solver 
 \ref{SEES}. 
 
 \subsection{Syntax}
