@@ -11,13 +11,14 @@
     urlcolor=blue
 }
 
-%\usepackage[round]{natbib}
+\usepackage[round]{natbib}
 
-\input{../../Comments} %why was this line changed from the template?
+\input{../../Comments}
+\input{../../Common}
 
 \begin{document}
 
-\title{SpecSearch: System Verification and Validation Plan} 
+\title{\progname: System Verification and Validation Plan} 
 \author{Robert White}
 \date{\today}
 	
@@ -37,6 +38,8 @@ submission. \\
 2018-10-22 & 1.2 & Edit of 1.1. Removed comments, updated test cases, added 
 references, improved writing and added test-NFR2c. \\ 
 2018-10-23 & 1.3 & Edit of 1.2. Minor corrections and revisions. \\
+2018-11-28 & 1.4 & Edit of 1.3. First wave of corrections for final 
+documenation.\\
 \bottomrule
 \end{tabularx}
 
@@ -55,7 +58,9 @@ references, improved writing and added test-NFR2c. \\
   \bottomrule
 \end{tabular}\\
 
-Refer to the SRS Symbols, Abbreviations and Acronyms for a more complete list.  
+Refer to the SRS Symbols, Abbreviations and Acronyms for a more 
+complete list (\cite{SRS}) \url{https://github.com/whitere123/CAS741_REW}. 
+
 
 \newpage
 
@@ -70,9 +75,10 @@ Refer to the SRS Symbols, Abbreviations and Acronyms for a more complete list.
 \pagenumbering{arabic}
 
 This document discusses the verification and validation requirements for 
-SpecSearch. The Project Management Body of Knowledge (PMBOK) guide provides 
-unambigious definitions for verification and validation [Project Management 
-Institute, 2017]. \wss{Use BibTeX; it will make your work much easier} PMBOK defines 
+\progname. The Project Management Body of Knowledge (PMBOK) guide 
+provides 
+unambigious definitions for verification and validation (\cite{PMBOK}). PMBOK 
+defines 
 verification as ``the evaluation of whether or not a product, service, or 
 system 
 complies with a regulation, requirement, specification, or imposed condition. 
@@ -81,44 +87,39 @@ It is often an internal process." \\
 PMBOK defines validation as ``the assurance that 
 a product, service, or system meets the needs of the customer and other 
 identified stakeholders. It often involves acceptance and suitability with 
-external customers" [Project Management Institute, 2017]. After reading this 
+external customers" (\cite{PMBOK}). After reading this 
 document one should be able to create and run test cases to verify and validate 
-SpecSearch. 
+\progname. 
 
 \section{General Information}
 
 \subsection{Summary}
 \label{Summary} 
 
-The software that is going to be tested is called SpecSearch. SpeacSearch
-\wss{proof read} will 
+The software that is going to be tested is called \progname. \progname \ will 
 search for the 
 spectrum (set of eigenvalues) of a particular lax equation from a lax pair that 
-is compatbilible \wss{spell check}
-with solutions to the Non-Linear Schr\"{o}dinger (NLS) Equation. SpecSearch 
-will 
-also use 
-the spectral information to determine the stability of the solutions. Refer to 
-the 
-instance models in the SRS for more details.
+is compatible 
+with solutions to the Non-Linear Schr\"{o}dinger (NLS) Equation. \progname \
+will also use the spectral information to determine the stability of the 
+solutions. Refer to the 
+instance models in the (\cite{SRS}) for more details.
 \subsection{Objectives}
 \label{Objectives}
-	The qualities that are most important for SpecSearch are highlighted in 
-	this section. Many of these qualities are also presented in the SRS. \\
+	The qualities that are most important for \progname \ are highlighted in 
+	this section. Many of these qualities are also presented in the 
+	(\cite{SRS}). \\
 	
-	My supervisor, Dr. Dmitry Pelinovsky, \wss{\LaTeX{} has a rule that it
-          inserts two spaces at the end of a sentence.  It detects a sentence as
-          a period followed by a capital letter.  This comes up, for instance,
-          with Dr. Pelinovsky.  Since the period after Dr.\ isn't actually the
-          end of a sentence, you need to tell \LaTeX{} to insert one space.  You
-          do this either by Dr.\ Pelinovsky (if you don't mind a line-break
-          between Dr.\ and Pelinovsky), or Dr.~Pelinovsky (to force \LaTeX{} to
-          not insert a line break).} and me intend to use this program as a tool
-        to search for the continuous spectrum of the previously mentioned
-        spectral problem.  SpecSearch will only provide the approximate location
-        of the spectrum and a finite number of elements in the spectrum.  We
-        will use this output as a guide in analytically solving for the entire
-        continuous spectrum.  Therefore, the
+	My supervisor, Dr$.$ Dmitry Pelinovsky, and me intend to use this program 
+	as 
+	a tool to search for the 
+	continuous spectrum of the previously mentioned spectral problem. 
+	\progname \
+	will only provide the approximate 
+	location of the spectrum and a finite number of elements in the spectrum. 	
+	We will 
+	use this output as a guide in analytically solving for the 
+	entire continuous spectrum.  Therefore, the 
 	code should be reliable and accurate within my supervisor's standards. \\
 	% An unreliable and inaccurate output will provide a misleading direction 
 	%for the next stage of our research. 
@@ -127,12 +128,11 @@ instance models in the SRS for more details.
 	derivatives of the eigenfunctions [Graselli and Pelinovksy, 2007]. My 
 	supervisor and me intend to experiment with these different 
 	methods in an attempt to create a more accurate picture of the spectrum. 
-	Therefore, it is important that SpecSeach \wss{proof read - better yet,
-          use the progname command from the SRS} is maintainable and 
+	Therefore, it is important that \progname \ is maintainable and 
 	manageable. \\
 	% This will allow for easy implementation of new algorithms.
 	
-	 SpecSearch will also be used by a team of researchers studying rogue 
+	 \progname \ will also be used by a team of researchers studying rogue 
 	 waves. These users may not have a strong software 
 	 developing background. Therefore, it is important that the code is easy to 
 	 use and has a simple user interface. \\
@@ -144,35 +144,39 @@ instance models in the SRS for more details.
 	\item Build confidence in software correctness.
 	\item Ensure maintainability and manageability 
 	\item Satisfy the requirements of my thesis supervisor and those outlined 
-	in the SRS. 
+	in the SRS (\cite{SRS}). 
 	\item Verify usability.	
 \end{itemize}
 
 \subsection{References}
 \label{REF1}
-
-\wss{You should explain te purpose behind any reference, not just list them.  An
-  important reference is missing.  You should list your SRS and give a link to
-  the project GitHub page.}
-
+The following reference will be used to build confidence in software 
+correctness. This research papers explores the same spectrum that my supervisor 
+and I are studying. They were successful at analytically finding the set of 
+eigenvalues for particular boundary conditions. These eigenvalues will be 
+plotted alongside our numerical spectrum. These theoretical results define the 
+standard of our software correctness. Our confidence in software correctness 
+will be higher if our spectrum overlaps with these theorectical results. 
 \begin{itemize} 
-
-	\item 	Bernard Deconinck and Benjamin L.Segal. 
+	\item 	Bernard Deconinck and Benjamin L.Segal (\cite{SegaletAl}) 
 	The stability spectrum for elliptic solutions to the focusing NLS equation. 
 	PhysicaD, 2017.  
-	\item Robert White. System Requirements Specification for SpecSearch. 
-	Github, 2018.
-	\item Matheus Grasselli and Dmitry Pelinovsky. Numerical Mathematics. Jones 
-	and Bartlett Learning, 2007.
-	
-\end{itemize}
+\end{itemize} 
+The following reference will be frequently mentioned in this document. The 
+test cases outlined in this document are meant to test the necessary qualities 
+and requirements outlined in the SRS (\cite{SRS}). 
+\begin{itemize}
+	\item Robert White. System Requirements Specification for SpecSearch 
+	(\cite{SRS}). 
+	Github, 2018. 
+\end{itemize}  
 
 \section{Plan}
 	 
 \subsection{Verification and Validation Team}
 \label{VnVTeam}
 The verification and validation team consists of my thesis supervisor, Dr. 
-Dmitry Pelinovsky, and me. \wss{You should give your name here.}\\
+Dmitry Pelinovsky and me, Robert White. \\
 
 \subsection{SRS Verification Plan}
 \label{SRSVerPlan}
@@ -180,125 +184,161 @@ The SRS verification plan consists of feedback from Dr. Dmitry Pelinovsky
 (supervisor), Dr. Spencer Smith and CAS 741 classmates. My supervisor will 
 provide feedback regarding mathematical theory, model assumptions, constraints 
 and research goals. Feedback from classmates and Dr. Smith will criticize the 
-document outline, readability and requirements. \wss{You can be more specific
-  about the names of your colleagues, since they are given in the Repos.xlsx
-  file for all reviews.}
+document outline, readability and requirements. In particular, the contents of 
+this document will be reviewed by Jennifer Garner 
+\url{https://github.com/PeaWagon/Kaplan}. 
 
 \subsection{Design Verification Plan}
 \label{DesignVerificationPlan}
 The design verification plan will simply involve inspection of the software by 
-my thesis supervisor.  \wss{What about the inspection by myself and your classmates?}
+my thesis supervisor, Dr$.$ Smith and CAS 741 classmates.  
 
 \subsection{Implementation Verification Plan}
 \label{ImplementationVerPlan}
-The implementation verification plan consists of two parts. The first part 
+The implementation verification plan consists of three parts. The first part 
 is a software verification checklist. The checklist will be completed by 
-researchers , Dr. Pelinovksy \wss{proof read} and me. The 
-checklist verifies that basic software features have been implemented 
-successfully. 
-For example, it checks if the user was able to fufill \wss{spell check} their responsibilities 
-outlined in the SRS. 
-This checklist can be found in the ~\ref{softwarevercheck}.\\ \wss{great to see
-  a checklist being proposed.}
+researchers, Dr$.$ Pelinovsky and me. The checklist verifies that basic 
+software features have been implemented successfully. 
+For example, it checks if the user was able to fulfill their responsibilities 
+outlined in the SRS (\cite{SRS}). 
+This checklist can be found in the ~\ref{softwarevercheck}.\\
 
- The 
-second part involves running the software tests 
-outlined in sections 5 and 6. Unit testing will also be performed. 
+ The second part involves running the software tests outlined in sections 5 and 
+ 6. Unit testing will also be performed. \\
+ 
+The third part is summarized as follows: 
+ \label{staticVertech}
+ \begin{itemize}
+ 	\item Code inspection : I will 
+ 	go through the code to see if each part is correct with respect to the
+ 	mathematical theory. In particular I will ensure that: 
+ 	\begin{itemize}
+ 		\item Variables are being used in the right context. 
+ 		\item Functions from other packages are being used in the right 
+ 		context. Some packages have different standards for 
+ 		constants. For instance, one of the complete elliptic integral 
+ 		functions in MATLAB does not square the inputted variable. Theoretical 
+ 		convention dictates that this constant should be squared. 
+ 		\item The dimensions of the vectors and matrices are appropriate. For 
+ 		example, multiplication of row with column versus column with row.
+ 		\item Equations are translated correctly into MATLAB syntax.  
+ 	\end{itemize} 
+ 	\item Supervisor Inspection: My supervisor and me will go through the code 
+ 	together to ensure that: 
+ 	\begin{itemize}
+ 		\item I correctly implemented the mathematical theory and numerical 
+ 		algorithms.
+ 		\item I made the code manageable and maintainable for future use.
+ 	\end{itemize} 
+ 	
+ 	\item Linter: A linter is a program that checks the source code for 
+ 	programmatic and stylistic errors
+ \end{itemize}
 
 \subsection{Software Validation Plan}
 \label{SoftwareValidationPlan}
-This section does not apply to SpecSearch. \wss{You should say why not.}
+The first reference in \ref{REF1} will be used to validate \progname. The 
+boundary value inputs from this will be checked against the output of 
+\progname. This test is outlined in test-find of \ref{Rfind}. 
 
+\newpage
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
 \label{FRtests}
 \begin{enumerate}
-\item{test-Rin1\\}	
+\item{test-Rin1NonNumeric\\}	
 				
 Initial State: -
 					
 Input: Table ~\ref{Table:D_11} in ~\ref{datainput}.
 					
-Output: Error or pass message. \wss{You put your expected output here.  There
-  shouldn't be an or for a deterministic system.}
+Output: Exception (Non-Numeric)
 					
-How test will be performed: Combinations of inputing non-numerical values as 
-input  (such as letters), or numerical values outside of their respective 
-constraints, will be considered. A successful test in these instances will be 
-an error message. \\
-I will also test cases with each variable in the input having an 
-acceptable numerical value. A successful test in these cases will be a pass 
-message. \wss{You actually need a separate test for every error input error case
-  you want to test.  You cannot summarize all of the tests like this.  The good
-  news is that you can build a table that lists many tests.  All you need to do
-  is show what input varies between each test and show the expected output for
-  that test.}
-					
-\item{test-Rfind1} 
+How test will be performed: Combinations of inputing non-numerical values for 
+different 
+inputs  (such as strings) will be considered. A non-numerical value is denoted 
+by 'X' in \ref{Table:D_11}. These tests should catch an exception. 'X' can 
+only be a string, character or vector of dimension greater than 2. Failure to 
+type in enough information or writing undefined symbols is covered by MATLAB's 
+built in exception handler.\\
 
-Initial State: - 
-
-Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
-
-Output: Size of spectrum array \wss{It looks like you are talking about more
-  than one test again. For specific inputs that you get to pick, can't you say
-  what the size should be?}
-
-How the test will be performed: Passing inputs from test-Rin1 should produce 
-$4n$ eigenvalues. Unsuccessful cases 
-from test-Rin1 should produce no eigenvalue array 
-or an empty eigenvalue array. We are not testing for accuracy in this test.
-
-\item{test-Rcon1} 
+\item{test-Rin1kBounds\\}	
 
 Initial State: -
 
-Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
+Input: I1 to I9 of Table ~\ref{Table:D_12} in ~\ref{datainput}.
 
-Output: Approximated Spectrum (Connected or disconnected)
+Output: Exception (k out of constraint).
 
-How test will be performed: This test will check to see if there is a 
-sufficient number of points between the tagged portions of the spectrum. Tagged 
-portions are the explicitly calculated eigenvalues from the previous test. The 
-spectrum array should have $2*m-1$ approximated values between these ``tagged 
-portions", where m is the scaling parameter. 
-Failed test cases from test-Rin1 should have no data for this section. 
-We are not testing for accuracy in this test.\\
- The scaling parameter has not 
-been studied yet. It will be incorporated in the final draft of the documents.
+How test will be performed: Variations of k being out of its respective bound 
+will be considered in each test. I will test negative k values, values larger 
+than 1 and the endpoints of the constraint set. I will also test k values 
+approaching the endpoints. The variable k should be contained in $(0,1)$ (see 
+SRS for more details (\cite{SRS})). A successful test will involve catching 
+an exception. This test is ensuring that Rin is satisfied (\cite{SRS}).\\ 
+
+\item{test-Rin1NBounds\\}	
+
+Initial State: -
+
+Input: I10 to I14 of Table ~\ref{Table:D_12} in ~\ref{datainput}.
+
+Output: Exception (N out of constraint).
+
+How test will be performed: Variations of N being out of its respective bound 
+will be considered in each test. I will test fractions and negative numbers. 
+The variable N should be a natural number. A successful test will involve 
+catching an exception. This test is ensuring that Rin is satisfied 
+(\cite{SRS}). \\  
+
+\item{test-Rin1PBounds\\}	
+
+Initial State: -
+
+Input: I15 to I18 of Table ~\ref{Table:D_12} in ~\ref{datainput}.
+
+Output: Exception (P out of constraint).
+
+How test will be performed: Variations of P being out of its respective bound 
+will be considered in each test. I will test 0, unallowable positive numbers, 
+and negative numbers. The variable P 
+can only be 2 or 4. A successful test will involve catching an exception. This 
+test is ensuring that Rin is satisfied (\cite{SRS}). \\
+					
+\item{test-Rfind-Rin\\} 
+\label{Rfind}
+Initial State: - 
+
+Input: Table ~\ref{Table:D_13} in ~\ref{datainput}
+
+Output: $4N$
+
+How the test will be performed: $4N$ eigenvalues should be returned. Having 
+this many eigenvalues is evidence that Rfind is being satisfied (\cite{SRS}). 
+This 
+test is also checking whether or not the code ran smoothly when given inputs 
+within their constraints. Eigenvalues are only calculated when the other 
+modules do not throw exceptions. Therefore, the functional requirement Rin is 
+also being validated (\cite{SRS}). \\
 
 \item{test-Rplt} 
 
 Initial State: -
 
-Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
+Input: Table ~\ref{Table:D_13} in ~\ref{datainput} .
 
 Output: A plot of the spectrum.
 
-How test will be performed: This will involve visual inspection by my 
-supervisor to see if the spectrum plot is adequate. \\
-There should be no plot for the failed test cases in test-Rin1. 
-
-\item{test-Rstl} 
-
-Initial State: -
-
-Input: Table ~\ref{Table:D_11} in ~\ref{datainput} (Similar to test-Rin1).
-
-Output: Binary Variable (Verification of stability) 
-
-How test will be performed: The stability results will be compared with the 
-stability analysis in [Deconinck and Segal, 2017].  My supervisor 
-and me are still working on test cases for Rstl.Test-Rstl will be updated in 
-the final draft of the documents.  \wss{This looks like a good test case.  You
-  should also work out what you mean by comparing the results.  Are you just
-  comparing a Boolean value, or are there other measures being compared?}
+How test will be performed: Numerical parameters within their respective 
+constraints will be inputted into \progname. The program should run smoothly 
+and generate six plots; a cn and dn spectrum for each of the three numerical 
+algorithms. This test will involve visual 
+inspection by my supervisor to see if the spectrum plots are adequate. This 
+test is ensuring that the functional requirement Rplt is satisfied.  \\
+ 
 
 \end{enumerate}
-
-\wss{Your tests are not specific enough.  There should be one set of inputs for
-  each test and one expected output.}
 
 \subsection{Tests for Nonfunctional Requirements}
 \label{NFRtests}
@@ -313,47 +353,39 @@ Initial State: -
 Input/Condition: SpecSearch MATLAB code
 					
 How test will be performed: The software will be manually read by Dr. 
-Pelinovksy \wss{proof read} and I to see if there is a more effective code structure to allow 
-implementation of new numerical algorithms.  \wss{What nonfunctional requirement
-  is this test testing?  Reference your SRS and remind the reader which quality
-  you are investigating.}
+Pelinovsky and I to see if there is a more effective code structure to allow 
+implementation of new numerical algorithms. The purpose of this test is to 
+ensure that the code is maintainable and manageable. This is related NFR1 in 
+the 
+SRS (\cite{SRS}). 
 
-\item{test-NFR2a\\} 
+\item{test-NFR2\\} 
 
 Type: Manual 
 
 Initial State: -
 
-Input: Integer n (same as test-Rin1).
+Input: Table ~\ref{Table:D_13} in ~\ref{datainput} .
 
-Output: Operator Matrix.
+Output: Six Spectrum plots.
 
-How test will be performed: Test-NFR2a will check if the operator matrix is of 
-the correct form. See~\ref{matrixform} for more detail. The values from table 
-2 
-will be used to inspect A1.   \\
+How test will be performed: The numerically calculated eigenvalues from 
+\progname will be expressed as unfilled circles on a complex plane. Four 
+theoretical eigenvalues from (segal et al) will be plotted their appropriate 
+figure. These theoretical eigenvalues will be denoted by an asterix. My 
+supervisor will inspect these plots to see if the \progname is accurate. This 
+is related to NFR2 in the SRS (\cite{SRS}). The theoretical eigenvalues should 
+lie 
+within the circles. \\ 
 
-\item{test-NFR2b\\} \wss{You can generate test numbers automatically with \LaTeX{}}
-
-Type: Manual \wss{Why is this manual?}
-
-Initial State: -
-
-Input: Table 2 in ~\ref{datainput} (Similar to test-Rin1). 
-
-Output: Spectrum.
-
-How test will be performed: The output will be tested against the boundary 
-value eigen-values derived analytically in Deconinck and Segal. See details 
-below Table 2 of ~\ref{datainput}.\\ 
-
-\item{test-NFR2c\\} 
+\item{test-UserPerformance\\} 
 
 Type: Usability Survey (see ~\ref{UsabilitySurvey}) 
 
 How test will be performed: The survey will be administered to the future users 
 of SpecSearch. Feedback from the survey will be considered when updating 
-SpecSearch. The survey is in~\ref{UsabilitySurvey}. 
+SpecSearch. The survey is in ~\ref{UsabilitySurvey}. This test is also related 
+to NFR2. 
 
 \end{enumerate}
 
@@ -364,104 +396,64 @@ SpecSearch. The survey is in~\ref{UsabilitySurvey}.
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 		\hline        
-		& Rin& Rfind & Rcon & Rplt & Rstl & NFR1 & NFR2 \\
+		& Rin& Rfind & Rplt & NFR1 & NFR2 \\
 		\hline
-		test-Rin     &X & & & & & &  \\ \hline
-		test-Rfind    & &X & & & & &  \\ \hline
-		test-Rcon    & & &X & & & & \\ \hline 
-		test-Rplt    & & & &X & & &   \\ \hline 
-		test-Rstl    & & & & &X & &   \\ \hline 
-		test-NFR1    & & & & & &X &   \\ \hline 
-		test-NFR2a  & & & & & & &X   \\ \hline 
-		test-NFR2b  & & & & & & &X   \\ \hline 
-		test-NFR2c  & & & & & & &X \\
+		test-Rin1NonNumeric     &X & & & &  \\ \hline
+		test-Rin1kBounds    & X& & & &   \\ \hline
+		test-Rin1NBounds    &X & & & &  \\ \hline 
+		test-Rin1PBounds    &X & & & &    \\ \hline 
+		test-RFind-Rin    &X &X & & &   \\ \hline 
+		test-Rplt    & & &X & &    \\ \hline 
+		test-NFR1  & & & &X &   \\ \hline 
+		test-NFR2  & & & & &X    \\ \hline 
+		test-UserPerformance  & & & & &X  \\
 		\hline
 	\end{tabular}\\
 	\caption{Traceability Between Test }
 	\label{Table:D_1}
 \end{table} 
+				
 
+\clearpage
+\bibliographystyle {plainnat}
+\bibliography {../../../ReferenceMaterial/References} 
 
-\section{Static Verification Techniques}
-\label{staticVertech}
-\begin{itemize}
-	\item Code inspection : I will 
-	go through the code to see if each part is correct with respect to the
-	mathematical theory. In particular I will ensure that: 
-	\begin{itemize}
-		\item Variables are being used in the right context. 
-		\item Functions from other packages are being used in the right 
-		context. Some packages have different standards for 
-		constants. For instance, one of the complete elliptic integral 
-		functions in MATLAB does not square the inputted variable. Theoretical 
-		convention dictates that this constant should be squared. 
-		\item The dimensions of the vectors and matrices are appropriate. For 
-		example, multiplication of row with column versus column with row.
-		\item Equations are translated correctly into MATLAB syntax.  
-	\end{itemize} 
-	\item Code walkthrough: My supervisor and me will go through the code 
-	together to ensure that: 
-	\begin{itemize}
-		\item I correctly implemented the mathematical theory and numerical 
-		algorithms.
-		\item I made the code manageable and maintainable for future use.
-	\end{itemize} 
-
-	\item Linter: A linter is a program that checks the source code for 
-	programmatic and stylistic errors
-\end{itemize}
-
-\wss{You can remove this section and move the contents to the implementation
-  verification plan.  I like that you are proposing inspection and
-  walkthroughs.  If you are going to use the term walkthrough you should
-  reference the specific steps you are going to follow.  A walkthrough is
-  actually a rigorous set of steps.  You can do a simplified version, but if
-  what you intend is just a meeting with your supervisor to discuss the code,
-  you shouldn't call it a walkthrough.}
-
-\bibliographystyle{plainnat}
-
-\newpage 
-\begin{thebibliography}{9} 
-	\bibitem{latexcompanion} 
-	Project Management Institute. 
-	A Guide to the Project Management Body of Knowledge (PMBOK Guide)–Sixth 
-	Edition. 
-	Project Management Institute, 2017. 
+%\begin{thebibliography}{9} 
+%	\bibitem{latexcompanion} 
+%	Project Management Institute. 
+%	A Guide to the Project Management Body of Knowledge (PMBOK Guide)–Sixth 
+%	Edition. 
+%	Project Management Institute, 2017. 
+%	
+%	\bibitem{latexcompanion} 
+%	Caswell and Johnston. 
+%%	University of Calary. 2017. 
 	
-	\bibitem{latexcompanion} 
-	Caswell and Johnston. 
-	Design Verification. 
-	University of Calary. 2017. 
-	
-	\bibitem{latexcompanion} 
-	Bernard Deconinck and Benjamin L.Segal. 
-	The stability spectrum for elliptic solutions to the focusing NLS equation. 
-	PhysicaD, 2017. 
+%	\bibitem{latexcompanion} 
+%	Bernard Deconinck and Benjamin L.Segal. 
+%	The stability spectrum for elliptic solutions to the focusing NLS equation. 
+%	PhysicaD, 2017. 
 	 
-	\bibitem{latexcompanion} 
-	Robert White. 
-	System Requirements Specification for SpecSearch. 
-	Github, 2018. 
+%	\bibitem{latexcompanion} 
+%	Robert White. 
+%	System Requirements Specification for SpecSearch. 
+%	Github, 2018. 
 	
-	\bibitem{latexcompanion} 
-	Matheus Grasselli and Dmitry Pelinovsky. 
-	Numerical Methods. 
-	Jones and Bartlett Learning; 1 edition, Aug. 13 2007
+%	\bibitem{latexcompanion} 
+%	Numerical Methods. 
+%	Jones and Bartlett Learning; 1 edition, Aug. 13 2007
 	
-\end{thebibliography} 
+%\end{thebibliography} 
 
 \newpage
 
 \section{Appendix}
 
-\subsection{Symbolic Parameters}
-\label{SymbolicParameters} 
 \subsection{Usability Survey Questions}
 \label{UsabilitySurvey}
 \begin{itemize}
 	\item How long did it take before you could run the software? How many 
-	attempts at running SpecSeach \wss{proof read} did it take before you understood how to 
+	attempts at running SpecSeach did it take before you understood how to 
 	properly use it and interpret the output?
 	\item Was this program useful for your research and were you able to 
 	interpret the results? 
@@ -475,109 +467,106 @@ SpecSearch. The survey is in~\ref{UsabilitySurvey}.
 \newpage
 \subsection{Data Input Tables} 
 \label{datainput}
-The following data table is for test-Rin1. An ``X" indicates no-input or 
-incorrect input. Incorrect input is anything that is non-numerical (i.e. 
-letters 
-or symbols). 
+The following data tables list the inputs and expected outputs for the 
+functional requirements test \ref{FRtests}. Table \ref{Table:D_11} consists of 
+inputs with non-numerical values. A non-numerical value is either a string, 
+character or 2+ dimensional vector. Table \ref{Table:D_12} lists inputs with 
+one of the values being out of their respective constraint set. Table 
+\ref{Table:D_13} is a list of inputs for which no exception is thrown. Each of 
+these test cases should produce six plots and $4N$ eigenvalues. 
 
 \begin{table}[h!]
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 		\hline        
-		Input ID& $a$ & $b$ & $k$ & $n$ & Result \\
+		Input ID& k& N & P & Result \\
 		\hline
-		I1     &1 &1 &0.9 &100 & Pass \\ \hline
-		I2    &X &1 &0.9 &10 & Error \\ \hline
-		I3    &1 &X &0.9 &100 & Error\\ \hline 
-		I4    &1 &1 &X &100 &Error \\ \hline 
-		I5     &1 &1 &0.9 &X &Error \\ \hline
-		I6    &1 &1 &1 & 1.2& Error\\ \hline
-		I7    &1 &1 &1.2 & 100&Error\\ \hline 
-		I8    &1 &-1 &0.9 &100& Error \\ \hline
-		I9     &-1 &2 &0.9 &100 & Pass \\ \hline
-		I10    &1 &2 &0.99 &100 & Pass\\ \hline
-		I11    &1 &3 &0.99 &500 & Pass \\ \hline 
-		I13   &1 &1 &0 &150 & Pass  \\ \hline
-		I14     &-1 &2 &0.9 &330 & Pass \\ \hline
-		I15    &1 &1 &0.99 &170 & Pass\\ \hline
-		I16    &1 &5 &0.999 &590 & Pass \\ \hline 
-		I17   &1 &1 &0 &200 & Pass  \\ 
+		I1    &X &X &X & Error \\ \hline
+		I2    &X &30 &2 & Error\\ \hline 
+		I3    &X &X &2 &Error \\ \hline 
+		I4     &X &100 &X &Error \\ \hline
+		I5     &0.5 &X & 2& Error\\ \hline
+		I6    &0.8 &X &X & Error  \\ \hline
+		I7      &X &X &4 & Error \\ \hline
+		I8     &X &1000 &X & Error \\ \hline
+		I9     &0.99 &X &X & Error \\ \hline 
+		I10    &0.6 &250 &X & Error \\ 
 		\hline
 	\end{tabular}\\
-	\caption{Prescribed input for testing Rin}
+	\caption{Combinations of non-numerical input}
 	\label{Table:D_11}
 \end{table} 
 
-The following table outlines the boundary value test cases that can be verified 
-from previous literature. A 'V' means that the parameter is free to vary.
 \begin{table}[h!]
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 		\hline        
-		Boundary ID& a& b& k  \\
+		Input ID& k& N & P & Result \\
 		\hline
-		B1     &$\sqrt{b}$ &$a^{2}$ &V    \\ \hline
-		B2    &$\sqrt{\frac{b}{k^{2}}}$ &$a^{2}k^{2}$ &V   \\ \hline
-		B3    &V &V &0  \\ 
+		I1     &1 &100 &2 & Error \\ \hline
+		I2     &0 &100 &4 & Error\\ \hline 
+		I3     &-10 &50 &2 &Error \\ \hline 
+		I4      &-55 &200 &4 &Error \\ \hline
+		I5     &2 &150 & 2& Error\\ \hline
+		I6     &1.0001 & 100 &2 & Error \\ \hline
+		I7     &-0.001 & 200 &4 & Error\\ \hline 
+		I8     &1.01 & 200 &2 &Error \\ \hline 
+		I9      &-0.01 &100 &4 &Error \\ \hline
+		I10     &0.7 & -10 &2 & Error \\ \hline
+		I11     &0.9 & 20 &4 & Error\\ \hline 
+		I12     &0.9 & 5 &2 &Error \\ \hline 
+		I13      &0.7 &0 &4 &Error \\ \hline
+		I14     &0.5 & -1 & 2& Error\\ \hline 
+		I15    &0.9 & 100 &0 & Error\\ \hline 
+		I16     &0.9 & 500 &-2 &Error \\ \hline 
+		I17      &0.7 &150 &-4 &Error \\ \hline
+		I18     &0.5 & 200 & 100& Error\\
 		\hline
 	\end{tabular}\\
-	\caption{Prescribed input for Rin}
-	\label{Table:D_22}
+	\caption{One of the inputs is out of their respective bound}
+	\label{Table:D_12}
+\end{table}  
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P & Result \\
+		\hline
+		I1      &0.6 &100 &2 & Pass \\ \hline
+		I2     &0.1 &120 &2 & Pass \\ \hline
+		I3     &0.9 &500 &2 & Pass\\ \hline 
+		I4     &0.88 &550 &2 & Pass \\ \hline 
+		I5      &0.99 &200 &2 & Pass \\ \hline
+		I6     &0.65 &700 & 2& Pass \\ \hline
+		I7    &0.4 &100 & 2& Pass\\ \hline 
+		I8     &0.8 &400 &4& Pass \\ \hline
+		I9      &0.9 &500 &4 & Pass \\ \hline
+		I10     &0.2 &700 &4 & Pass\\ \hline
+		I11     &0.3 &200 &4 & Pass \\ \hline 
+		I13    &0.8 &100 &4 & Pass  \\ \hline
+		I14      &0.89 &150 &4 & Pass \\ \hline
+		I15     &0.69 &500 &4 & Pass\\ \hline
+		I16     &0.55 &300 &2 & Pass \\ \hline 
+		I17    &0.9 &400 &4 & Pass  \\ 
+		\hline
+	\end{tabular}\\
+	\caption{All inputs within constraints}
+	\label{Table:D_13}
 \end{table} 
 
-For these cases all of the eigenvalues, except for four of them, will be purely 
-imaginary. The remaing four have the form: $\lambda = \frac{+}{-} \frac{1}{2} a 
-(1+\sqrt{1-k^{2}})$ and $\lambda = \frac{+}{-} \frac{1}{2} a 
-(1-\sqrt{1-k^{2}})$ for B1 (see table 3). \\ 
-As for B2, the eigenvalues will have the form:  $\lambda =  \frac{1}{2} a 
-(\frac{+}{-}k+ i \sqrt{1-k^{2}})$ and $\lambda = \frac{1}{2} a 
-(\frac{+}{-}k - i \sqrt{1-k^{2}})$. [Deonick and segal 2017] \\ 
-The plan is to run B1 with a=b=1 and k=0.999. B2 will be run with the same 
-input. The expected eigenvalues were previously mentioned. 
-
+\clearpage
 \subsection{Software Verification Checklist} 
 \label{softwarevercheck}
 \begin{itemize}
-	\item Does the software allow the user to fufill their responsibilities 
-	(as outlined in the SRS)?
-	\item Does the software fufill its intended responsibilities (see SRS)?
-	\item Was the intended user able to use the software and interpret the 
-	output for their research purposes?
-	\item Are any of the system constraints violated (see SRS)?
+	\item Did any of the inputs you entered provide suprising results? If yes, 
+	what were they?
+	\item Were you able to identify which numerical algorithm and wave solution 
+	the plot represented? 
+	\item Were all of the plots legible? 
+	\item Was the output useful for your research? 
+	\item Was it clear how to input the variables? 
 \end{itemize}  
-
-\wss{A checklist is a great idea, but this checklist is more abstract than you
-  want to be.  It is ambiguous because so much of the decision making is left to
-  judgement.  You want something that has more questions, but simpler
-  questions.  It is great to reference your SRS, but rather than open-ended
-  questions, ask specific questions about specific requirements.  If you google
-  ``software verification checklist,'' you should get some useful results and
-  inspiration.}
-
-\newpage	
-\subsection{Correct Matrix Form} 
-\label{matrixform}
-test-NFR2a will ensure that the matrix for which the eigen values are 
-calculated, E, is of the correct form. For any given input n, the matrix is 4n 
-by 4n. It is of the form $ [A1 A2; A2 (-A1)] $ where $ A1, A2$ is the first 
-row 
-and $A2 -A1$ is the second row. A1 and A2 are matrices. A2 is a diagonal 2n by 
-2n matrix and A1 is 2n by 2n and defined as follows: A1(i,j) = n/2 for 
-(1,2),(2,3),... (2n-1,2n) and A1(i,j)=-n/2 for (2,1),(3,2) ... (2n,2n-1). 
-A1(1,2n)=-n/2 and A1(2n,1)=n/2. // 
-
-For example for arbitrary n it should have the form: 
-\[
-A1=
-\begin{bmatrix}
-0 & \frac{n}{2} & 0 & 0 & 0 &-\frac{n}{2}\\
--\frac{n}{2} & 0 & \frac{n}{2} & 0 & 0 &0\\
-0 & -\frac{n}{2} & 0 & \frac{n}{2} & 0 &0\\
-0 & 0 & -\frac{n}{2} & 0 & \frac{n}{2} &0\\
-0 & 0 & 0 & -\frac{n}{2} & 0 &\frac{n}{2} \\ 
-\frac{n}{2} & 0 & 0 & 0 & -\frac{n}{2} & 0 
-\end{bmatrix}
-\] 
 
 
 \end{document}
