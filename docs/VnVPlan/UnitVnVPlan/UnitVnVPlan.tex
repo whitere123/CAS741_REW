@@ -125,13 +125,14 @@ values, which are derived from other modules, will have already been tested.
 Control will not be tested because it simply coordinates the other modules.\\
 Input Parameters and Output Format have a low testing priority. This is because 
 these modules are not performing any rigorous calculations. They simply involve 
-storing or reshuffling data. \\ 
+storing or reshuffling data. 
 
-\wss{What modules are outside of the scope.  If there are modules that are
-  developed by someone else, then you would say here if you aren't planning on
-  verifying them.  There may also be modules that are part of your software, but
-  have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
+%\wss{What modules are outside of the scope.  If there are modules that are
+%  developed by someone else, then you would say here if you aren't planning on
+ % verifying them.  There may also be modules that are part of your software, 
+ %but
+  %have a lower priority for verification than others.  If this is the case,
+%  explain your rationale for the ranking of module importance.}
 
 \section{Plan}
 	
@@ -151,10 +152,10 @@ are detailed in the following link:
 The functions of particular importance are: throw, catch and assert. The throw 
 and catch will also be used for the error tests in the SystVnVPlan. 
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.}
+%\wss{What tools are you using for automated testing.  Likely a unit testing
+%  framework and maybe a profiling tool, like ValGrind.  Other possible tools
+ % include a static analyzer, make, continuous integration tools, test coverage
+%  tools, etc.  Explain your plans for summarizing code coverage metrics.}
 
 \subsection{Non-Testing Based Verification} 
 
@@ -162,11 +163,11 @@ The non-testing based verfication will involve a code inspection by my
 thesis supervisor. He will inspect each of the modules to guarentee that the 
 physical equations have been implemented succesfully, verify that the software 
 is designed to be maintainable and manageable and complete the 
-two surveys in the appendix \ref{app}.\\
+two surveys in the appendix \ref{app}.
 
-\wss{List any approaches like code inspection, code walkthrough, symbolic
-  execution etc.  Enter not applicable if you do not plan on any non-testing
-  based verification.}
+%\wss{List any approaches like code inspection, code walkthrough, symbolic
+%  execution etc.  Enter not applicable if you do not plan on any non-testing
+%  based verification.}
 
 \section{Unit Test Description} \label{testDescription} 
 
@@ -183,13 +184,13 @@ on this table will be denoted by ``Input table". An automated boundary value
 analysis will be performed for two of the modules. Values of k approaching the 
 two boundaries of the (0,1) constraint will be considered. We will see how 
 these modules behave in the limit. The prescribed inputs for these tests are in 
-\ref{app}. From now on this table will be denoted by ``Boundary Table". \\
+\ref{app}. From now on this table will be denoted by ``Boundary Table". 
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
+%\wss{Most of the verification will be through automated unit testing.  If
+ % appropriate specific modules can be verified by a non-testing based
+%  technique.  That can also be documented in this section.}
 
 \subsubsection{Input Parameters Module}
 
@@ -202,10 +203,11 @@ The exception tests are covered in the System
 VnV Plan and the module is explained mathematical in the 
 MIS (\url{https://github.com/whitere123/CAS741_REW}). \\
 
-\wss{Include a blurb here to explain why the subsections below cover the module.
-  References to the MIS would be good.  You will want tests from a black box
-  perspective and from a white box perspective.  Explain to the reader how the
-  tests were selected.}
+%\wss{Include a blurb here to explain why the subsections below cover the 
+%module.
+%  References to the MIS would be good.  You will want tests from a black box
+%  perspective and from a white box perspective.  Explain to the reader how the
+%  tests were selected.}
 
 \begin{enumerate}
 
@@ -336,10 +338,11 @@ is because we are calculating the spectrum of the state variables in this
 module. \\ 
 
 
-\wss{Include a blurb here to explain why the subsections below cover the module.
-	References to the MIS would be good.  You will want tests from a black box
-	perspective and from a white box perspective.  Explain to the reader how the
-	tests were selected.}
+%\wss{Include a blurb here to explain why the subsections below cover the 
+%module.
+%	References to the MIS would be good.  You will want tests from a black box
+%	perspective and from a white box perspective.  Explain to the reader how the
+%	tests were selected.}
 
 \begin{enumerate}				
 	\item{test-SpecMAT-Tr1\\}
