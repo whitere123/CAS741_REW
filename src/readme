@@ -1,1 +1,12 @@
-readme
+This is the SpecSearch Software Package. 
+
+In order to create the desired spectral plots you must follow the following instructions: 
+1) Download all 5 .mat files from this directory and save them all in the same directory on your machine. 
+2) Open the SpectralProgram script. This is the main script. 
+3) Run Spectral Program (ensure that the correct path to all .mat files is specficied) 
+4) You will be prompted for a vector of the form [k N P] at the command line. You must input a row vector of the form [k N P] with k: (0,1)
+, N a natural number larger than 20 and P is either 2 or 4. For optimal results set P=4, this is because P=4 is the min period for the cn 
+periodic function. P=2 will suffice for dn.
+5) After typing in [k N P] press the return key.
+6) You should see 6 plots.
+7) Fill out the surverys from the system VnV plan. The systVnVPlan can be found in this repository. 
