@@ -230,12 +230,13 @@
 		\item[M5:] Exact Eigenvalue Equations. \ref{M5} \\
 		\item[M6:] Numerical Parameters. \ref{M6} \\
 		\item[M7:] Eigenvalue and Eigenvector Solver. \ref{M7} \\
-		\item[M8:] Diagonal Matrix Generator. \ref{M8} \\
+		\item[M8:] Diag \ref{M8} \\
 		\item[M9:] Elliptic Integral.  \ref{M9} \\
 		\item[M10:] Elliptic Functions.  \ref{M10} \\
 		\item[M11:] Plotting.  \ref{M11} \\
 		\item[M12:] Linspace.  \ref{M12} \\
-		\item[M13:] Control.  \ref{M13} \\
+		\item[M13:] Control.  \ref{M13} \\ 
+		\item[M14:] Toeplitz. \ref{M14}
 	\end{description}
 	
 	\begin{table}[h]
@@ -259,11 +260,12 @@
 			
 			\multirow{3}{0.3\textwidth}{Software Decision Module} 
 			& Eigenvalue and Eigenvector Solver \\
-			& Diagonal Matrix Generator\\
+			& Diag\\
 			& Elliptic Integral\\ 
 			& Elliptic Functions\\ 
 			& Plotting \\ 
 			& Linspace \\
+			& Toeplitz \\ 
 			\bottomrule
 			
 		\end{tabular}
@@ -435,7 +437,7 @@
 		\item[Implemented By:] MATLAB
 	\end{description} 
 	
-	\subsubsection{ Matrix (M8)} \label{M8}
+	\subsubsection{ Diag (M8)} \label{M8}
 	
 	\begin{description}
 		\item[Secrets:] Data structure for matrices and algorithms for matrix 
@@ -491,6 +493,15 @@
 		\item[Implemented By:] MATLAB
 	\end{description} 
 	
+	\subsubsection{Toeplitz (M14)} \label{M14}
+	
+	\begin{description}
+		\item[Secrets:] The software algorithm for creating a toeplitz matrix .
+		\item[Services:] The Toeplitz MATLAB function creates a toeplitz matrix 
+		with prescribed first row and column.   
+		\item[Implemented By:] MATLAB
+	\end{description} 
+	
 	\section{Traceability Matrix} \label{SecTM}
 	
 	This section shows two traceability matrices: between the modules and the
@@ -505,7 +516,7 @@
 			\textbf{Req.} & \textbf{Modules}\\
 			\midrule
 			Rin & M1 , M2 , M13\\
-			Rfind & M4, M6, M7, M8, M9, M10,M11, M13\\
+			Rfind & M4, M6, M7, M8, M9, M10,M11, M13,M14\\
 			Rplt & M3,M11,M13 \\
 			\bottomrule
 		\end{tabular}
@@ -526,7 +537,7 @@
 			AC5 & M7\\ 
 			AC6 & M4\\ 
 			AC7 & M5\\ 
-			AC8 & M6\\ 
+			AC8 & M4, M6, M14\\ 
 			AC9 & M8\\ 
 			AC10 & M9\\
 			AC11 & M10\\ 
@@ -602,9 +613,11 @@
 		\node [block, right of=numpar, node distance=9cm] (exacteig) {Exact 
 		Eigen 
 			Value Equations (M5)};
-		\node [block, left of=specmat,node distance=3cm] (diag) {Matrix 
+		\node [block, left of=specmat,node distance=3cm] (diag) {Diag 
 			(M8)} ; 
-		\node [block, left of=exacteig, node distance=4cm] (control) {Control 
+		\node [block, above of=diag, node distance=3cm] (toe) {Toeplitz
+		(M14)} ;
+	   \node [block, below of=plot, node distance=11cm] (control) {Control
 		(M13)} ;
 		% Draw edges
 		\path [line] (plot) -- (out);
@@ -619,7 +632,14 @@
 		\path [line] (numpar) |- (input); 
 		\path [line] (exacteig) |- (input);
 		\path [line] (out) |- (numpar); 
-		\path [line] (exacteig) |- (plot);
+		\path [line] (exacteig) |- (plot); 
+		\path [line] (specmat) -- (toe); 
+		\path [line] (control) -- (out);
+		\path [line] (control) -- (plot);
+		\path [line] (control) -- (numpar);
+		\path [line] (control) -- (specmat);
+		\path [line] (control) -- (input);
+		\path [line] (control) -- (eigen);
 		\end{tikzpicture}
 		\caption{Use hierarchy among modules}
 		\label{FigUH}
