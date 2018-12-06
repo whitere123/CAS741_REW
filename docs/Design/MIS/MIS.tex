@@ -184,18 +184,18 @@ The following table is taken directly from the Module Guide document for this pr
 & Output Format \\
 & Spectrum Matrix \\
 & Exact Eigenvalue Equations \\
-& Spectrum Error Equation \\
 & Numerical Parameters \\  
 & Control \\ 
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
+\multirow{3}{0.3\textwidth}{Software Decision} 
 & Eigenvalue and Eigenvector Solver \\
 & Diagonal Matrix Generator\\
 & Elliptic Integral\\ 
 & Elliptic Functions\\ 
 & Plotting \\ 
 & Linspace \\
+& Toeplitz \\ 
 \bottomrule
 
 \end{tabular}
@@ -227,8 +227,9 @@ InParams
 \\
 \hline
 Load\_params & $k : \mathbb{R}$ & - & NonNumericalError \\
-& $N : \mathbb{N}$ &  &  \\
-Verify\_params & - & - & BadkRange, NotNat \\
+& $N : \mathbb{N}$ &  &  \\ 
+& $P : \{2,4\}$ &  &  \\
+Verify\_params & - & - & BadkRange, BadNRange, BadPRange \\
 k & - & $\mathbb{R}$ & - \\
 N & - & $\mathbb{N}$ & - \\
 \hline
@@ -240,11 +241,11 @@ N & - & $\mathbb{N}$ & - \\
 \subsubsection{State Variables}
 
 $k : \mathbb{R}$ \\ 
-$N : \mathbb{N}$ 
-
+$N : \mathbb{N}$ \\
+$P : \{2,4\}$
 \subsubsection{Environment Variables}
 
-InputParameters: The two values entered by the user $(k,N)$. 
+InputParameters: The three values entered by the user $(k,N,P)$. 
 
 \subsubsection{Assumptions}
 
@@ -269,10 +270,17 @@ InputParameters: The two values entered by the user $(k,N)$.
 	\item exception: None
 \end{itemize}
 
+\noindent InParams.P():
+\begin{itemize}
+	\item output: $out = P$
+	\item exception: None
+\end{itemize}
+
 \noindent Load\_Params():
 \begin{itemize}
-	\item transition: The data is read sequentially from the command line. The 
-	data are seperated by the return key. This data is used to populate the 
+	\item transition: The data is read as a vector from the command line. The 
+	three elements of the vector correspond to $(k,N,P)$ , respectively. This 
+	data is used to populate the 
 	previously mentioned state variables. 
 	\item exception: exec:=NonNumericalError if non-numerical data is entered. 
 \end{itemize} 
@@ -282,8 +290,10 @@ InputParameters: The two values entered by the user $(k,N)$.
 	\item exception: exc:=
 \end{itemize}  
 
-\noindent $\neg (k : [0,1]) \Rightarrow \ $ BadkRange\\
-$\neg (N : \mathbb{N}) \Rightarrow \ $ BadNRange
+\noindent 
+$\neg (k : [0,1]) \Rightarrow \ $ BadkRange\\
+$\neg (N : \mathbb{N})$ and $\neg(N>20) \Rightarrow \ $ BadNRange\\
+$\neg (P : \{2,4\} ) \Rightarrow \ $ BadPRange
 
 \subsubsection{Local Functions}
 None
@@ -299,8 +309,7 @@ OutForm
 
 \subsection{Uses}
 
-Eigenvalue and Eigenvector solver \ref{SEES}, Spectrum Error Equations 
-\ref{MSEE} and Numerical 
+Eigenvalue and Eigenvector solver \ref{SEES} and Numerical 
 Parameters \ref{MNP}. 
 
 \subsection{Syntax} 
@@ -310,27 +319,26 @@ Parameters \ref{MNP}.
 		\toprule
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}  \\
 		\hline
-		capture & $D :\mathbb{R}^{2n}$ & $Spectral$ & - \\ 
-		 & $Er_{j} :\mathbb{R}^{2}$ &  & - \\ 
-		 & $V_{j} :\mathbb{C}^{4nx4n}$ &  & - \\ 
-		 & $Vl_{j} :\mathbb{R}^{4n}$ & & - \\
-		$Spectral_{j}$ & - & $\mathbb{C}^{4n(4n+2)}$ & - \\
-		$Spectral_{D}$ & - & $\mathbb{R}^{2n}$ & - \\
-		$Er_{j}$ & - & $\mathbb{R}$ & - \\
+		capture & $\lambda_{o}1 :\mathbb{C}$ & out & - \\ 
+		 & $\lambda_{o}2 :\mathbb{C}$ &  & - \\ 
+		 & $\lambda_{o}3 :\mathbb{C}$ &  & - \\
+		 & $\lambda_{o}4 :\mathbb{C}$ &  & - \\
+		 & $\lambda_{o}2 :\mathbb{C}$ &  & - \\ 
+		 & $\Lambda : \mathbb{R}^{4n x 6}$ & & -\\
+		label & - & char & - \\ 
+		theor & - & $\mathbb{R}^{2 x 6}$ & - \\
+		$\Lambda$ & - & $\mathbb{R}^{4n x 6}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
 
 \subsection{Semantics}
 
-The $j$ refers to the $j^{th}$ numerical method; $j : \{ O(1), O(4), cheb \}$. 
-\ref{abbrev}
-
 \subsubsection{State Variables}
 
-$Spectral_{j}$ : $\mathbb{C}^{4n(4n+2)}$ \\
-$Spectral_{D}: \mathbb{R}^{2n}$ \\
-$Er_j : \mathbb{R}^{2}$   
+$label$ : $char$ \\
+$theor: \mathbb{R}^{2 x 6}$ \\
+$\Lambda : \mathbb{R}^{4nx6}$
 
 \subsubsection{Environment Variables}
 
@@ -339,7 +347,7 @@ None.
 \subsubsection{Assumptions}
 
 \begin{itemize}
-	\item Eigenvalue and Eigenvector solver, Spectrum Error Equations and 
+	\item Eigenvalue and Eigenvector solver and 
 	Numerical Parameters 
 	are called and their outputs are fed into Outform.capture() 
 	before any of the state variables are accessed. 
@@ -347,43 +355,36 @@ None.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent OutForm.$Spectral_{D}$():
+\noindent OutForm.$label$():
 \begin{itemize}
-	\item output: $out = D$
+	\item output: $out = label$
 	\item exception: None
 \end{itemize}
 
-\noindent OutForm.$Er_{j}$():
+
+\noindent OutForm.$theor$():
 \begin{itemize}
-	\item output: $out = Er_{j}$
+	\item output: $out = theor$
 	\item exception: None
 \end{itemize} 
 
-\noindent OutForm.$Spectral_{j}$():
+\noindent OutForm.$\Lambda$():
 \begin{itemize}
-	\item output: $out = Spectral_{j}$
+	\item output: $out = \Lambda$
 	\item exception: None
 \end{itemize}
 
 \noindent capture():
 \begin{itemize}
-	\item Transition: The data ($D$,$Er_{j}$,$V_{j}$,$Vl_{j}$) will be 
-	captured from the other 
-	modules and then stored into $Spectral$ for convienience. Spectral is a 
-	data 
-	structure with four cell components. The first three cells are
-	$4n+1$ by $4n$ matrices created as follows: the $4n$ by $1$ vector of 
-	eigenvalues, $Vl_j$, will be transposed and turned into the $(4n+1)^{th}$ 
-	row 
-	of 
-	$spectral_{j}$. The previous $4n$ rows of $spectral_{j}$ will be the 
-	matrix,$ 
-	V_j$, 
-	composed 
-	of the eigenvectors for the $j$ numerical method. Each column of $V_j$ is 
-	an eigenvector from the $j$ numerical method. D will be stored in Spectral 
-	as the fourth 
-	cell component.  
+	\item Transition: The eigenvalues from the six spectral matrices, $\Lambda$ 
+	,
+	and theoretical eigenvalues, $\lambda_{o}i$ ,are put into an OutForm data 
+	structure. Each state variable is a six element cell structure. The label 
+	state variable of this data structure has the titles of the six plots 
+	stored. The $ith$ cell of each state variable corresponds to one spectral 
+	matrices eigenvalues (ie for cn order 10), its plot label and theoretical 
+	eigenvalues. This structure is convienient for creating all six plots in a 
+	for loop. 
 	\item Exception: None
 \end{itemize}  
 
@@ -413,13 +414,18 @@ This module uses Numerical Parameters \ref{MNP}.
 		\toprule
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		create & $n : \mathbb{N} $ &$SpecMat_{O(1)}$ & - \\ 
-		 & $h : \mathbb{R} $& $SpecMat_{O(4)}$ & - \\ 
-		 & $elipMAT : \mathbb{R}^{2nx2n} $ &$SpecMat_{Cheb}$ & - \\ 
-		 & $k : \mathbb{R} $ & & - \\
-		$SpecMat_{O(1)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\
-		$SpecMat_{O(4)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\ 
-		$SpecMat_{Cheb}$ & - & $\mathbb{R}^{4nx4n}$ & - \\
+		SpecMat & $n : \mathbb{N} $ &$SpecMatdn_{O(8)}$ & - \\ 
+		 & $h : \mathbb{R} $& $SpecMatdn_{O(10)}$ & - \\ 
+		 & $elipMAT_{cn} : \mathbb{R}^{2nx2n} $ &$SpecMatdn_{O(12)}$ & - \\ 
+		 & $elipMAT_{dn} : \mathbb{R}^{2nx2n} $ &$SpecMatcn_{O(8)}$ & - \\ 
+		 & $k : \mathbb{R} $ & $SpecMatcn_{O(10)}$& - \\
+		 &  &  $SpecMatcn_{O(12)}$ &- \\
+		$SpecMatdn_{O(8)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\
+		$SpecMatdn_{O(10)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\ 
+		$SpecMatdn_{O(12)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\
+		$SpecMatcn_{O(8)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\
+		$SpecMatcn_{O(10)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\ 
+		$SpecMatcn_{O(12)}$ & - & $\mathbb{R}^{4nx4n}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -427,9 +433,7 @@ This module uses Numerical Parameters \ref{MNP}.
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-$SpecMat_{Cheb} : \mathbb{R}^{4nx4n}$\\ 
-$SpecMat_{0(4)} : \mathbb{R}^{4nx4n}$\\
-$SpecMat_{0(1)} : \mathbb{R}^{4nx4n}$
+None
 
 \subsubsection{Environment Variables}
 
@@ -445,34 +449,15 @@ None.
 
 \subsubsection{Access Routine Semantics}
 
-SpecMat.$SpecMat_{O(1)}:$
-\begin{itemize}
-	\item output: out = $SpecMat_{O(1)}:$ 
-	\item exception: None 
-\end{itemize}
-
 \noindent
-SpecMat.$SpecMat_{O(4)}:$
-\begin{itemize}
-	\item output: out = $SpecMat_{O(4)}:$
-	\item exception: None
-\end{itemize}
-
-\noindent
-SpecMat.SpecFour:
-\begin{itemize}
-	\item output: out = $SpecMat_{cheb}:$
-	\item exception: None
-\end{itemize}
-
-\noindent
-SpecMat.create():
+SpecMat():
 \begin{itemize}
 	\item transition: The data (n,h,elipMAT,k) will be captured from numerical 
-	parameters and used to create the spectral matrices. There will be three 
-	spectral matrices. Each matrix corresponds to a different 
+	parameters and used to create the spectral matrices. There will be six 
+	spectral matrices. Each matrix corresponds to one of three 
 	numerical 
-	algorithm for approximating the eigenfunction derivatives. The top right 
+	algorithms for approximating the eigenfunction derivatives and one of two 
+	boundary wave solutions to the NLS equation. The top right 
 	and 
 	bottom left quadrants of the spectral matrices are diagonal matrices with 
 	diagonal  
@@ -481,96 +466,65 @@ SpecMat.create():
 	points in 
 	the 
 	discretized domain \ref{MNP}. 
-	The remaining quadrants of the matrix are equal to $-NUM_{j}$ or $+NUM_{j}$ 
-	such that: 
-	
-\[
-NUM_{O(1)}=
-\begin{bmatrix}
-0 & \frac{n}{2} & 0 & \dots & 0 &-\frac{n}{2}\\
--\frac{n}{2} & 0 & \frac{n}{2} & \ddots & \ddots &0\\
-0 & -\frac{n}{2} & \ddots & \ddots & \ddots &0\\
-\vdots & \ddots & \ddots & \ddots & \frac{n}{2} &\vdots \\
-0 & \ddots & \ddots & -\frac{n}{2} & 0 &\frac{n}{2} \\ 
-\frac{n}{2} & 0 & \dots & 0 & -\frac{n}{2} & 0 
-\end{bmatrix}
-\] 
-
-\[
-NUM_{O(6)}=
-\begin{bmatrix}
-0 & \frac{3n}{4} & -\frac{3n}{20} & \frac{n}{60} &0& \dots&0 & -\frac{n}{60} & 
-\frac{3n}{20} & 
--\frac{3n}{4}\\
--\frac{3n}{4} & 0 & \frac{3n}{4} & -\frac{3n}{20} & \frac{n}{60}&0 &\dots&0& 
--\frac{n}{60} & 
-\frac{3n}{20}\\
-\frac{3n}{20} & -\frac{3n}{4} & \ddots & \ddots & \ddots &\ddots & 
-\ddots&\ddots&0 
-&-\frac{n}{60}\\
--\frac{n}{60} & \frac{3n}{20} & \ddots & \ddots & \ddots &\ddots & \ddots 
-&\ddots &\ddots&0\\ 
-0 & -\frac{n}{60} & \ddots & \ddots & \ddots& \ddots& \ddots& \ddots 
-&\ddots&\vdots\\
-\vdots & \ddots & \ddots & \ddots & \ddots & \ddots& 
-\ddots&\ddots&\frac{n}{60}&0\\
-0 & \ddots & \ddots & \ddots & \ddots &\ddots & \ddots& \ddots& -\frac{3n}{20} 
-& 
-\frac{n}{60}\\ 
-\frac{n}{60} & 0 & \ddots & \ddots & \ddots & \ddots & \ddots& 
-\ddots&\frac{3n}{4}  
-&-\frac{3n}{20} 
-\\ 
--\frac{3n}{20} & \frac{n}{60} & 0 &\ddots & \ddots & 
- -\frac{n}{60} & \frac{3n}{20} &-\frac{3n}{4} &0 
-&\frac{3n}{4}  \\ 
-\frac{3n}{4} & -\frac{3n}{20} & \frac{n}{60} & 0 & \dots & 
-0 & 
--\frac{n}{60} &\frac{3n}{20} & -\frac{3n}{4} & 0 
-\end{bmatrix}
-\]  
-
-\[
-NUM_{Cheb}=
-\begin{bmatrix}
-0 & &  &  &   &-\frac{1}{2} cot(\frac{1h}{2})\\
--\frac{1}{2} cot(\frac{1h}{2}) & \ddots & \ddots & \ddots & \ddots   
-&\frac{1}{2} cot(\frac{2h}{2})\\
-\frac{1}{2} cot(\frac{2h}{2}) & \ddots & \ddots & \ddots & \ddots   
-&-\frac{1}{2} cot(\frac{3h}{2})\\
--\frac{1}{2} cot(\frac{3h}{2}) & \ddots & \ddots & \ddots & \ddots   
-&\vdots \\
-\vdots & \ddots & \ddots & \ddots & \ddots   &\frac{1}{2} cot(\frac{1h}{2})\\
-\frac{1}{2} cot(\frac{1h}{2}) &  & &  &    & 0  
-\end{bmatrix}
-\]  
-
+	The remaining quadrants of the matrix are equal to $-NUM_{j}$ or 
+	$+NUM_{j}$. $NUM_{j}$ is an extremely large matrix and its explicit form 
+	will be omitted from this document. It is a matrix of coefficients that 
+	when multiplied by an eigenvector procude a matrix whose entries are the 
+	$j^{th}$ order derivative's central difference approximation. For more 
+	details about $NUM_{j}$ see 
+	\cite{grasPel}. For the derivation of the spectral matrix please see the 
+	"justification of Compatibility conditions and reduction to spectral 
+	problem" under the Instance Model 1 (IM1) chart of the SRS document 
+	\url{https://github.com/whitere123/CAS741_REW} .\\
 Therefore the output matrices are: 
 
  \[
-SpecMat_{O(1)}=
+SpecMatdn_{O(8)}=
 \left[ {\begin{array}{cc}
-	NUM_{O(1)} & -EllipMat_{O(1)} \\
-	-EllipMat_{O(1)} & -NUM_{O(1)} \\
+	NUM_{O(8)} & -EllipMat_{dn} \\
+	-EllipMat_{dn} & -NUM_{O(8)} \\
 	\end{array} } \right]
 \] 
 
  \[
-SpecMat_{O(4)}=
+SpecMatdn_{O(10)}=
 \left[ {\begin{array}{cc}
-	NUM_{O(4)} & -D_{O(4)} \\
-	-D_{O(4)} & -NUM_{O(4)} \\
+	NUM_{O(10)} & -EllipMat_{dn} \\
+	-EllipMat_{dn} & -NUM_{O(10)} \\
 	\end{array} } \right]
 \] 
 
  \[
-SpecMat_{cheb}=
+SpecMatdn_{O(12)}=
 \left[ {\begin{array}{cc}
-	NUM_{cheb} & -D_{cheb} \\
-	-D_{cheb} & -NUM_{cheb} \\
+	NUM_{O(12)} & -EllipMat_{dn} \\
+	-EllipMat_{dn} & -NUM_{O(12)} \\
 	\end{array} } \right]
 \] 
 
+ \[
+SpecMatcn_{O(8)}=
+\left[ {\begin{array}{cc}
+	NUM_{O(8)} & -EllipMat_{cn} \\
+	-EllipMat_{cn} & -NUM_{O(8)} \\
+	\end{array} } \right]
+\] 
+
+\[
+SpecMatcn_{O(10)}=
+\left[ {\begin{array}{cc}
+	NUM_{O(10)} & -EllipMat_{cn} \\
+	-EllipMat_{cn} & -NUM_{O(10)} \\
+	\end{array} } \right]
+\] 
+
+\[
+SpecMatcn_{O(12)}=
+\left[ {\begin{array}{cc}
+	NUM_{O(12)} & -EllipMat_{cn} \\
+	-EllipMat_{cn} & -NUM_{O(12)} \\
+	\end{array} } \right]
+\] 
 	\item exception: None
 \end{itemize}
 
@@ -582,9 +536,8 @@ None.
 
 \section{MIS of Exact Eigenvalue Equations} \label{SEE}
 
-The secrets of this module are the analytical expressions for the two purely 
-real 
-eigenvalues. 
+The secrets of this module are the analytical expressions for the theoretical 
+eigenvalues corresponding to the cn and dn boundary wave solutions.
 
 \subsection{Module}
 
@@ -603,6 +556,8 @@ This module uses input parameters \ref{IPM}.
 		\hline
 		$\lambda_O1$ & $k : \mathbb{R}$ & $\mathbb{R}$ & - \\
 		$\lambda_O2$ & $k : \mathbb{R}$ & $\mathbb{R}$ & - \\ 
+		$\lambda_O3$ & $k : \mathbb{R}$ & $\mathbb{C}$ & - \\
+		$\lambda_O4$ & $k : \mathbb{R}$ & $\mathbb{C}$ & - \\ 
 		\hline
 	\end{tabular}
 \end{center}
@@ -637,6 +592,19 @@ $\lambda_O1$:
 \begin{itemize} 
 	\item output: $\frac{1}{2} (1-\sqrt{1-k^{2}})$ 
 	\item exception: None
+\end{itemize} 
+
+$\lambda_O3$:
+\begin{itemize}
+	\item output: $\frac{1}{2} (k+i\sqrt{1-k^{2}})$ 
+	\item exception: None
+\end{itemize}
+
+
+\noindent $\lambda_O4$
+\begin{itemize} 
+	\item output: $\frac{1}{2} (k-i\sqrt{1-k^{2}})$ 
+	\item exception: None
 \end{itemize}
 
 \subsubsection{Local Functions} 
@@ -644,103 +612,6 @@ $\lambda_O1$:
 None. 
 
 \newpage
-
-\section{MIS of Spectrum Error Equation} \label{MSEE}
-
-The secret of this module is the equation for error between exact and 
-approximated eigenvalues.
-
-\subsection{Module}
-
-ErrCalc
-
-\subsection{Uses}
-
-This module uses Exact Eigenvalue equations \ref{SEE} and Eigenvalue and 
-Eigenvector solver 
-\ref{SEES}. 
-
-\subsection{Syntax}
-
-\begin{center}
-	\begin{tabular}{p{3cm} p{6cm} p{3cm} >{\raggedright\arraybackslash}p{3cm}}
-		\toprule
-		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-		\hline
-		$\lambda_O1$ & - & $\mathbb{R}$ & - \\
-		$\lambda_O2$ & - & $\mathbb{R}$ & - \\ 
-		$\lambda_C1$ & - & $\mathbb{R}$ & - \\
-		$\lambda_C2$ & - & $\mathbb{R}$ & - \\
-		$Err1$ & $\lambda_O1 : \mathbb{R}$ & $\mathbb{R}$ &- \\
-		 & $\lambda_C1 : \mathbb{R}$ &  &- \\
-		$Err2$ & $\lambda_C2 : \mathbb{R}$ & $\mathbb{R}$ &- \\
-		 & $\lambda_C2 : \mathbb{R}$ &  &- \\
-		\hline
-	\end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-
-$\lambda_O1 : \mathbb{R}$ \\
-$\lambda_O2 : \mathbb{R}$ \\
-$\lambda_C1 : \mathbb{R}$ \\ 
-$\lambda_C2 : \mathbb{R}$
-
-\subsubsection{Environment Variables}
-
-None
-
-\subsubsection{Assumptions}
-
-
-	None.
-
-\subsubsection{Access Routine Semantics}
-
-$Err1$:
-\begin{itemize}
-	\item output: $| \lambda_O1 - \lambda_C1| $ 
-	\item exception: None
-\end{itemize}
-
-
-\noindent $Err2$
-\begin{itemize} 
-	\item output: $| \lambda_O2 - \lambda_C2| $ 
-	\item exception: None
-\end{itemize} 
-
-\noindent $ErrCalc.\lambda_O1$:
-\begin{itemize}
-	\item output: out = $\lambda_O1$
-	\item exception: None 
-\end{itemize}
-
-\noindent $ErrCalc.\lambda_O2$:
-\begin{itemize}
-	\item output: out = $\lambda_O2$
-	\item exception: None
-\end{itemize}
-
-\noindent $ErrCalc.\lambda_C1$:
-\begin{itemize}
-	\item output: out = $\lambda_C1$
-	\item exception: None
-\end{itemize}
-
-\noindent $ErrCalc.\lambda_C2$:
-\begin{itemize}
-	\item output: out = $\lambda_C2$ 
-	\item exception: None
-\end{itemize} 
-
-\subsubsection{Local Functions} 
-
-None. 
-
-\newpage 
 
 \section{MIS of Numerical Parameters} \label{MNP}
 
@@ -767,15 +638,20 @@ Integral \ref{MEI} and input parameters \ref{IPM}.
 		\toprule
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		CreateVars & $k :\mathbb{R}$ & 
-		$xend: \mathbb{R}$ & - \\ 
-		  &$N: \mathbb{N}$ & $Domain:\mathbb{R}^{2N}$ &  \\
-		  &  & $ellipj: \mathbb{R}^{2N}$ &  \\ 
-		  &  & $ellipMAT: \mathbb{R}^{2Nx2N}$ &  \\
+		Numpars & $k :\mathbb{R}$ & 
+		$xend$ & - \\ 
+		  &$N: \mathbb{N}$ & $Domain$ &  \\
+		  &  & $ellipjdn$ &  \\ 
+		  &  & $ellipjcn$ &  \\ 
+		  &  & $ellipMAT_{dn}$ &  \\
+		  &  & $ellipMAT_{cn}$ &  \\ 
+		   &  & $h$ &  \\
 		$xend$ & - & $\mathbb{R}$ & - \\
 		$Domain$ & - & $\mathbb{R}^{2N}$ &- \\
 		$ellipjdn$ & - & $\mathbb{R}^{2N}$ &- \\
-		$ellipjMAT$ & - & $\mathbb{R}^{2Nx2N}$ &- \\
+		$ellipjcn$ & - & $\mathbb{R}^{2N}$ &- \\
+		$ellipjMAT_{cn}$ & - & $\mathbb{R}^{2Nx2N}$ &- \\
+		$ellipjMAT_{dn}$ & - & $\mathbb{R}^{2Nx2N}$ &- \\
 		h & - & $\mathbb{R}$ & -\\ 
 		\hline
 	\end{tabular}
@@ -784,11 +660,7 @@ Integral \ref{MEI} and input parameters \ref{IPM}.
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-$h :\mathbb{R}$ \\  
-$Domain:\mathbb{R}^{2N}$ \\  
-$ellipjdn: \mathbb{R}^{2N}$ \\ 
-$ellipMAT: \mathbb{R}^{2Nx2N}$ \\  
-$xend: \mathbb{R} $
+None
 
 \subsubsection{Environment Variables}
 
@@ -803,42 +675,13 @@ None
 
 \subsubsection{Access Routine Semantics}
 
-
-$Numpars.xend$:
-\begin{itemize}
-	\item output: $xend$ 
-	\item exception: None
-\end{itemize}
-
-
-\noindent $Numpars.Domain$
-\begin{itemize} 
-	\item output: $Domain$ 
-	\item exception: None
-\end{itemize} 
-
-\noindent $Numpars.ellipjdn$:
-\begin{itemize}
-	\item output: out = $ellipjdn$
-	\item exception: None 
-\end{itemize}
-
-\noindent $Numpars.ellipjMAT$:
-\begin{itemize}
-	\item output: out = $ellipjMAT$
-	\item exception: None
-\end{itemize}
-
-\noindent $Numpars.h$:
-\begin{itemize}
-	\item output: out = $h$ 
-	\item exception: None
-\end{itemize} 
-
-\noindent $Numpars.CreateVars$:
+\noindent $Numpars$:
 \begin{itemize}
 	\item transition: The data $(N,k)$ will be captured from the input 
-	parameters module and used to create the state variables. $k$ will be 
+	parameters module and used to create a cell structure,NumPars, whose 
+	components are xend, Domain,ellipjdn, 
+	ellipjdc, $ellipMAT_{dn}$, 
+	$elliptMAT_{cn}$ and h. $k$ will be 
 	inputted as 
 	an argument into the elliptic integral module \ref{MEI}. The resulting 
 	integral is 
@@ -846,10 +689,10 @@ $Numpars.xend$:
 	The domain is created using linspace \ref{MLIN}. The endpoint arguments of 
 	linspace 
 	are $-xend$ and $xend$, respectively. The distance between partition points 
-	in the resulting domain is $h=\frac{xend}{N}$. Ellipjdn is derived by 
-	computing the ellipjdn value \ref{MELF} of each point in the Domain. 
-	EllipjMAT is a 
-	diagonal matrix whose diagonal is Ellipjdn. 
+	in the resulting domain is $h=\frac{xend}{N}$. Ellipjdn (cn) is derived by 
+	computing the ellipjdn (cn) value \ref{MELF} of each point in the Domain. 
+	$EllipjMAT_{cn}$ (dn) is a 
+	diagonal matrix whose diagonal is Ellipjcn (dn). 
 	\item exception: None
 \end{itemize} 
 
@@ -1231,6 +1074,60 @@ None.
 
 \newpage 
 
+\section{MIS of Toeplitz} \label{TOE}
+
+The secret of this module is the software algorithm for creating a toeplitz 
+matrix.
+
+\subsection{Module}
+
+Toeplitz (\url{https://www.mathworks.com/help/matlab/ref/toeplitz.html})
+
+\subsection{Uses}
+
+This module uses Spectrum Matrix \ref{SSM}. 
+
+\subsection{Syntax}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{6cm} p{6cm} p{3cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} 
+		\ref{Appendix}\\
+		\hline
+		create & $c : \mathbb{R}^{m}$ & $\mathbb{R}^{mxm}$ & 
+		NonNumerical \\
+		& $r : \mathbb{R}^{m}$ &  & notVec \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+None.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent toeplitz: Returns a nonsymmetric Toeplitz matrix with c as its first 
+column and r as its first row.
+
+\subsubsection{Local Functions} 
+
+None. 
+
+\newpage 
+
+
 \section{MIS of Control} \label{MCON}
 
 The secret of this module is the algorithm that coordinates the overall program 
@@ -1295,7 +1192,7 @@ None.
 
 
 \bibliographystyle {plainnat}
-\bibliography {../../../ReferenceMaterial/References}
+\bibliography{../../../ReferenceMaterial/References} 
 
 \newpage
 
@@ -1308,12 +1205,15 @@ None.
 	\midrule 
 	NonNumericalError & The input is not a number.\\ 
 	BadkRange & The value of k is out of its necessary range.\\ 
+	BadNRange & The value of N is out of its necessary range.\\ 
+	BadPRange & The value of P is out of its necessary range.\\ 
 	NotsquareMat & The input matrix is not square (or n by n for n: 
 	$\mathbb{N}$)\\ 
 	NotDiagMat & The input matrix is not diagonal \\ 
 	NotVector & The input was not a vector. \\ 
 	BadVal & At least one of the vector elements is not a number. \\ 
 	NotNat & The input was not a natural number. \\
+	NotVec & The input was not a vector.\\
 	\bottomrule
 \end{tabular}\\
 
