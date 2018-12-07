@@ -1,5 +1,5 @@
+Download all of the .mat files in this directory and put them into the same directory on your machine. 
 
+Run SystemVnVautomatedtests to run the automated test cases in the SystemVnVPlan. (ensure that correct path is specified)
 
-Run SystemVnVTest to run the automated test cases in the SystemVnVPlan. 
-
-Run UnitVnVTest to run the automated test cases in the UnitVnVPlan. 
+Run UnitVnVautomatedtests to run the automated test cases in the UnitVnVPlan. (ensure that correct path is specified)
