@@ -50,7 +50,10 @@
 2018-11-25 & 1.0 & Creation of first draft.\\
 2018-11-29 & 1.1 & Update of 1.0. Completed tracebility, added references, 
 deleted list of tables and updated section 2. \\ 
-2018-12-02 & 1.2& Minor edits before submission. \\
+2018-12-02 & 1.2& Minor edits before submission. \\ 
+2018-12-06 & 1.3& First edit for final documentation. More details were added 
+to the plotting tests. The "qualities of a good plot" list was added to the 
+appendix. \\
 \bottomrule
 \end{tabularx}
 
@@ -189,7 +192,7 @@ these modules behave in the limit. The prescribed inputs for these tests are in
 \subsection{Tests for Functional Requirements}
 
 %\wss{Most of the verification will be through automated unit testing.  If
- % appropriate specific modules can be verified by a non-testing based
+% appropriate specific modules can be verified by a non-testing based
 %  technique.  That can also be documented in this section.}
 
 \subsubsection{Input Parameters Module}
@@ -398,6 +401,15 @@ module. \\
 
 \subsubsection{Plotting Module} 
 
+The following tests will involve inspection of the spectral plots by my thesis 
+supervisor, Dr. Dmitry Pelinvosky. He will ensure that the plots fit the 
+theoretical results, are useful for our research purposes and presented in a 
+clear fashion. The first plot test involves inspecting the spectrum for 
+moderate input values (ie, not close to their bounds). The second plot test 
+will involve inspecting the behaviour of the plots near the bounds of the input 
+parameter k. The list of qualities of an adequate plot is presented in 
+\ref{specplotlist}. 
+
 \begin{enumerate}				
 	\item{test-Plotting-Inspect\\}
 	
@@ -414,10 +426,11 @@ module. \\
 	dinger equation and one of three numerical algorithms. 
 	
 	How test will be performed: My supervisor will inspect the plots to see if 
-	they resmble the theory from \cite{SegaletAl} He will check if the 
+	they resmble the theory from \cite{SegaletAl} He will also check if the 
 	theoretical 
 	values superimposed on the plot overlap with the appropriate numerical 
-	eigenvalues. 
+	eigenvalues.  
+
 \end{enumerate} 
 
 \begin{enumerate}				
@@ -517,7 +530,7 @@ This section shows the traceability between the modules and the test cases.
 		I2     &0.99 &120 &2 & Pass \\ \hline
 		I3     &0.9999 &500 &2 & Pass\\ \hline 
 		I4     &0.99999 &550 &2 & Pass \\ \hline 
-		I5      &0.999999 &2 &X & Pass \\ \hline
+		I5      &0.999999 &2 &4 & Pass \\ \hline
 		I6     &0.01 &700 & 2& Pass \\ \hline
 		I7    &0.0001 &100 & 2& Pass\\ \hline 
 		I8     &0.000001 &400 &4& Pass \\ \hline
@@ -528,8 +541,19 @@ This section shows the traceability between the modules and the test cases.
 	\label{Table:D_13}
 \end{table} 
 
-\subsection{Symbolic Parameters}
+\subsection{Qualities of an adequate spectral plot} \label{specplotlist}
 
-None.
+\begin{itemize}
+	\item Most of the eigenvalues should be purely imaginary. Most of the 
+	points should be on the vertical axis. 
+	\item The non-purely imaginary eigenvalues for the dn-wave solutions should 
+	be purely real.
+	\item The non-purely imaginary eigenvalues for the cn-wave solutions should 
+	have real and imaginary component. 
+	\item All of the eigen values should be a complex conjugate pair.
+	\item The non purely imaginary eigenvalues (from literature) are plotted 
+	with an asterix. These asterixes should lie within one of the numerically 
+	approximated eigenvalues, denoted by a hollow circle. 
+\end{itemize}
 
 \end{document}
