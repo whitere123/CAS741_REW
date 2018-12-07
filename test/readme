@@ -1,1 +1,5 @@
-readme
+
+
+Run SystemVnVTest to run the automated test cases in the SystemVnVPlan. 
+
+Run UnitVnVTest to run the automated test cases in the UnitVnVPlan. 
