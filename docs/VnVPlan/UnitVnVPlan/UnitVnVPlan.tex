@@ -53,7 +53,8 @@ deleted list of tables and updated section 2. \\
 2018-12-02 & 1.2& Minor edits before submission. \\ 
 2018-12-06 & 1.3& First edit for final documentation. More details were added 
 to the plotting tests. The "qualities of a good plot" list was added to the 
-appendix. \\
+appendix. \\ 
+2018-12-09 & 1.4& Creation of final draft for final documentation. \\
 \bottomrule
 \end{tabularx}
 
@@ -121,14 +122,8 @@ A lot of the modules in \progname \ are built-in MATLAB functions. These
 modules 
 are outside of the scope for the Unit Verification and Validation Plan. They 
 include: Plotting, Eigenvalue and Eigenvector solver, Matrix, Elliptic 
-Functions, Elliptic Integrals and Linspace.\\ 
-Spectrum Error Equations will not 
-be tested as it simply calculates the difference between two values. These 
-values, which are derived from other modules, will have already been tested. 
-Control will not be tested because it simply coordinates the other modules.\\
-Input Parameters and Output Format have a low testing priority. This is because 
-these modules are not performing any rigorous calculations. They simply involve 
-storing or reshuffling data. 
+Functions, Elliptic Integrals, Linspace and Toeplitz.\\  
+Control will not be tested because it simply coordinates the other modules.
 
 %\wss{What modules are outside of the scope.  If there are modules that are
 %  developed by someone else, then you would say here if you aren't planning on
@@ -177,9 +172,7 @@ two surveys in the appendix \ref{app}.
 The modules that are being unit tested are specificed in the MIS 
 (\url{https://github.com/whitere123/CAS741_REW}). This plan was created to 
 ensure that each module is behaving accurately and that each module is 
-satisfying the appropriate requirements.  Multiple tests may be employed for 
-larger modules (such as Numerical Parameters) to ensure that the different 
-components are behaving appropriately. \\ 
+satisfying the appropriate requirements.  \\
 
 All of the inputs for the automated white box unit tests are listed in Table 4 
 of the System VnV Plan \url{https://github.com/whitere123/CAS741_REW}. From now 
@@ -206,12 +199,6 @@ The exception tests are covered in the System
 VnV Plan and the module is explained mathematical in the 
 MIS (\url{https://github.com/whitere123/CAS741_REW}). \\
 
-%\wss{Include a blurb here to explain why the subsections below cover the 
-%module.
-%  References to the MIS would be good.  You will want tests from a black box
-%  perspective and from a white box perspective.  Explain to the reader how the
-%  tests were selected.}
-
 \begin{enumerate}
 
 \item{test-InParams-N\\} \label{INPARAMS}
@@ -227,12 +214,29 @@ Output: assert=True
 Test Case Derivation: The environment variable N inputted by the user should 
 match the state variable from InParams.N .
 
-How test will be performed: Natural number values ranging from 50 to 200 will 
+How test will be performed: Natural number values ranging from 50 to 500 will 
 be 
 inputed in the environment. This value should be exactly equal to the state 
-variable InParams.N . An assert statement will return true if these are equal.
-\end{enumerate} 
-\begin{enumerate}				
+variable InParams.N . An assert statement will return true if these are equal. 
+				
+\item{test-InParams-P\\}
+
+Type: Automaic
+
+Initial State: 
+
+Input: Input Table.
+
+Output: assert=True
+
+Test Case Derivation: The environment variable P inputted by the user should 
+match the state variable meant to store the value of P.
+
+How test will be performed: Integer numbers between 2 and 4 
+will be inputed in the environment for k. This value should be exactly equal to 
+the state variable InParams.P . An assert statement will return true if these 
+are equal.
+
 \item{test-InParams-k\\}
 
 Type: Automaic
@@ -340,42 +344,9 @@ These tests were built to enforce the requirement of finding the spectrum. This
 is because we are calculating the spectrum of the state variables in this 
 module. \\ 
 
-
-%\wss{Include a blurb here to explain why the subsections below cover the 
-%module.
-%	References to the MIS would be good.  You will want tests from a black box
-%	perspective and from a white box perspective.  Explain to the reader how the
-%	tests were selected.}
-
 \begin{enumerate}				
+
 	\item{test-SpecMAT-Tr1\\}
-	
-	Type: Automaic
-	
-	Initial State: 
-	
-	Input: Input Table.
-	
-	Output: assert=True
-	
-	Test Case Derivation: From instance model 1 of the SRS 
-	(\url{https://github.com/whitere123/CAS741_REW}) it follows that 
-	the spectral matrices are of the form: 
-	 \[
-	SpecMat_{x}=
-	\left[ {\begin{array}{cc}
-		NUM_{x} & -D_{x} \\
-		-D_{x} & -NUM_{x} \\
-		\end{array} } \right]
-	\] 
-	Clearly this matrix is equal to its own transpose. 
-	
-	How test will be performed: We will check to see if each spectral matrix is 
-	equal to its own transpose. This will be done by checking that $assert( 
-	SpecMat.SpecMat_{x} == SpecMat.SpecMat_{x}^{T} ) $ is true for $x: ( O(8), 
-	O(10), O(12) )$.  
-	
-	\item{test-SpecMAT-Tr2\\}
 	
 	Type: Automaic
 	
@@ -396,6 +367,7 @@ module. \\
 	$assert( 
 	SpecMat.NUM_{x} == -SpecMat.NUM_{x}^{T} ) $ is true for $x: ( O(8), 
 	O(10), O(12) )$.  
+	\wrw{see module guide for proper notation and references}
 		
 \end{enumerate} 
 
@@ -431,9 +403,7 @@ parameter k. The list of qualities of an adequate plot is presented in
 	values superimposed on the plot overlap with the appropriate numerical 
 	eigenvalues.  
 
-\end{enumerate} 
-
-\begin{enumerate}				
+			
 	\item{test-Plotting-Inspect-Bound\\}
 	
 	Type: Manual
@@ -461,26 +431,31 @@ For system tests related to Nonfunctional requirements please see the System
 Verification and Validation Plan at 
 \url{https://github.com/whitere123/CAS741_REW}. 
 
-\subsection{Traceability Between Test Cases and Modules}
+\subsection{Traceability Between Test Cases and Requirements}
 
 This section shows the traceability between the modules and the test cases.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
-\begin{table}[H]
+\label{traceability}
+\begin{table}[h]
 	\centering
-	\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-		\toprule
-		\textbf{Test Case} & \textbf{Modules}\\
-		\midrule
-			Rin & M1, M2, M13\\
-			Rfind & M4, M6, M7, M8, M9, M10,M11, M13\\
-			Rplt & M3, M11, M13 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Trace Between Test Cases and Modules}
-	\label{TblRT}
-\end{table}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		& Rin& Rfind & Rplt  \\
+		\hline
+		test-InParams-N     &X & &   \\ \hline
+		test-InParams-P    &X& &    \\ \hline
+		test-InParams-k    &X & &   \\ \hline 
+		test-NumParams-Dom    & &X &     \\ \hline 
+		test-NumParams-Dom-Bound    & &X &    \\ \hline 
+		test-NumParams-EllipMat    & &X &     \\ \hline 
+		test-SpecMAT-Tr1  & &X &    \\ \hline 
+		test-Plotting-Inspect & & &X     \\ \hline 
+		test-Plotting-Inspect-Bound  & & &X   \\
+		\hline
+	\end{tabular}\\
+	\caption{Traceability Between Test }
+	\label{Table:D_1}
+\end{table} 
 
 \clearpage
 \bibliographystyle {plainnat}
