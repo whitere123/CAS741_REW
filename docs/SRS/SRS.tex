@@ -112,7 +112,8 @@ spelling check.\\
 11-10-2018 & 1.5& Edit of 1.4. Draft 1.4 was peer reviewed by Hanane Zlitni. 
 Most of her recommended changes were made. \\
 28-11-2018& 1.6& Edit of 1.5. Draft 1.5 was edited for the final 
-documentation.\\
+documentation.\\ 
+09-12-2018& 1.7& Creation of final draft for final documentatation.\\
 \bottomrule
 \end{tabularx}
 
@@ -264,7 +265,7 @@ For each $t$. So $e^{i \omega t}$ stays on the complex unit circle. \\
 \section{Introduction}
 
 Rogue waves are large and unexpected waves that occur in nature. For example,  
-giant water waves will can randomly appear on the ocean surface. These freak 
+giant water waves randomly appear on the ocean surface. These freak 
 occurences pose a threat to ships and ocean liners. Rogue waves have also been 
 documented in laser beam channels. 
 This phenomenon has opened up many doors in research related to non-linear 
@@ -274,25 +275,29 @@ Phycisists and mathematicans are interested in modeling and understanding
 rogues waves. They are particularly interested in classifying the stability of 
 these waves and using equations to model their behaviour as a function of 
 measurable physical parameters. My supervisor, Dr. Dmitry Pelinovsky, and I 
-will use a particular matrix equation (lax pair), that is satisfied for wave 
-solutions of the Non-Linear Schr\"{o}dinger (NLS) equation, in our 
+will use a particular matrix equation from a lax pair that is satisfied for 
+wave 
+solutions of the Non-Linear Schr\"{o}dinger (NLS) equation in our 
 investigation of rogue waves. The NLS equation is a good tool for modeling 
 rogue waves and the spectrum of the previously mentioned matrix equation 
 contains useful information regarding the behaviour of such waves. Further 
-details can be read in section 5.1. 
+details can be read in section \ref{Sec_pd}. 
 
-The purpose of the spectral search program (\progname) is to find a numerical 
-algorithm that is best for 
-finding the spectrum of the previously mentioned lax operator for particular 
-boundary conditions. We will run simulations with these different algorithms to 
-see which is best at mimicing the current theoretical work. Once we build 
-confidence we will extend the program beyond the boundary conditions. This 
+The purpose of the spectral search program (\progname) is to use three 
+reliable numerical differentiation algorithms to
+find the spectrum of the previously mentioned matrix equation for two 
+particular wave solutions of the NLS equation corresponding to particular 
+boundary value problems. We will try to get these 
+spectral 
+values to coincide with current work regarding the NLS equation. The next stage 
+of our research will be to extend the program beyond the 
+boundary conditions. This 
 extension will provide insight into the next stage of our research - 
 analytically finding the entire continuous spectrum of the operator. 
 
 \subsection{Purpose of Document}
 The purpose of this document is to describe the requirements for \progname. 
-\progname will search for the 
+\progname \ will search for the 
 continuous spectrum of a lax pair that is compatible with solutions 
 of the NLS equation. 
 
@@ -312,9 +317,7 @@ VnV, design or code itself.
 \subsection{Scope of Requirements} 
 
 The scope of SpecSearch is limited to finding the spectrum of a particular 
-linear lax equation and determining the stability of the corresponding waves. 
-The waves being investigated are solutions to 
-the focusing NLS equation. 
+linear lax equation for two boundary solutions of the NLS equation. 
 
 \subsection{Characteristics of Intended Reader} 
 
@@ -343,17 +346,18 @@ This section identifies the interfaces between the system and its environment,
 describes the user characteristics and lists the system constraints.
 
 \subsection{System Context} 
-Diagram 1 shows the system context. The circle represents the user of the 
+Diagram \ref{context} shows the system context. The circle represents the user 
+of the 
 scientific software. The rectangle resembles the software system. The arrows 
 indicate the flow of data between software and environment. The inputs are the 
-physical wave parameters and the output is the spectrum of the matrix operator 
-and error analysis.
+physical wave parameters and the output is the spectrum of the matrix operator.
  \begin{figure}[h!]
 	\begin{center}
 		{
 			\includegraphics[width=15cm,height=6cm]{SystemContext.png}
 		} 
 	\caption{System Context}
+	\label{context}
 	\end{center}
  \end{figure}
 
@@ -372,9 +376,8 @@ for your reasearch.
 
 \begin{itemize}
 \item Detect data type mismatch. 
-\item Solve the lax equation associated with the given wave parameters. 
-\item Connect the discrete spectrum in order to form a continuous spectrum. 
-\item Display the continuous spectrum on the complex plane.
+\item Find the spectrum of the lax equation for two particular wave solutions. 
+\item Display the spectrums on the complex plane.
 \end{itemize}
 \end{itemize}
 
@@ -408,16 +411,10 @@ within it contains information about the stability of solutions.
 
 SpecSearch will attempt to produce a numerical approximation of the continuous 
 spectrum for the previously mentioned spectral problem. In particular, 
-it will find the spectrum for general travelling periodic wave solutions of the 
+it will find the spectrum for two general travelling periodic wave solutions of 
+the 
 focusing
-NLS equation.  
-
-Previous attempts have used an algebraic method to calculate the spectral 
-parameter \cite{SegaletAl}. These attempts have only been 
-successful at finding a countable number of points on the spectrum. This 
-software will 
-search for more points and ``connect" the points in an attempt to approximate 
-and search for the continuous spectrum.  
+NLS equation.    
 
 \subsubsection{Terminology and  Definitions}
 
@@ -471,13 +468,13 @@ wave.
 \subsubsection{Goal Statements}
 
 \noindent Given physical parameters of the rogue wave and numerical 
-differentiation method, the goal 
+differentiation parameters, the goal 
 statement(s) are:
 
 \begin{itemize}[leftmargin=.75in]
 
 \item[GSlocate:] {Locate elements in the spectrum of the lax pair matrix for 
-particular solutions wave solutions(see 
+particular two wave solutions(see 
 \ref{sec_instance}) }
 \item[GStheor:] {Compare theoretical results to the approximated spectrum.}
 
@@ -511,8 +508,8 @@ wave is a solution to the NLS equation.
 system only deals with focusing waves.
 \end{itemize} 
 Aham, Amom, Anls and Afoc are assumptions that are used in the derivation of 
-the focusing NLS Equation \ref{TM1}. This equation is the foundation for all of 
-the general defitions, data definitions and instance models. 
+the focusing NLS Equation \ref{T1}. This equation is the foundation for all of 
+the general definitions, data definitions and instance models. 
 
 \begin{itemize}[leftmargin=.5in]
 \item[Awav:]All 
@@ -559,9 +556,10 @@ on.
 		Equation&  $iq_{t} + q_{xx} + 2|q|^{2}q=0$\\
 		\hline
 		Description & 
-		``The NLS equation appears as one of universal equations that describe 
-		the evolution of slowly varying packets of quasi-monochromatic waves in 
-		weakly nonlinear media that have dispersion."(Malomed 2005) Here $t$ 
+		The NLS equation appears as one of the fundamental equations for 
+		describing 
+		the evolution of waves and wave packets in 
+		weakly nonlinear media that have dispersion. Here $t$ 
 		represents time, $x$ represents position and $q$ is the wave.\\
 		\hline
 		Source &
@@ -598,7 +596,7 @@ on.
 		General traveling periodic waves that satisfy the Schr\"{o}dinger 
 		equation 
 		will have this form. $c$ is the wave speed and $\omega$ is the 
-		frequency. \\
+		frequency. A derivation of this equation follows this table.\\
 		\hline
 		Source &
 		\cite{SegaletAl}\\
@@ -670,7 +668,8 @@ Symbols &$g, c, d, \omega$\\
   \hline
   Description & 
                 These are conserved quantities in the NLS equation. For fixed 
-                g and d the above relations are true for all space and time.
+                g and d the above relations are true for all space and time. A 
+                derivation of these quantities follows this table.
   \\
   \hline
   Sources& \cite{SegaletAl} \\
@@ -735,13 +734,15 @@ adding the complex conjugate and integrating. \\
 		\hline
 		Description & 
 		This is a solution to the focusing NLS for 
-		General Traveling Periodic Waves. $k\in [0,1]$, $sn$ is the jacobi 
+		General Traveling Periodic Waves. $k\in (0,1)$, $sn$ is the jacobi 
 		elliptic function and $a,b$ are related to the conserved quantities. 
 		The constraints on $a,b$ are $b \leq a^{2}$ and $b \geq a^{2}k^{2}$. 
 		Along two boundaries of this triangular region and with $a=1$ the 
-		equation simplifies to $ \rho(x) = dn(x;k) $ and $ \rho(x) = kcn(x;k)$.
+		equation simplifies to $ \rho_{1}(x) = dn(x;k) $ and $ \rho_{2}(x) = 
+		kcn(x;k)$.
 		The derivation of these formulae are extremely long and will be omitted 
-		from this document.  
+		from this document.  \textbf{We will only concern ourselves with the 
+		spectrum for these two equations, $ \rho_{1}(x)$ and $\rho_{2}(x)$.} 
 		\\
 		\hline
 		Sources& \cite{SegaletAl} \\
@@ -793,6 +794,8 @@ The goal GSlocate is solved by IM1.
   \bar{u}_{x}-2\lambda \bar{u} & -2\lambda^{2} - |u|^{2}
   \end{pmatrix}$ \\
   &$\phi \in \mathbb{C}$\\
+  &A reduction of IM1 to an eigenvalue problem is provided below this table. 
+  \\ 
   \hline
   Sources& \cite{SegaletAl} \\
   \hline
