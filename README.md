@@ -8,5 +8,5 @@ The structure of the project was copied from 'https://gitlab.cas.mcmaster.ca/smi
 ./docs contains all written assignments and work for CAS741.  
 ./refs contains all the reference websites, literature and material.  
 ./src contains all of the source code
-
+./test contains all of the automated tests which are summarized in ./docs/VnVPlan and ./docs/VnVReport
 
