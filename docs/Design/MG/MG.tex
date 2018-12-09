@@ -55,7 +55,8 @@
 		hierarchy and control module.\\
 		Nov 7 & 1.2 & Peer review edits. \\ 
 		Nov 9 & 1.3 & Implementation of new MG template. \\ 
-		Nov 29& 1.4 & Edit of 1.3 for final documentations.\\
+		Nov 29& 1.4 & Edit of 1.3 for final documentations.\\ 
+		Dec 9& 1.5 & Creation of final draft for submission. \\
 		\bottomrule
 	\end{tabularx}
 	
@@ -516,7 +517,7 @@
 			\textbf{Req.} & \textbf{Modules}\\
 			\midrule
 			Rin & M1 , M2 , M13\\
-			Rfind & M4, M6, M7, M8, M9, M10,M11, M13,M14\\
+			Rfind & M4, M5,M6, M7, M8, M9, M10,M12, M13,M14\\
 			Rplt & M3,M11,M13 \\
 			\bottomrule
 		\end{tabular}
@@ -622,6 +623,7 @@
 		% Draw edges
 		\path [line] (plot) -- (out);
 		\path [line] (out) -- (eigen); 
+		\path [line] (out) -- (exacteig);
 		\path [line] (eigen) -- (specmat); 
 		\path [line] (specmat) -- (numpar); 
 		\path [line] (numpar) -- (diag);
@@ -631,8 +633,7 @@
 		\path [line] (elipint) -- (input); 
 		\path [line] (numpar) |- (input); 
 		\path [line] (exacteig) |- (input);
-		\path [line] (out) |- (numpar); 
-		\path [line] (exacteig) |- (plot); 
+		\path [line] (out) |- (numpar);  
 		\path [line] (specmat) -- (toe); 
 		\path [line] (control) -- (out);
 		\path [line] (control) -- (plot);
@@ -640,6 +641,7 @@
 		\path [line] (control) -- (specmat);
 		\path [line] (control) -- (input);
 		\path [line] (control) -- (eigen);
+		\path [line] (control) -- (exacteig);
 		\end{tikzpicture}
 		\caption{Use hierarchy among modules}
 		\label{FigUH}
