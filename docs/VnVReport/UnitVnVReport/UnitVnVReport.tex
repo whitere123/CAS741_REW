@@ -35,6 +35,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 2018-12-07 & 1.0 & Creation of first draft.\\
+2018-12-09 & 1.1 & Creation of final draft for final documentation. \\
 \bottomrule
 \end{tabularx}
 
@@ -86,7 +87,7 @@ Verification and Validation plan
 requirements: test-InParams-N, test-InParams-P, test-InParams-k, 
 test-NumParams-Dom, test-NumParams-Dom-Bound, test-NumParams-EllipMat, 
 test-SpecMAT-Tr1, test-Plotting-Inspect and test-Plotting-Inspect-Bound. The 
-first seven tests are automated. These tests inspect the InParams, NumParams 
+first seven tests are automated. These tests inspect the InParam, NumParam 
 and SpecMat modules. Tests with ``-Bound" in their names cycle through the 
 boundary analysis input table and verify that an assert statement returns true. 
 The other tests cycle through a table of common inputs within their constraints 
@@ -99,7 +100,9 @@ eigenvalues overlap with the appropriate numerical eigenvalues instead of basic
 aspects of the plot like symmetry and correct number of eigenvalues. These 
 tests involve a visual analysis of the six spectral plots by my thesis 
 supervisor using the common input and the boundary input. A summary of these 
-tests are presented at the end of this section. \\ 
+tests are presented at the end of this section. The common input refers to 
+input data from the UnitVnVPlan (table \ref{Table:D_13}) and the boundary data 
+refers to the boundary table from the unitVnVPlan (table \ref{Table:D_14}) \\ 
 A binary decision will be used to evaluate the tests. Each of the automated 
 tests loop through a list of input and return a pass or fail message for each 
 input. A test will be considered a failure if it returns at least one 
@@ -108,7 +111,8 @@ message. In this case the code will have to be modified until non of the tests
 return a fail message. The evaluation of the plotting tests is dependant on the 
 standards of my supervisor. The code will have to be modified if he does not 
 consider the plots to be adequate enough for his research. The evaluation of 
-test-Rplt is given in the table below. A list of passing input (inputs that do 
+test-Plotting-Inspect and test-Plotting-Inspect-Bound are given in the tables 
+below. A list of passing input (inputs that do 
 not throw exceptions) and passing boundary inputs was given to my supervisor. 
 He ran the software with 
 these input tables and gave a check mark if the theoretical eigenvalues 
@@ -168,7 +172,7 @@ indicate that my supervisor approved of the plot for that particular input.
 
 \section{Nonfunctional Requirements Evaluation}
 
-Planning for nonfunctional tests of units will not be relevant to \progname. 
+Nonfunctional tests of units will not be relevant to \progname. 
 For system tests related to Nonfunctional requirements please see the System 
 Verification and Validation Plan at 
 \url{https://github.com/whitere123/CAS741_REW}. 
@@ -260,8 +264,10 @@ All of the tests passed. No changes were made to the software package.
 
 The tests in \ref{unitest} were automated. Data tables were organized into 
 MATLAB matrices, with input as rows. A for loop was constructed to cycle 
-through the rows to be used as arguments in \progname. The aforementioned 
-assert statements were called in each iteration of the loop. The results of 
+through the rows and input them into arguments in \progname. The aforementioned 
+assert statements \ref{unitest} were called in each iteration of the loop and 
+the result of the test was printed to the screen (either pass or fail). 
+The results of 
 these automated tests are summarized in the following tables. Details about the 
 intial state, Input, Output, expected result and result of running the
 test are given in the following tables. A check mark indicates that the test 
