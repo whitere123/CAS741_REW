@@ -1,0 +1,405 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{amsmath, mathtools}
+
+\usepackage[round]{natbib}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fullpage} 
+\usepackage{amsmath}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=red,
+	urlcolor=blue
+}
+\usepackage[round]{natbib}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15)-- 
+cycle;}
+
+\input{../../Comments}
+\input{../../Common}
+
+\begin{document}
+
+\title{\progname: System Verification and Validation Test Report} 
+\author{Robert E. White}
+\date{\today}
+	
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+2018-12-07 & 1.0 & First draft of SystVnV test report.\\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+	\toprule		
+	\textbf{symbol} & \textbf{description}\\
+	\midrule 
+	T & Test\\
+	R & Requirement\\ 
+	NFR & Non-functional Requirement\\
+	\bottomrule
+\end{tabular}\\
+
+Refer to the SRS Symbols, Abbreviations and Acronyms for a more 
+complete list (\cite{SRS}) \url{https://github.com/whitere123/CAS741_REW}. 
+
+\newpage
+
+\tableofcontents
+
+\listoftables %if appropriate
+
+\listoffigures %if appropriate
+
+\newpage
+
+\pagenumbering{arabic}
+
+This document will briefly summarize the tests outlined in the System 
+Verification and Validation plan, explain the automated testing set-up, 
+summarize the results of the tests and list the changes made in response to the 
+tests. After reading this document one should be able to determine whether or 
+not \progname \ satisfied its functional and nonfunctional requirements. They 
+should also be able to trace a test to a particular module and a module to a 
+particular requirement. 
+
+\section{Functional Requirements Evaluation} 
+
+The three functional requirements for \progname \ are Rin, Rfind and 
+Rplt. More details on these requirements can be found in the System 
+Requirements Specification, \cite{SRS}. There are six tests in the System 
+Verification and Validation plan 
+(\url{https://github.com/whitere123/CAS741_REW}) that cover functional 
+requirements: test-Rin1NonNumeric, test-Rin1kBounds, test-Rin1NBounds, 
+test-Rin1PBounds, test-Rfind-Rin and test-Rplt. The first five aforementioned 
+tests are 
+automated tests that check for exceptions and count the spectrum size.  
+Test-Rplt is a visual analysis of the six spectral plots by my thesis 
+supervisor. A summary of this test is presented at the end of this section. \\ 
+A binary decision will be used to evaluate the tests. Each of the automated 
+tests loop through a list of input and return a pass or fail message for each 
+input. These automated tests and a summary of their results are presented in 
+\ref{automate}. A test will be considered a failure if it returns at least one 
+fail 
+message. In this case the code will have to be modified until non of the tests 
+return a fail message. The evaluation of test-Rplt is dependant on the 
+standards of my supervisor. The code will have to be modified if he does not 
+consider the plots to be adequate enough for his research. The evaluation of 
+test-Rplt is given in the table below. A list of passing input (inputs that do 
+not throw exceptions) was given to my supervisor. He ran the software with 
+these input and gave a check mark if numerical plot is of the correct form (ie 
+appropriate symmetry and clusting of points). A final column full of 
+check marks will indicate a passing test for test-Rplt. \\
+
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P & Result \\
+		\hline
+		I1      &0.6 &100 &2 & \checkmark \\ \hline
+		I2     &0.1 &120 &2 & \checkmark \\ \hline
+		I3     &0.9 &500 &2 & \checkmark\\ \hline 
+		I4     &0.88 &550 &2 & \checkmark \\ \hline 
+		I5      &0.99 &200 &2 & \checkmark \\ \hline
+		I6     &0.65 &700 & 2& \checkmark \\ \hline
+		I7    &0.4 &100 & 2& \checkmark \\ \hline 
+		I8     &0.8 &400 &4& \checkmark \\ \hline
+		I9      &0.9 &500 &4 & \checkmark \\ \hline
+		I10     &0.2 &700 &4 & \checkmark \\ \hline
+		I11     &0.3 &200 &4 & \checkmark \\ \hline 
+		I13    &0.8 &100 &4 & \checkmark  \\ \hline
+		I14      &0.89 &150 &4 & \checkmark \\ \hline
+		I15     &0.69 &500 &4 & \checkmark \\ \hline
+		I16     &0.55 &300 &2 & \checkmark \\ \hline 
+		I17    &0.9 &400 &4 & \checkmark  \\ 
+		\hline
+	\end{tabular}\\
+	\caption{test-Rplt}
+	\label{Table:D_13}
+\end{table}  
+
+test-NFR2 was a code inspection that checked for maintainability and 
+manageability. My supervisor inspected the code to see that each equation was 
+implemented successfully and to check if he was able understand the module 
+structure. Upon inspection my supervisor deemed the code adequate, maintainable 
+and manageable. 
+
+\section{Nonfunctional Requirements Evaluation}
+
+The two Nonfunctional requirements for \progname \ are NFR1, which is related 
+to maintainability and manageability, and NFR2, which is related to accuracy. 
+More details on these requirements can be found in the System 
+Requirements Specification, \cite{SRS}. Although not explicitly mentioned in 
+the SRS, usabilty will also be tested. It is related to maintainability as my 
+supervisor should be able to use the code after we have completed the project.\\
+The three Nonfunctional requirement tests are outlined in the System 
+Verification and Validation plan 
+(\url{https://github.com/whitere123/CAS741_REW}). They are test-NFR1, test-NFR2 
+and test-UserPerformance. Usability will recieve a mark out of 15. Each 
+question is weighted according to importance by my supervisor. A question will 
+not recieve marks if I was unable to answer 
+it or if the response was below satisfactory. A failing grade on the usability 
+survey is less than or equal to 11. 
+
+\subsection{Usability} 
+
+The following usability table was proposed in the System Verification and 
+Validation Plan. I have filled out my responses under each question in the 
+following list. Questions 
+with poor responses were addressed in \ref{changes}. Due to time constraints 
+and other commitments I was the only person to fill out this survey.
+
+\label{UsabilitySurvey}
+\begin{itemize}
+	\item How long did it take before you could run the software? How many 
+	attempts at running SpecSeach did it take before you understood how to 
+	properly use it and interpret the output? (1 marks) \\
+	This question is not applicable to me as I was the person who created the 
+	software. The response would be biased. 
+	\item Was this program useful for your research and were you able to 
+	interpret the results? (4 marks) \\ 
+	Yes, this program was helpful for my research. The spectral plot helped me 
+	to foreshadow the location of and meaning of the continuous bends in the 
+	spectrum. This will be the next stage of our research.\\
+	Yes, I was able to interpret the results. The range of the axes was 
+	appropriate and matlab has a convienient interface for analyzing figures. 
+	In particular it allows you to click on particular points and display their 
+	values. 
+	\item What aspects of this software do you feel need improvement? (1 
+	mark)\\ 
+	With respect to the functional requirements, the system performs adequately 
+	and within reasonable time.
+	\item How does this program compare with other software that finds this 
+	particular spectrum? (2 mark)\\ 
+	I could not find another software package that performs the same task as 
+	\progname. 
+	\item Was it clear how and where to input the variables? (3 marks) \\
+	Yes, it the command line prompt gave very clear instructions. 
+	\item Were the plots clear? (4 marks) \\
+	Yes, the choice of markers was appropriate and it was easy to differentiate 
+	between the different plots.
+\end{itemize} 
+\noindent
+Based on the previously described metric, usability gets $\frac{12}{15}$. This 
+test is related to test-UserPerformance.
+		
+\subsection{Checklist}
+
+The following checklist was proposed in the System Verification and 
+Validation Plan. This checklist is related to accuracy and usability. The 
+evaluation metric is simple: the total number of checks divided by 5, the total 
+number of elements in the checklist. 
+
+\label{softwarevercheck}
+\begin{itemize}
+	\item Non of the results surprised you.  \checkmark   
+	\item Were you able to identify which numerical algorithm and wave solution 
+	the plot represented?  \checkmark 
+	\item Were all of the plots legible?  \checkmark 
+	\item Was the output useful for your research?  \checkmark 
+	\item Was it clear how to input the variables?  \checkmark 
+\end{itemize}  
+\noindent
+The evaluation for this test is 1. 
+\subsection{Inspection by Supervisor} 
+
+The code inspection by my supervisor is amongst the most 
+simple and important nonfunctional test. The metric is binary. Either my 
+supervisor says that the code satisfies the nonfunctional requirements or 
+doesn't. Luckily, the code passed the inspection by my supervisor. 
+	
+\section{Comparison to Existing Implementation}	
+
+My supervisor and I could not find any software that performs the same tasks as 
+\progname. 
+
+\section{Unit Testing} 
+
+This section is not appropriate for the System Verification and Validation 
+Plan. For more details about unit testing please refer to the Unit VnV Plan and 
+Unit VnV Report at (\url{https://github.com/whitere123/CAS741_REW}). 
+
+\section{Changes Due to Testing} \label{changes}
+
+All of the tests passed. No changes were made to the software package.
+
+\section{Automated Testing} \label{automate} 
+
+The following tables summarize the results for test-Rin1NonNumeric, 
+test-Rin1kBounds, test-Rin1NBounds, test-Rin1PBounds and test-Rfind-Rin. 
+Details about the intial state, Input, Output, expected result and result of 
+test are given in the following tables.A check mark indicates that the test 
+returned the expected 
+result. Descriptions of each test can be found in the SystVnVPlan at 
+\url{https://github.com/whitere123/CAS741_REW}.  A test is considered a failure 
+if it is missing a checkmark, that is 
+one of the input variables for a test did not return the expected result. Each 
+test involved looping through a list of potential intial data and comparing 
+paricular outputed with expected output.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P & Expected Result& Test Result \\
+		\hline
+		I1    &X &X &X & Error & \checkmark \\ \hline
+		I2    &X &30 &2 & Error& \checkmark \\ \hline 
+		I3    &X &X &2 &Error & \checkmark \\ \hline 
+		I4     &X &100 &X &Error & \checkmark \\ \hline
+		I5     &0.5 &X & 2& Error& \checkmark \\ \hline
+		I6    &0.8 &X &X & Error & \checkmark \\ \hline
+		I7      &X &X &4 & Error & \checkmark \\ \hline
+		I8     &X &1000 &X & Error & \checkmark \\ \hline
+		I9     &0.99 &X &X & Error & \checkmark \\ \hline 
+		I10    &0.6 &250 &X & Error & \checkmark \\ 
+		\hline
+	\end{tabular}\\
+	\caption{test-Rin1NonNumeric}
+\end{table} 
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P &Expected Result& Test Result \\
+		\hline
+		I1     &1 &100 &2 & Error& \checkmark \\ \hline
+		I2     &0 &100 &4 & Error& \checkmark \\ \hline 
+		I3     &-10 &50 &2 &Error& \checkmark \\ \hline 
+		I4      &-55 &200 &4 &Error& \checkmark \\ \hline
+		I5     &2 &150 & 2& Error& \checkmark\\ \hline
+		I6     &1.0001 & 100 &2 & Error& \checkmark \\ \hline
+		I7     &-0.001 & 200 &4 & Error& \checkmark\\ \hline 
+		I8     &1.01 & 200 &2 &Error& \checkmark \\ \hline 
+		I9      &-0.01 &100 &4 &Error& \checkmark \\ \hline
+		I10     &0.7 & -10 &2 & Error& \checkmark \\ \hline
+		I11     &0.9 & 20 &4 & Error& \checkmark \\ \hline 
+		I12     &0.9 & 5 &2 &Error & \checkmark \\ \hline 
+		I13      &0.7 &0 &4 &Error & \checkmark \\ \hline
+		I14     &0.5 & -1 & 2& Error& \checkmark \\ \hline 
+		I15    &0.9 & 100 &0 & Error& \checkmark \\ \hline 
+		I16     &0.9 & 500 &-2 &Error& \checkmark \\ \hline 
+		I17      &0.7 &150 &-4 &Error& \checkmark \\ \hline
+		I18     &0.5 & 200 & 100& Error& \checkmark \\ \hline 
+		I19     &0.7 & 0.5 & 100& Error& \checkmark \\
+		\hline
+	\end{tabular}\\
+	\caption{test-RinkBounds, test-NinkBounds,test-PinkBounds}
+\end{table}  
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P & Expected Result & Test result \\
+		\hline
+		I1      &0.6 &100 &2 & 4N & \checkmark \\ \hline
+		I2     &0.1 &120 &2 & 4N & \checkmark \\ \hline
+		I3     &0.9 &500 &2 & 4N & \checkmark \\ \hline 
+		I4     &0.88 &550 &2 & 4N & \checkmark \\ \hline 
+		I5      &0.99 &200 &2 & 4N & \checkmark \\ \hline
+		I6     &0.65 &700 & 2& 4N & \checkmark \\ \hline
+		I7    &0.4 &100 & 2& 4N & \checkmark \\ \hline 
+		I8     &0.8 &400 &4& 4N & \checkmark \\ \hline
+		I9      &0.9 &500 &4 & 4N & \checkmark \\ \hline
+		I10     &0.2 &700 &4 & 4N & \checkmark \\ \hline
+		I11     &0.3 &200 &4 & 4N & \checkmark \\ \hline 
+		I13    &0.8 &100 &4 & 4N & \checkmark  \\ \hline
+		I14      &0.89 &150 &4 & 4N & \checkmark \\ \hline
+		I15     &0.69 &500 &4 & 4N & \checkmark \\ \hline
+		I16     &0.55 &300 &2 & 4N & \checkmark \\ \hline 
+		I17    &0.9 &400 &4 & 4N & \checkmark  \\ 
+		\hline
+	\end{tabular}\\
+	\caption{test-Rin-Rfind}
+\end{table} 
+
+\newpage		
+\section{Trace to Requirements}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		& Rin& Rfind & Rplt & NFR1 & NFR2 \\
+		\hline
+		test-Rin1NonNumeric     &X & & & &  \\ \hline
+		test-Rin1kBounds    & X& & & &   \\ \hline
+		test-Rin1NBounds    &X & & & &  \\ \hline 
+		test-Rin1PBounds    &X & & & &    \\ \hline 
+		test-RFind-Rin    &X &X & & &   \\ \hline 
+		test-Rplt    & & &X & &    \\ \hline 
+		test-NFR1  & & & &X &   \\ \hline 
+		test-NFR2  & & & & &X    \\ \hline 
+		test-UserPerformance  & & & & &X  \\
+		\hline
+	\end{tabular}\\
+	\caption{Traceability Between Test }
+	\label{Table:D_1}
+\end{table} 
+
+\section{Trace to Modules}	
+\clearpage
+\begin{table}
+	\centering
+	\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+		\toprule
+		\textbf{Test Case} & \textbf{Modules}\\
+		\midrule
+		test-Rin1NonNumeric & M1, M2, M13\\
+		test-Rin1kBounds & M1, M2, M13\\
+		test-Rin1NBounds & M1, M2, M13\\
+		test-Rin1PBounds & M1, M2, M13\\
+		test-RFind-Rin & M1, M2, M13, M4, M6, M7, M8, M9, M10,M11,M14\\
+		Rfind & M4, M6, M7, M8, M9, M10,M11, M13, M14\\
+		test-Rplt & M3, M11, M13 \\
+		test-NFR1 & M1-M14 \\
+		test-NFR2 & M1-M14 \\
+		test-UserPerformance & M1-M14 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Trace Between Test Cases and Modules}
+	\label{TblRT}
+\end{table}	
+
+\section{Code Coverage Metrics} 
+
+No code covering metrics were used in the creation of \progname.
+
+\clearpage
+\bibliographystyle {plainnat}
+\bibliography {../../../ReferenceMaterial/References} 
+
+\end{document}
