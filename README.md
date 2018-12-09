@@ -7,4 +7,6 @@ This project is for a computing and software course at McMaster University (CAS7
 The structure of the project was copied from 'https://gitlab.cas.mcmaster.ca/smiths/cas741/tree/master/BlankProjectTemplate'   
 ./docs contains all written assignments and work for CAS741.  
 ./refs contains all the reference websites, literature and material.  
+./src contains all of the source code
+
 
