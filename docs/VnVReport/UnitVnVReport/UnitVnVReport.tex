@@ -1,0 +1,446 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+
+\input{../../Comments}
+\input{../../Common}
+
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15)-- 
+	cycle;}
+
+\begin{document}
+
+\title{\progname: Unit Verification and Validation Plan} 
+\author{Robert E. White}
+\date{\today}
+	
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+2018-12-07 & 1.0 & Creation of first draft.\\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+	\toprule		
+	\textbf{symbol} & \textbf{description}\\
+	\midrule 
+	T & Test\\
+	R & Requirement\\ 
+	NFR & Non-functional Requirement\\
+	\bottomrule
+\end{tabular}\\
+
+Refer to the SRS Symbols, Abbreviations and Acronyms for a more 
+complete list (\cite{SRS}) \url{https://github.com/whitere123/CAS741_REW}. 
+
+\newpage
+
+\tableofcontents
+
+\listoftables %if appropriate
+
+\listoffigures %if appropriate
+
+\newpage
+
+\pagenumbering{arabic}
+
+This document will briefly summarize the unit tests outlined in the Unit 
+Verification and Validation plan, explain the automated testing set-up, 
+summarize the results of the tests and list the changes made in response to the 
+tests. After reading this document one should be able to determine whether or 
+not \progname \ satisfied its functional and nonfunctional requirements with 
+respect to the unit tests. They should also be able to trace a unit test to a 
+particular module and that module to a particular requirement. 
+
+\section{Functional Requirements Evaluation} \label{funct}
+
+The three functional requirements for \progname \ are Rin, Rfind and 
+Rplt. More details on these requirements can be found in the System 
+Requirements Specification, \cite{SRS}. There are nine tests in the Unit 
+Verification and Validation plan 
+(\url{https://github.com/whitere123/CAS741_REW}) that cover functional 
+requirements: test-InParams-N, test-InParams-P, test-InParams-k, 
+test-NumParams-Dom, test-NumParams-Dom-Bound, test-NumParams-EllipMat, 
+test-SpecMAT-Tr1, test-Plotting-Inspect and test-Plotting-Inspect-Bound. The 
+first seven tests are automated. These tests inspect the InParams, NumParams 
+and SpecMat modules. Tests with ``-Bound" in their names cycle through the 
+boundary analysis input table and verify that an assert statement returns true. 
+The other tests cycle through a table of common inputs within their constraints 
+and check to see that an assert statement returns true. A summary of these 
+tests will be covered in \ref{automation}. \\
+Test-Plotting-Inspect and test-Plotting-Inspect-Bound are similar to Test-Rplt 
+in the SystVnVReport. The exception is that we are testing the output module 
+and plotting module. We are more concerned with checking that theoretical 
+eigenvalues overlap with the appropriate numerical eigenvalues instead of basic 
+aspects of the plot like symmetry and correct number of eigenvalues. These 
+tests involve a visual analysis of the six spectral plots by my thesis 
+supervisor using the common input and the boundary input. A summary of these 
+tests are presented at the end of this section. \\ 
+A binary decision will be used to evaluate the tests. Each of the automated 
+tests loop through a list of input and return a pass or fail message for each 
+input. A test will be considered a failure if it returns at least one 
+fail 
+message. In this case the code will have to be modified until non of the tests 
+return a fail message. The evaluation of the plotting tests is dependant on the 
+standards of my supervisor. The code will have to be modified if he does not 
+consider the plots to be adequate enough for his research. The evaluation of 
+test-Rplt is given in the table below. A list of passing input (inputs that do 
+not throw exceptions) and passing boundary inputs was given to my supervisor. 
+He ran the software with 
+these input tables and gave a check mark if the theoretical eigenvalues 
+overlapped 
+with the appropriate ones. A check mark in the furtherst right column will 
+indicate that my supervisor approved of the plot for that particular input.  
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P & Result \\
+		\hline
+		I1      &0.6 &100 &2 & \checkmark \\ \hline
+		I2     &0.1 &120 &2 & \checkmark \\ \hline
+		I3     &0.9 &500 &2 & \checkmark\\ \hline 
+		I4     &0.88 &550 &2 & \checkmark \\ \hline 
+		I5      &0.99 &200 &2 & \checkmark \\ \hline
+		I6     &0.65 &700 & 2& \checkmark \\ \hline
+		I7    &0.4 &100 & 2& \checkmark \\ \hline 
+		I8     &0.8 &400 &4& \checkmark \\ \hline
+		I9      &0.9 &500 &4 & \checkmark \\ \hline
+		I10     &0.2 &700 &4 & \checkmark \\ \hline
+		I11     &0.3 &200 &4 & \checkmark \\ \hline 
+		I13    &0.8 &100 &4 & \checkmark  \\ \hline
+		I14      &0.89 &150 &4 & \checkmark \\ \hline
+		I15     &0.69 &500 &4 & \checkmark \\ \hline
+		I16     &0.55 &300 &2 & \checkmark \\ \hline 
+		I17    &0.9 &400 &4 & \checkmark  \\ 
+		\hline
+	\end{tabular}\\
+	\caption{Test-Plotting-Inspect}
+	\label{Table:D_13}
+\end{table}  
+
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P & Result \\
+		\hline
+		I1      &0.9 &100 &2 & \checkmark \\ \hline
+		I2     &0.99 &120 &2 & \checkmark \\ \hline
+		I3     &0.9999 &500 &2 & \checkmark \\ \hline 
+		I4     &0.99999 &550 &2 & \checkmark \\ \hline 
+		I5      &0.999999 &2 &4 & \checkmark \\ \hline
+		I6     &0.01 &700 & 2& \checkmark \\ \hline
+		I7    &0.0001 &100 & 2& \checkmark \\ \hline 
+		I8     &0.000001 &400 &4& \checkmark \\ \hline
+		I9      &0.0000001 &500 &4 & \checkmark \\ 
+		\hline
+	\end{tabular}\\
+	\caption{test-Plotting-Inspect-Bound}
+	\label{Table:D_14}
+\end{table} 
+
+\section{Nonfunctional Requirements Evaluation}
+
+Planning for nonfunctional tests of units will not be relevant to \progname. 
+For system tests related to Nonfunctional requirements please see the System 
+Verification and Validation Plan at 
+\url{https://github.com/whitere123/CAS741_REW}. 
+	
+\section{Comparison to Existing Implementation}	
+
+My supervisor and I could not find any software that performs the same tasks as 
+\progname. 
+
+\section{Unit Testing} \label{unitest}
+
+This section will provide a brief summary of each unit test. It will list the 
+data table used, assert statement and expected value of assert statement. 
+Traces from tests to requirements and tests to modules are presented in 
+\ref{trace1} and \ref{trace2}. 
+
+\begin{enumerate} 
+	\item{test-InParams-N\\} \label{inparamsN} 
+	
+	Input: Table \ref{Table:D_13}
+	
+	Assert Statement: $assert(InParams.N,N)$
+	
+	Output: assert=True 
+	
+	\item{test-InParams-P\\} \label{inparamsP} 
+	
+	Input: Table \ref{Table:D_13}
+	
+	Assert Statement: $assert(InParams.P,P)$
+	
+	Output: assert=True 
+	
+	\item{test-InParams-k\\} \label{inparamsK} 
+	
+	Input: Table \ref{Table:D_13}
+	
+	Assert Statement: $assert(InParams.k,k)$
+	
+	Output: assert=True 
+	
+	\item{test-NumParams-Dom\\} \label{numparamsdom}
+	
+	Input: Table \ref{Table:D_13}
+	
+	Assert Statement: $assert(NumParams.Dom(1),-NumParams.xend)  \\
+	 \& \ 
+	assert(NumParams.Dom(end),NumParams.xend)$
+	
+	Output: assert=True 
+	
+	\item{test-NumParams-Dom-Bound\\} \label{numparamsdombound}
+	
+	Input: Table \ref{Table:D_14}
+	
+	Assert Statement: $assert(NumParams.Dom(1),-NumParams.xend)  \\
+	\& \ 
+	assert(NumParams.Dom(end),NumParams.xend)$ 
+	
+	Output: assert=True 
+	
+	\item{test-NumParams-EllipMat\\} \label{numparamsellipmat}
+	
+	Input: Table \ref{Table:D_13} 
+	
+	Assert Statement: assert($Numpars.ellipjdn(2) , Numpars.EllipMat(2,2)$)
+	
+	Output: assert = True 
+	
+	\item{test-SpecMAT-Tr1\\} \label{specmattr1}
+
+	Input: Table \ref{Table:D_13}
+	
+	Assert Statement: assert($SpecMat.NUM_{x} , -SpecMat.NUM_{x}^{T}$) 
+	
+	Output: assert=True 
+	
+\end{enumerate}
+
+\noindent
+Test-Plotting-Inspect and test-Plotting-Inspect-Bound are explained in 
+\ref{funct}. 
+
+\section{Changes Due to Testing} 
+
+All of the tests passed. No changes were made to the software package.
+
+\section{Automated Testing} \label{automation} 
+
+The tests in \ref{unitest} were automated. Data tables were organized into 
+MATLAB matrices, with input as rows. A for loop was constructed to cycle 
+through the rows to be used as arguments in \progname. The aforementioned 
+assert statements were called in each iteration of the loop. The results of 
+these automated tests are summarized in the following tables. Details about the 
+intial state, Input, Output, expected result and result of running the
+test are given in the following tables. A check mark indicates that the test 
+returned the expected result. A link to a description of the unit test is 
+provided in the table caption.
+
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P &Expected Result& Test Result \\
+		\hline
+		I1     &1 &100 &2 & True & \checkmark \\ \hline
+		I2     &0 &100 &4 & True & \checkmark \\ \hline 
+		I3     &-10 &50 &2 &True& \checkmark \\ \hline 
+		I4      &-55 &200 &4 &True& \checkmark \\ \hline
+		I5     &2 &150 & 2& True& \checkmark \\ \hline
+		I6     &1.0001 & 100 &2 & True& \checkmark \\ \hline
+		I7     &-0.001 & 200 &4 & True& \checkmark\\ \hline 
+		I8     &1.01 & 200 &2 &True& \checkmark \\ \hline 
+		I9      &-0.01 &100 &4 &True& \checkmark \\ \hline
+		I10     &0.7 & -10 &2 & True& \checkmark \\ \hline
+		I11     &0.9 & 20 &4 & True& \checkmark \\ \hline 
+		I12     &0.9 & 5 &2 &True & \checkmark \\ \hline 
+		I13      &0.7 &0 &4 &True & \checkmark \\ \hline
+		I14     &0.5 & -1 & 2& True& \checkmark \\ \hline 
+		I15    &0.9 & 100 &0 & True& \checkmark \\ \hline 
+		I16     &0.9 & 500 &-2 &True& \checkmark \\ \hline 
+		I17      &0.7 &150 &-4 &True& \checkmark \\ \hline
+		I18     &0.5 & 200 & 100& True& \checkmark \\ \hline 
+		I19     &0.7 & 0.5 & 100& True& \checkmark \\
+		\hline
+	\end{tabular}\\
+	\caption{test-InParams-N \ref{inparamsN}, 
+	test-InParams-P \ref{inparamsP}, test-InParams-k \ref{inparamsK}, 
+	test-NumParams-Dom \ref{numparamsdom}} 
+\end{table} 
+
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P & Expected Result& Result \\
+		\hline
+		I1      &0.9 &100 &2 & True& \checkmark \\ \hline
+		I2     &0.99 &120 &2 & True & \checkmark \\ \hline
+		I3     &0.9999 &500 &2 &True & \checkmark \\ \hline 
+		I4     &0.99999 &550 &2 & True& \checkmark \\ \hline 
+		I5      &0.999999 &2 &4 & True& \checkmark \\ \hline
+		I6     &0.01 &700 & 2& True& \checkmark \\ \hline
+		I7    &0.0001 &100 & 2& True& \checkmark \\ \hline 
+		I8     &0.000001 &400 &4&True & \checkmark \\ \hline
+		I9      &0.0000001 &500 &4&True & \checkmark \\ 
+		\hline
+	\end{tabular}\\
+	\caption{test-NumParams-Dom-Bound \ref{numparamsdombound}}
+\end{table} 
+
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P &Expected Result& Test Result \\
+		\hline
+		I1     &1 &100 &2 & True & \checkmark \\ \hline
+		I2     &0 &100 &4 & True & \checkmark \\ \hline 
+		I3     &-10 &50 &2 &True& \checkmark \\ \hline 
+		I4      &-55 &200 &4 &True& \checkmark \\ \hline
+		I5     &2 &150 & 2& True& \checkmark \\ \hline
+		I6     &1.0001 & 100 &2 & True& \checkmark \\ \hline
+		I7     &-0.001 & 200 &4 & True& \checkmark\\ \hline 
+		I8     &1.01 & 200 &2 &True& \checkmark \\ \hline 
+		I9      &-0.01 &100 &4 &True& \checkmark \\ \hline
+		I10     &0.7 & -10 &2 & True& \checkmark \\ \hline
+		I11     &0.9 & 20 &4 & True& \checkmark \\ \hline 
+		I12     &0.9 & 5 &2 &True & \checkmark \\ \hline 
+		I13      &0.7 &0 &4 &True & \checkmark \\ \hline
+		I14     &0.5 & -1 & 2& True& \checkmark \\ \hline 
+		I15    &0.9 & 100 &0 & True& \checkmark \\ \hline 
+		I16     &0.9 & 500 &-2 &True& \checkmark \\ \hline 
+		I17      &0.7 &150 &-4 &True& \checkmark \\ \hline
+		I18     &0.5 & 200 & 100& True& \checkmark \\ \hline 
+		I19     &0.7 & 0.5 & 100& True& \checkmark \\
+		\hline
+	\end{tabular}\\
+	\caption{test-NumParams-EllipMat \ref{numparamsellipmat}} 
+\end{table} 
+
+\clearpage
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Input ID& k& N & P &Expected Result& Test Result \\
+		\hline
+		I1     &1 &100 &2 & True & \checkmark \\ \hline
+		I2     &0 &100 &4 & True & \checkmark \\ \hline 
+		I3     &-10 &50 &2 &True& \checkmark \\ \hline 
+		I4      &-55 &200 &4 &True& \checkmark \\ \hline
+		I5     &2 &150 & 2& True& \checkmark \\ \hline
+		I6     &1.0001 & 100 &2 & True& \checkmark \\ \hline
+		I7     &-0.001 & 200 &4 & True& \checkmark\\ \hline 
+		I8     &1.01 & 200 &2 &True& \checkmark \\ \hline 
+		I9      &-0.01 &100 &4 &True& \checkmark \\ \hline
+		I10     &0.7 & -10 &2 & True& \checkmark \\ \hline
+		I11     &0.9 & 20 &4 & True& \checkmark \\ \hline 
+		I12     &0.9 & 5 &2 &True & \checkmark \\ \hline 
+		I13      &0.7 &0 &4 &True & \checkmark \\ \hline
+		I14     &0.5 & -1 & 2& True& \checkmark \\ \hline 
+		I15    &0.9 & 100 &0 & True& \checkmark \\ \hline 
+		I16     &0.9 & 500 &-2 &True& \checkmark \\ \hline 
+		I17      &0.7 &150 &-4 &True& \checkmark \\ \hline
+		I18     &0.5 & 200 & 100& True& \checkmark \\ \hline 
+		I19     &0.7 & 0.5 & 100& True& \checkmark \\
+		\hline
+	\end{tabular}\\
+	\caption{test-SpecMAT-Tr1 \ref{specmattr1}} 
+\end{table} 
+
+\newpage
+\section{Trace to Requirements}
+		
+This section shows the traceability between the modules and the test cases.
+
+\label{trace1}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline        
+		Tests & Rin& Rfind & Rplt  \\
+		\hline
+		test-InParams-N     &X & &   \\ \hline
+		test-InParams-P    &X& &    \\ \hline
+		test-InParams-k    &X & &   \\ \hline 
+		test-NumParams-Dom    & &X &     \\ \hline 
+		test-NumParams-Dom-Bound    & &X &    \\ \hline 
+		test-NumParams-EllipMat    & &X &     \\ \hline 
+		test-SpecMAT-Tr1  & &X &    \\ \hline 
+		test-Plotting-Inspect & & &X     \\ \hline 
+		test-Plotting-Inspect-Bound  & & &X   \\
+		\hline
+	\end{tabular}\\
+	\caption{Traceability Between Test }
+	\label{Table:D_1}
+\end{table} 		
+
+	
+\section{Trace to Modules} \label{trace2}
+\clearpage
+\begin{table}
+	\centering
+	\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+		\toprule
+		\textbf{Test Case} & \textbf{Modules}\\
+		\midrule
+		test-InParams-N & M1, M2, M13\\
+		test-InParams-P & M1, M2, M13\\
+		test-InParams-k & M1, M2, M13\\
+		test-NumParams-Dom & M1, M6, M13\\
+		test-NumParams-Dom-Bound & M1, M6, M13\\
+		test-NumParams-EllipMat & M1,M4, M13\\
+		test-SpecMAT-Tr1 &M1,M4, M13 \\
+		test-Plotting-Inspect & M1,M11,M3 \\
+		test-Plotting-Inspect-Bound & M1,M11,M3 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Trace Between Test Cases and Modules}
+	\label{TblRT}
+\end{table}	
+
+\section{Code Coverage Metrics} 
+
+No code covering metrics were used in the creation of \progname.
+
+\bibliographystyle{plainnat}
+
+\bibliography{../../../ReferenceMaterial/References}
+
+\end{document}
