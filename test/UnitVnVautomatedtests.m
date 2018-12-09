@@ -1,7 +1,6 @@
 clear all; clc; close all; 
 
 % Theses are the tests for the system VnV (k,N,P)
-% Table 2 test cases from system VnV appendix
 Table4cases = [ 0.6 100 2 
                 ;0.1 120 2
                 ;0.9 100 2
@@ -68,7 +67,7 @@ Table4cases = [ 0.6 100 2
     
  end  
  
- %Testing the other input table tests
+ % test-NumParams-Dom , test-NumParams-EllipMat 
  for i=1:length(Table4cases(:,1))
      [tmp1,tmp2,tmp3,inp]=SpectralProgramtest2(Table4cases(i,:)) ;
      a=0;
@@ -96,6 +95,7 @@ Table4cases = [ 0.6 100 2
     
  end  
  
+ % test-SpecMAT-Tr1
  for i=1:length(Table4cases(:,1))
      [tmp1,tmp2,tmp3,inp]=SpectralProgramtest2(Table4cases(i,:)) ; 
      if (isequal(tmp3{7},(-1)*tmp3{7}')) 
@@ -105,7 +105,7 @@ Table4cases = [ 0.6 100 2
      end
  end
  
-% Boundary value analysis
+% test-NumParams-Dom-Bound
   for i=1:length(Table5cases(:,1))
      [tmp1,tmp2,tmp3,inp]=SpectralProgramtest2(Table5cases(i,:)) ;
      a=0;

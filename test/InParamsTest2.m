@@ -4,7 +4,8 @@ classdef InParamsTest2 <handle
         N = 0;
         P = 0;
     end
-    methods
+    methods 
+        %%%%% This is the same code as InParams but for testing purposes
         function obj=Load_Params(obj,m1,m2,m3)
             obj.k = m1;
             obj.N = m2;

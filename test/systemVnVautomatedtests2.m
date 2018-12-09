@@ -13,11 +13,11 @@ Table2cases = [ 'a' 'a' 'a'
                 ; 0.99 'z' 'Z'
                 ; 0.6 250 'X'] ;
 
+ % test-Rin1NonNumeric
  for i=1:length(Table2cases(:,1))
              a=0;
     try
-       %Error-maker 
-        SpectralProgramtest2(Table2cases(i,:)) ;
+         SpectralProgramtest2(Table2cases(i,:)) ;
     catch e 
         %e is an MException struct
         fprintf('Test Passed \n') 
@@ -49,7 +49,7 @@ Table2cases = [ 'a' 'a' 'a'
                 ; 0.5 200 100
                 ; 0.7 0.5 100
                 ] ;
-            
+    % test-Rin1kBounds, test-Rin1NBounds,test-Rin1PBounds        
  for i=1:length(Table3cases(:,1))
              a=0;
     try
@@ -83,7 +83,7 @@ Table2cases = [ 'a' 'a' 'a'
                 ; 0.55 300 2
                 ; 0.9 200 4
                 ] ;
- %passTESTcases. Try to catch exception 
+ % checking that program runs smoothly with input within constraints
  for i=1:length(Table4cases(:,1))
              a=0;
     try
@@ -99,7 +99,7 @@ Table2cases = [ 'a' 'a' 'a'
     end
  end  
  
- %passTESTcases. Seeing if the size of the spectrums are correct. 
+ % test-Rin-Rfind
  for i=1:length(Table4cases(:,1))
      [tmp1,tmp2,tmp3,inp]=SpectralProgramtest2(Table4cases(i,:)) ;
              a=0; 
