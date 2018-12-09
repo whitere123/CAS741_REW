@@ -1,5 +1,11 @@
 User Guide:  
   
 The folders and directories are as follows:  
+  
+../SRS is the System Requirements Specification. 
+../Design describes all of the modules 
+../VnVPlan is the verification and validation plan. 
+../VnVReport is a summary of the tests in ../VnVPlan.  
+
 
 
