@@ -39,7 +39,8 @@ submission. \\
 references, improved writing and added test-NFR2c. \\ 
 2018-10-23 & 1.3 & Edit of 1.2. Minor corrections and revisions. \\
 2018-11-28 & 1.4 & Edit of 1.3. First wave of corrections for final 
-documenation.\\
+documenation.\\ 
+2018-12-09 & 1.5 & Creation of final draft for final documentation. \\
 \bottomrule
 \end{tabularx}
 
@@ -100,33 +101,35 @@ The software that is going to be tested is called \progname. \progname \ will
 search for the 
 spectrum (set of eigenvalues) of a particular lax equation from a lax pair that 
 is compatible 
-with solutions to the Non-Linear Schr\"{o}dinger (NLS) Equation. \progname \
-will also use the spectral information to determine the stability of the 
-solutions. Refer to the 
-instance models in the (\cite{SRS}) for more details.
+with solutions to the Non-Linear Schr\"{o}dinger (NLS) Equation. We are only 
+concerned with the spectrum of two particular solutions. Refer to the 
+instance model in the SRS (\cite{SRS}) for more details.
 \subsection{Objectives}
 \label{Objectives}
 	The qualities that are most important for \progname \ are highlighted in 
-	this section. Many of these qualities are also presented in the 
+	this section. Many of these qualities are described in the SRS
 	(\cite{SRS}). \\
 	
-	My supervisor, Dr$.$ Dmitry Pelinovsky, and me intend to use this program 
+	My supervisor, Dr$.$ Dmitry Pelinovsky, and I intend to use this program 
 	as 
 	a tool to search for the 
-	continuous spectrum of the previously mentioned spectral problem. 
+	 spectrum of the previously mentioned spectral problem. 
 	\progname \
 	will only provide the approximate 
-	location of the spectrum and a finite number of elements in the spectrum. 	
+	location of the spectra for two particular wave solutions of the NLS 
+	equation. In addition, it 
+	can only find a finite number of elements in the spectra. 	
 	We will 
 	use this output as a guide in analytically solving for the 
-	entire continuous spectrum.  Therefore, the 
+	entire continuous spectrum of general traveling periodic waves.  Therefore, 
+	the 
 	code should be reliable and accurate within my supervisor's standards. \\
 	% An unreliable and inaccurate output will provide a misleading direction 
 	%for the next stage of our research. 
 	
 	There are various numerical methods that can be used to approximate the 
-	derivatives of the eigenfunctions [Graselli and Pelinovksy, 2007]. My 
-	supervisor and me intend to experiment with these different 
+	derivatives of the eigenfunctions, \cite{graspel}. My 
+	supervisor and I intend to experiment with these different 
 	methods in an attempt to create a more accurate picture of the spectrum. 
 	Therefore, it is important that \progname \ is maintainable and 
 	manageable. \\
@@ -151,7 +154,7 @@ instance models in the (\cite{SRS}) for more details.
 \subsection{References}
 \label{REF1}
 The following reference will be used to build confidence in software 
-correctness. This research papers explores the same spectrum that my supervisor 
+correctness. This research paper explores the same spectrum that my supervisor 
 and I are studying. They were successful at analytically finding the set of 
 eigenvalues for particular boundary conditions. These eigenvalues will be 
 plotted alongside our numerical spectrum. These theoretical results define the 
@@ -176,7 +179,7 @@ and requirements outlined in the SRS (\cite{SRS}).
 \subsection{Verification and Validation Team}
 \label{VnVTeam}
 The verification and validation team consists of my thesis supervisor, Dr. 
-Dmitry Pelinovsky and me, Robert White. \\
+Dmitry Pelinovsky and I, Robert White. \\
 
 \subsection{SRS Verification Plan}
 \label{SRSVerPlan}
@@ -197,14 +200,15 @@ my thesis supervisor, Dr$.$ Smith and CAS 741 classmates.
 \label{ImplementationVerPlan}
 The implementation verification plan consists of three parts. The first part 
 is a software verification checklist. The checklist will be completed by 
-researchers, Dr$.$ Pelinovsky and me. The checklist verifies that basic 
+researchers, Dr$.$ Pelinovsky and I. The checklist verifies that basic 
 software features have been implemented successfully. 
 For example, it checks if the user was able to fulfill their responsibilities 
 outlined in the SRS (\cite{SRS}). 
 This checklist can be found in the ~\ref{softwarevercheck}.\\
 
- The second part involves running the software tests outlined in sections 5 and 
- 6. Unit testing will also be performed. \\
+ The second part involves running the software tests outlined in sections 
+ \ref{FRtests} and 
+ \ref{app}. Unit testing will also be performed. \\
  
 The third part is summarized as follows: 
  \label{staticVertech}
@@ -230,9 +234,6 @@ The third part is summarized as follows:
  		algorithms.
  		\item I made the code manageable and maintainable for future use.
  	\end{itemize} 
- 	
- 	\item Linter: A linter is a program that checks the source code for 
- 	programmatic and stylistic errors
  \end{itemize}
 
 \subsection{Software Validation Plan}
@@ -253,15 +254,14 @@ Initial State: -
 					
 Input: Table ~\ref{Table:D_11} in ~\ref{datainput}.
 					
-Output: Exception (Non-Numeric)
+Output: Exception (Non-Numeric) 
 					
 How test will be performed: Combinations of inputing non-numerical values for 
 different 
 inputs  (such as strings) will be considered. A non-numerical value is denoted 
-by 'X' in \ref{Table:D_11}. These tests should catch an exception. 'X' can 
-only be a string, character or vector of dimension greater than 2. Failure to 
-type in enough information or writing undefined symbols is covered by MATLAB's 
-built in exception handler.\\
+by 'X' in \ref{Table:D_11}. These tests should catch an exception. 'X' will 
+only be a string, character or vector of dimension greater than 2. Other 
+data-type mismatches are handled by MATLAB.\\
 
 \item{test-Rin1kBounds\\}	
 
@@ -272,9 +272,9 @@ Input: I1 to I9 of Table ~\ref{Table:D_12} in ~\ref{datainput}.
 Output: Exception (k out of constraint).
 
 How test will be performed: Variations of k being out of its respective bound 
-will be considered in each test. I will test negative k values, values larger 
-than 1 and the endpoints of the constraint set. I will also test k values 
-approaching the endpoints. The variable k should be contained in $(0,1)$ (see 
+will be considered in each test. I will test negative k values, values on the 
+endpoints and values greater than 1. The variable k should be contained in 
+$(0,1)$ (see 
 SRS for more details (\cite{SRS})). A successful test will involve catching 
 an exception. This test is ensuring that Rin is satisfied (\cite{SRS}).\\ 
 
@@ -282,7 +282,7 @@ an exception. This test is ensuring that Rin is satisfied (\cite{SRS}).\\
 
 Initial State: -
 
-Input: I10 to I14 of Table ~\ref{Table:D_12} in ~\ref{datainput}.
+Input: I10 to I14, and I19 of Table ~\ref{Table:D_12} in ~\ref{datainput}.
 
 Output: Exception (N out of constraint).
 
@@ -370,7 +370,7 @@ Input: Table ~\ref{Table:D_13} in ~\ref{datainput} .
 Output: Six Spectrum plots.
 
 How test will be performed: The numerically calculated eigenvalues from 
-\progname will be expressed as unfilled circles on a complex plane. Four 
+\progname \ will be expressed as unfilled circles on a complex plane. Four 
 theoretical eigenvalues from (segal et al) will be plotted their appropriate 
 figure. These theoretical eigenvalues will be denoted by an asterix. My 
 supervisor will inspect these plots to see if the \progname is accurate. This 
@@ -447,7 +447,7 @@ to NFR2.
 
 \newpage
 
-\section{Appendix}
+\section{Appendix} \label{app}
 
 \subsection{Usability Survey Questions}
 \label{UsabilitySurvey}
@@ -520,7 +520,8 @@ these test cases should produce six plots and $4N$ eigenvalues.
 		I15    &0.9 & 100 &0 & Error\\ \hline 
 		I16     &0.9 & 500 &-2 &Error \\ \hline 
 		I17      &0.7 &150 &-4 &Error \\ \hline
-		I18     &0.5 & 200 & 100& Error\\
+		I18     &0.5 & 200 & 100& Error\\ \hline 
+		I19     &0.7 & 0.5 & 100& Error \\
 		\hline
 	\end{tabular}\\
 	\caption{One of the inputs is out of their respective bound}
