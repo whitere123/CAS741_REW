@@ -1,1 +1,3 @@
-Readme
+This is the Unit Verification and Validation plan.  
+Units are small components of the source code. This document will outline tests meant to test the units of SpecSearch.  
+Each unit should fufill a requirement and should be traced to a particular module (see MG or MIS)
