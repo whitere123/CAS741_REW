@@ -51,6 +51,7 @@ cycle;}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 2018-12-07 & 1.0 & First draft of SystVnV test report.\\
+2018-12-09 & 1.1 & Creation of final draft for final documentation. \\
 \bottomrule
 \end{tabularx}
 
@@ -88,7 +89,8 @@ This document will briefly summarize the tests outlined in the System
 Verification and Validation plan, explain the automated testing set-up, 
 summarize the results of the tests and list the changes made in response to the 
 tests. After reading this document one should be able to determine whether or 
-not \progname \ satisfied its functional and nonfunctional requirements. They 
+not \progname \ satisfied its functional and nonfunctional requirements with 
+respect to the system tests. They 
 should also be able to trace a test to a particular module and a module to a 
 particular requirement. 
 
@@ -116,7 +118,8 @@ standards of my supervisor. The code will have to be modified if he does not
 consider the plots to be adequate enough for his research. The evaluation of 
 test-Rplt is given in the table below. A list of passing input (inputs that do 
 not throw exceptions) was given to my supervisor. He ran the software with 
-these input and gave a check mark if numerical plot is of the correct form (ie 
+these input and gave a check mark if the numerical plot was of the correct form 
+(ie 
 appropriate symmetry and clusting of points). A final column full of 
 check marks will indicate a passing test for test-Rplt. \\
 
@@ -149,12 +152,6 @@ check marks will indicate a passing test for test-Rplt. \\
 	\label{Table:D_13}
 \end{table}  
 
-test-NFR2 was a code inspection that checked for maintainability and 
-manageability. My supervisor inspected the code to see that each equation was 
-implemented successfully and to check if he was able understand the module 
-structure. Upon inspection my supervisor deemed the code adequate, maintainable 
-and manageable. 
-
 \section{Nonfunctional Requirements Evaluation}
 
 The two Nonfunctional requirements for \progname \ are NFR1, which is related 
@@ -170,7 +167,12 @@ and test-UserPerformance. Usability will recieve a mark out of 15. Each
 question is weighted according to importance by my supervisor. A question will 
 not recieve marks if I was unable to answer 
 it or if the response was below satisfactory. A failing grade on the usability 
-survey is less than or equal to 11. 
+survey is less than or equal to 11. \\
+test-NFR2 was a code inspection that checked for maintainability and 
+manageability. My supervisor inspected the code to see that each equation was 
+implemented successfully and to check if he was able understand the module 
+structure. Upon inspection my supervisor deemed the code adequate, maintainable 
+and manageable. 
 
 \subsection{Usability} 
 
@@ -190,22 +192,22 @@ and other commitments I was the only person to fill out this survey.
 	\item Was this program useful for your research and were you able to 
 	interpret the results? (4 marks) \\ 
 	Yes, this program was helpful for my research. The spectral plot helped me 
-	to foreshadow the location of and meaning of the continuous bends in the 
-	spectrum. This will be the next stage of our research.\\
+	to foreshadow the next stage of my research and understand the context of 
+	the spectrum.\\
 	Yes, I was able to interpret the results. The range of the axes was 
 	appropriate and matlab has a convienient interface for analyzing figures. 
 	In particular it allows you to click on particular points and display their 
 	values. 
 	\item What aspects of this software do you feel need improvement? (1 
 	mark)\\ 
-	With respect to the functional requirements, the system performs adequately 
+	The system performs adequately with respect to the functional requirements
 	and within reasonable time.
 	\item How does this program compare with other software that finds this 
 	particular spectrum? (2 mark)\\ 
 	I could not find another software package that performs the same task as 
 	\progname. 
 	\item Was it clear how and where to input the variables? (3 marks) \\
-	Yes, it the command line prompt gave very clear instructions. 
+	Yes, the command line prompt gave very clear instructions. 
 	\item Were the plots clear? (4 marks) \\
 	Yes, the choice of markers was appropriate and it was easy to differentiate 
 	between the different plots.
@@ -219,13 +221,13 @@ test is related to test-UserPerformance.
 The following checklist was proposed in the System Verification and 
 Validation Plan. This checklist is related to accuracy and usability. The 
 evaluation metric is simple: the total number of checks divided by 5, the total 
-number of elements in the checklist. 
+number of elements in the checklist. A pass is a perfect score.
 
 \label{softwarevercheck}
 \begin{itemize}
 	\item Non of the results surprised you.  \checkmark   
 	\item Were you able to identify which numerical algorithm and wave solution 
-	the plot represented?  \checkmark 
+	each plot represented?  \checkmark 
 	\item Were all of the plots legible?  \checkmark 
 	\item Was the output useful for your research?  \checkmark 
 	\item Was it clear how to input the variables?  \checkmark 
@@ -237,7 +239,7 @@ The evaluation for this test is 1.
 The code inspection by my supervisor is amongst the most 
 simple and important nonfunctional test. The metric is binary. Either my 
 supervisor says that the code satisfies the nonfunctional requirements or 
-doesn't. Luckily, the code passed the inspection by my supervisor. 
+doesn't. The code passed the inspection by my supervisor. 
 	
 \section{Comparison to Existing Implementation}	
 
@@ -256,17 +258,18 @@ All of the tests passed. No changes were made to the software package.
 
 \section{Automated Testing} \label{automate} 
 
-The following tables summarize the results for test-Rin1NonNumeric, 
+ Each 
+test involved cycling through a list of intial data and comparing 
+the outputed result with the expected output.The following tables summarize the 
+results for test-Rin1NonNumeric, 
 test-Rin1kBounds, test-Rin1NBounds, test-Rin1PBounds and test-Rfind-Rin. 
-Details about the intial state, Input, Output, expected result and result of 
-test are given in the following tables.A check mark indicates that the test 
+Details about the Input, expected result and test result are given 
+in the tables. A check mark indicates that the test 
 returned the expected 
 result. Descriptions of each test can be found in the SystVnVPlan at 
 \url{https://github.com/whitere123/CAS741_REW}.  A test is considered a failure 
-if it is missing a checkmark, that is 
-one of the input variables for a test did not return the expected result. Each 
-test involved looping through a list of potential intial data and comparing 
-paricular outputed with expected output.
+if at least one expected value does not match the output for one intial data 
+configuration (one of the rows).
 
 \begin{table}[h!]
 	\centering
@@ -274,16 +277,16 @@ paricular outputed with expected output.
 		\hline        
 		Input ID& k& N & P & Expected Result& Test Result \\
 		\hline
-		I1    &X &X &X & Error & \checkmark \\ \hline
-		I2    &X &30 &2 & Error& \checkmark \\ \hline 
-		I3    &X &X &2 &Error & \checkmark \\ \hline 
-		I4     &X &100 &X &Error & \checkmark \\ \hline
-		I5     &0.5 &X & 2& Error& \checkmark \\ \hline
-		I6    &0.8 &X &X & Error & \checkmark \\ \hline
-		I7      &X &X &4 & Error & \checkmark \\ \hline
-		I8     &X &1000 &X & Error & \checkmark \\ \hline
-		I9     &0.99 &X &X & Error & \checkmark \\ \hline 
-		I10    &0.6 &250 &X & Error & \checkmark \\ 
+		I1    &X &X &X & Exception & \checkmark \\ \hline
+		I2    &X &30 &2 & Exception& \checkmark \\ \hline 
+		I3    &X &X &2 &Exception & \checkmark \\ \hline 
+		I4     &X &100 &X &Exception & \checkmark \\ \hline
+		I5     &0.5 &X & 2& Exception& \checkmark \\ \hline
+		I6    &0.8 &X &X & Exception & \checkmark \\ \hline
+		I7      &X &X &4 & Exception & \checkmark \\ \hline
+		I8     &X &1000 &X & Exception & \checkmark \\ \hline
+		I9     &0.99 &X &X & Exception & \checkmark \\ \hline 
+		I10    &0.6 &250 &X & Exception & \checkmark \\ 
 		\hline
 	\end{tabular}\\
 	\caption{test-Rin1NonNumeric}
@@ -316,7 +319,7 @@ paricular outputed with expected output.
 		I19     &0.7 & 0.5 & 100& Error& \checkmark \\
 		\hline
 	\end{tabular}\\
-	\caption{test-RinkBounds, test-NinkBounds,test-PinkBounds}
+	\caption{test-RinkBounds, test-RinNBounds,test-Rin1PBounds}
 \end{table}  
 \clearpage
 \begin{table}[h!]
