@@ -7,9 +7,9 @@ function NumPars = NumericalParameters(k,N,P)
     % Storing the period endpoint
 	NumPars{1} = P*xend ; 
    
-    % The complete domain is made up of len equal spaced points with 
+    % The complete domain is made up of 'len' equal spaced points with 
     % +/- xend as endpoints. The first point of the domain is deleted because
-    % the solutions are periodic. Therefore, an endpoint is redundant. 
+    % the solutions are periodic. Therefore, one endpoints is redundant. 
     Xcomplete = linspace(-xend,xend,len+1) ; 
     X = Xcomplete(2:end);
     NumPars{2} = X ; 
