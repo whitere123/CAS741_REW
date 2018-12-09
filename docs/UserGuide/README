@@ -6,6 +6,10 @@ The folders and directories are as follows:
 ../Design describes all of the modules 
 ../VnVPlan is the verification and validation plan. 
 ../VnVReport is a summary of the tests in ../VnVPlan.  
+../DevelopmentPlan is a description of the plan for creating specsearch.  
+../ProblemStatement is a statement of the problem that SpecSearch is solving. 
+../../src has all of the source code  
+../../tests has all of the automated system and unit tests. 
 
 
 
