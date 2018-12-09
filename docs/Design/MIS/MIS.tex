@@ -61,7 +61,8 @@ urlcolor=cyan          % color of external links
 Completed half of the module interface specifications. \\ 
 2018-11-20 & 1.2 & Completion of the module interface specifications. 
 Completion of section 2. \\
-2018-11-22 & 1.3 & Edit of 1.2. First submission. \\
+2018-11-22 & 1.3 & Edit of 1.2. First submission. \\ 
+2018-12-09 & 1.4 & Creation of final draft for final submission. \\ 
 \bottomrule
 \end{tabularx}
 
@@ -86,9 +87,9 @@ See SRS Documentation at \url{https://github.com/whitere123/CAS741_REW}.
 	$sn$ & Elliptic sine function\\ 
 	$dn$ & Elliptic delta function \\ 
 	NLS & Non-linear Schr\"{o}dinger\\  
-	$O(1)$ & First order central numerical differentiation method \\ 
-	$O(4)$ & Fourth order central numerical differentiation method \\ 
-	$cheb$ & Chebyshev numerical differentiation method\\
+	$O(8)$ & Eigth order central numerical differentiation method \\ 
+	$O(10)$ & Tenth order central numerical differentiation method \\ 
+	$O(12)$ & Twelfth numerical differentiation method\\
 	dim(in) & The dimension of item ``in" \\
 	$\notin$ & Not an element of\\
 	\bottomrule
@@ -253,7 +254,7 @@ InputParameters: The three values entered by the user $(k,N,P)$.
 	\item Load\_params is called before the values of any state variables are 
 	accessed.
 	\item The user inputs the environment variables in the following order: 
-	$(k,N)$.
+	$(k,N,P)$.
 \end{itemize}
 
 \subsubsection{Access Routine Semantics}
@@ -309,8 +310,8 @@ OutForm
 
 \subsection{Uses}
 
-Eigenvalue and Eigenvector solver \ref{SEES} and Numerical 
-Parameters \ref{MNP}. 
+Eigenvalue and Eigenvector solver \ref{SEES}, Numerical 
+Parameters \ref{MNP} and Exact Eigenvalue Equations \ref{SEE}. 
 
 \subsection{Syntax} 
 
@@ -323,7 +324,6 @@ Parameters \ref{MNP}.
 		 & $\lambda_{o}2 :\mathbb{C}$ &  & - \\ 
 		 & $\lambda_{o}3 :\mathbb{C}$ &  & - \\
 		 & $\lambda_{o}4 :\mathbb{C}$ &  & - \\
-		 & $\lambda_{o}2 :\mathbb{C}$ &  & - \\ 
 		 & $\Lambda : \mathbb{R}^{4n x 6}$ & & -\\
 		label & - & char & - \\ 
 		theor & - & $\mathbb{R}^{2 x 6}$ & - \\
@@ -347,8 +347,8 @@ None.
 \subsubsection{Assumptions}
 
 \begin{itemize}
-	\item Eigenvalue and Eigenvector solver and 
-	Numerical Parameters 
+	\item Eigenvalue and Eigenvector solver, 
+	Numerical Parameters and exact eigenvalue equations 
 	are called and their outputs are fed into Outform.capture() 
 	before any of the state variables are accessed. 
 \end{itemize}
@@ -379,11 +379,16 @@ None.
 	\item Transition: The eigenvalues from the six spectral matrices, $\Lambda$ 
 	,
 	and theoretical eigenvalues, $\lambda_{o}i$ ,are put into an OutForm data 
-	structure. Each state variable is a six element cell structure. The label 
-	state variable of this data structure has the titles of the six plots 
-	stored. The $ith$ cell of each state variable corresponds to one spectral 
-	matrices eigenvalues (ie for cn order 10), its plot label and theoretical 
-	eigenvalues. This structure is convienient for creating all six plots in a 
+	structure. Each state variable is a six element cell structure. The $ith$ 
+	cell of each state variable corresponds to one of the six spectral 
+	matrices (ie for cn order 10). OutForm.label$\{i\}$ is the 
+	$i^{th}$ 
+	spectral matrices' plot title. OutForm.theor$\{i\}$ are the $i^{th}$ 
+	spectral 
+	matrices' theoretically calculated eigenvalues. OutForm.$\Lambda$$\{i\}$ is 
+	the 
+	$i^{th}$ spectral matrices' spectrum.This structure is convienient for 
+	creating all six plots in a 
 	for loop. 
 	\item Exception: None
 \end{itemize}  
@@ -443,8 +448,8 @@ None.
 
 \begin{itemize}
 	\item Numerical parameters is called, its state variables are validated and 
-	its state variables are fed into SpecMat.create() before any of SpecMat's 
-	state variables are accessed. 
+	its state variables are fed into SpecMat() before the SpecMat function is 
+	called. 
 \end{itemize}
 
 \subsubsection{Access Routine Semantics}
@@ -641,7 +646,7 @@ Integral \ref{MEI} and input parameters \ref{IPM}.
 		Numpars & $k :\mathbb{R}$ & 
 		$xend$ & - \\ 
 		  &$N: \mathbb{N}$ & $Domain$ &  \\
-		  &  & $ellipjdn$ &  \\ 
+		  &$P:\{2,4\}$  & $ellipjdn$ &  \\ 
 		  &  & $ellipjcn$ &  \\ 
 		  &  & $ellipMAT_{dn}$ &  \\
 		  &  & $ellipMAT_{cn}$ &  \\ 
@@ -713,7 +718,7 @@ eig (\url{https://www.mathworks.com/help/matlab/ref/eig.html})
 
 \subsection{Uses}
 
-This module uses Spectrum Matrix \ref{SSM}. 
+-
 
 \subsection{Syntax}
 
@@ -776,7 +781,7 @@ diag (\url{https://www.mathworks.com/help/matlab/ref/diag.html})
 
 \subsection{Uses}
 
-This module uses Numerical Parameters \ref{MNP}. 
+-
 
 \subsection{Syntax}
 
@@ -843,7 +848,7 @@ ellipK (\url{https://www.mathworks.com/help/symbolic/elliptick.html})
 
 \subsection{Uses}
 
-This module uses Numerical Parameters \ref{MNP}. 
+-
 
 \subsection{Syntax}
 
@@ -903,7 +908,7 @@ ellipj (\url{https://www.mathworks.com/help/matlab/ref/ellipj.html})
 
 \subsection{Uses}
 
-This module uses Numerical Parameters \ref{MNP}. 
+- 
 
 \subsection{Syntax}
 
@@ -961,7 +966,7 @@ plot (\url{https://www.mathworks.com/help/matlab/ref/plot.html})
 
 \subsection{Uses}
 
-This module uses Output \ref{OFM}. 
+-
 
 \subsection{Syntax}
 
@@ -1023,7 +1028,7 @@ Linspace (\url{https://www.mathworks.com/help/matlab/ref/linspace.html})
 
 \subsection{Uses}
 
-This module uses Numerical Parameters \ref{MNP}. 
+-
 
 \subsection{Syntax}
 
@@ -1085,7 +1090,7 @@ Toeplitz (\url{https://www.mathworks.com/help/matlab/ref/toeplitz.html})
 
 \subsection{Uses}
 
-This module uses Spectrum Matrix \ref{SSM}. 
+- 
 
 \subsection{Syntax}
 
@@ -1140,8 +1145,10 @@ Main
 
 \subsection{Uses}
 
-This module uses Input Parameters, Numerical Parameters, Spectrum Matrix, 
-Eigenvalue solver, Spectrum Error , Output and plotting.
+This module uses Input Parameters \ref{IPM}, Numerical Parameters\ref{MNP}, 
+Spectrum Matrix \ref{SSM}, 
+Eigenvalue solver \ref{SEES},  Output \ref{OFM}, plotting \ref{MPLT} and Exact 
+Eigenvalue equations \ref{SEE}.
 
 \subsection{Syntax}
 
@@ -1174,14 +1181,14 @@ None.
 \noindent main():
 \begin{itemize}
 	\item transition: This function controls the running of the scientific 
-	software. First, input is taken from the user. This input is used to create 
-	useful numerical parameters that will drive the rest of the calculations. 
-	The input is brought to the numerical parameters module where useful 
+	software. First, input is taken from the user. 
+	The input \ref{IPM} is brought to the numerical parameters module \ref{MNP} 
+	where useful 
 	constants, matrices and elliptic function values are calculated. The state 
 	variables from Numerical parameters are used as arguments in Spectrum 
-	Matrix. The spectrum (eigenvalues) can be calculated once the spectrum 
-	matrix is created. These eigenvalues are plotted and their deviation from 
-	theoretical values are computed (err modules). 
+	Matrix. The spectrums (eigenvalues) can be calculated \ref{SEES} once the 
+	six spectral 
+	matrices \ref{SSM} are created. These eigenvalues are plotted \ref{MPLT}. 
 \end{itemize}
 
 \subsubsection{Local Funtions} 
