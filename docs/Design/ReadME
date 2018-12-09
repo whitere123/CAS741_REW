@@ -1,2 +1,4 @@
 MG is the module guide  
-MIS is the Module Interface Specification
+MIS is the Module Interface Specification  
+SpecSearch follows a modular design. Each of the necessary mathematical tasks have been broken down into a modules which are connected  
+to achieve the overall task.
