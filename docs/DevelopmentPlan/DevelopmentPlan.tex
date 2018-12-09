@@ -1,0 +1,105 @@
+\documentclass{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx} 
+\usepackage{hyperref}
+\usepackage{lscape}
+\usepackage[final]{pdfpages}
+
+\input{../Comments}
+\newcommand{\progname}{SpecSearch}
+
+\title{CAS 741: Development Plan\\ \progname}
+
+\author{Team 
+		\\ Dr. Dmitry Pelinovsky
+		\\ Robert E. White
+}
+
+\date{}
+
+
+\begin{document}
+
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+2018-12-08 & Robert E. White and Dmitry Pelinovsky & Creation of first draft\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\maketitle
+
+The software being developed in this project is called \progname. It is the 
+initial phase of my master's thesis project in applied mathematics with Dr. 
+Dmitry Pelinovsky. We will use this software to discover clues in our 
+analyitical study of rogue waves and the Non-Linear Schr\"{o}dinger equation.
+
+\section{Team Meeting Plan} 
+
+I will meet with Dr. Dmitry Pelinovsky in his office from 9:30-11:00AM every 
+tuesday from September 1 2018 until December 11 2018. 
+
+\section{Team Communication Plan} 
+
+We will communicate via email and in person during our weekly meetings. 
+
+\section{Team Member Roles} 
+
+Dmitry Pelinovsky is the master's thesis supervisor. Robert White is his 
+master's student.
+
+\section{Git Workflow Plan} 
+
+The git workflow plan was outlined by Dr. Spencer Smith in his CAS 741 class. 
+Documents will be periodically pushed into the github repository 
+\url{https://github.com/whitere123/CAS741_REW}. Feedback from our CAS 741 
+colleagues 
+will be presented as issues shortly following a document submission. The final 
+documentation and code is to be pushed into github on December 10, 2018. The 
+plan begins with the submission of a problem statement followed by peer edits. 
+This process is repeated every other week with the SRS, design, VnV Plan and 
+VnV report. These documents and issues can be found in the previously mentioned 
+github repository.
+
+\section{Proof of Concept Demonstration Plan} 
+
+The project was approved by Dr. Dmitry Pelinovsky and Dr. Spencer Smith from 
+McMaster university.
+
+\section{Technology} 
+
+The software will be created using MATLAB and should run on a machine running 
+the windows operating system.
+
+\section{Coding Style} 
+
+The coding style followed the standard's of my thesis supervisor and his 
+colleagues in numerical analysis. Since the code is important for their 
+research purposes, and is not too computationally heavy, it was not necessary 
+for the code to follow any outside standards or templates. This coding style 
+was driven by the nonfunctional requirement of being maintainable by my 
+supervisor and his colleagues. 
+
+\newpage
+
+\section{Project Schedule}  
+\begin{figure}
+	\centering 
+	\includepdf[pages={-},angle=0]{gantchart.pdf}
+\end{figure}
+
+\newpage
+\section{Project Review} 
+
+Reviews of the project have been presented as issues in 
+\url{https://github.com/whitere123/CAS741_REW}. The final project will be 
+critqued by Dr. Spencer Smith.
+
+\end{document}
