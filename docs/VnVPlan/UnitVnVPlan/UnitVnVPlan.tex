@@ -123,7 +123,8 @@ modules
 are outside of the scope for the Unit Verification and Validation Plan. They 
 include: Plotting, Eigenvalue and Eigenvector solver, Matrix, Elliptic 
 Functions, Elliptic Integrals, Linspace and Toeplitz.\\  
-Control will not be tested because it simply coordinates the other modules.
+Control will not be tested because it simply coordinates the other
+modules. \wss{You can also mention that control is tested through the system vnv plan.}
 
 %\wss{What modules are outside of the scope.  If there are modules that are
 %  developed by someone else, then you would say here if you aren't planning on
@@ -136,8 +137,9 @@ Control will not be tested because it simply coordinates the other modules.
 	
 \subsection{Verification and Validation Team}
 
-The Verification and Validation team consists of my supervisor, Dr. Dmitry 
-Pelinovsky, and I, Robert White. 
+The Verification and Validation team consists of my supervisor, Dr. Dmitry
+\wss{This should be Dr.\ Dmitry Pelinovsky - to get the spacing correct.}
+Pelinovsky, and I \wss{myself}, Robert White. 
 
 \subsection{Automated Testing and Verification Tools}
 
@@ -145,7 +147,7 @@ Matlab provides a unit testing framework. I will write unit-based scripts
 for testing the modules in \progname. The functions and classes that automate 
 this process 
 are detailed in the following link: 
-\url{https://www.mathworks.com/help/matlab/script-based-unit-tests.html}.\\
+\url{https://www.mathworks.com/help/matlab/script-based-unit-tests.html}.\\ \wss{good}
 
 The functions of particular importance are: throw, catch and assert. The throw 
 and catch will also be used for the error tests in the SystVnVPlan. 
@@ -161,7 +163,7 @@ The non-testing based verfication will involve a code inspection by my
 thesis supervisor. He will inspect each of the modules to guarentee that the 
 physical equations have been implemented succesfully, verify that the software 
 is designed to be maintainable and manageable and complete the 
-two surveys in the appendix \ref{app}.
+two surveys in the appendix \ref{app}. \wss{Nice to see these appendices}
 
 %\wss{List any approaches like code inspection, code walkthrough, symbolic
 %  execution etc.  Enter not applicable if you do not plan on any non-testing
@@ -203,13 +205,13 @@ MIS (\url{https://github.com/whitere123/CAS741_REW}). \\
 
 \item{test-InParams-N\\} \label{INPARAMS}
 
-Type: Automaic
+Type: Automaic \wss{spell check - attention to detail is very important}
 					
 Initial State: 
 					
-Input: Input Table.
+Input: Input Table. \wss{Which table}
 					
-Output: assert=True
+Output: assert=True \wss{This field should hold the expected output value}
 
 Test Case Derivation: The environment variable N inputted by the user should 
 match the state variable from InParams.N .
@@ -217,11 +219,15 @@ match the state variable from InParams.N .
 How test will be performed: Natural number values ranging from 50 to 500 will 
 be 
 inputed in the environment. This value should be exactly equal to the state 
-variable InParams.N . An assert statement will return true if these are equal. 
+variable InParams.N . An assert statement will return true if these are equal.  
 				
+\wss{I do not have enough information to perform this test.  A similar comment
+  applies for most of the other test cases.}
+
 \item{test-InParams-P\\}
 
-Type: Automaic
+Type: Automaic \wss{spell check is even more important when you are going to use
+  copy and paste}
 
 Initial State: 
 
@@ -234,7 +240,7 @@ match the state variable meant to store the value of P.
 
 How test will be performed: Integer numbers between 2 and 4 
 will be inputed in the environment for k. This value should be exactly equal to 
-the state variable InParams.P . An assert statement will return true if these 
+the state variable InParams.P . \wss{watch the spacing around your punctation} An assert statement will return true if these 
 are equal.
 
 \item{test-InParams-k\\}
@@ -260,9 +266,9 @@ are equal.
 \subsubsection{Numerical Parameters Module}
 
 The following tests were created to build confidence in the Numpar state 
-variables. The exaxt values of each component of the state variables will not 
+variables. The exaxt \wss{spelling} values of each component of the state variables will not 
 be checked individually. This is because they are created with the input 
-parameters and built-in matlab functions. The Matlab 
+parameters and built-in matlab {\wss Matlab} functions. The Matlab 
 functions are outside of the scope 
 of this plan. The input parameters have already been tested in the previously 
 mentioned tests \ref{INPARAMS}. We only want to ensure that the input variables 
@@ -337,8 +343,9 @@ check that assert
 
 The following tests were created to ensure that the spectrum matrix state 
 variables are of the correct form. We are not concerned with the specific 
-values as we are having faith in matlabs built in functions. We are only 
-checking that we correctly glued the numerical parameters toegether to form the 
+values as we are having faith in matlabs \wss{Matlab's} built in functions. We are only 
+checking that we correctly glued the numerical parameters toegether
+\wss{spelling} to form the 
 spectrum matrix. \\ 
 These tests were built to enforce the requirement of finding the spectrum. This 
 is because we are calculating the spectrum of the state variables in this 
@@ -367,20 +374,23 @@ module. \\
 	$assert( 
 	SpecMat.NUM_{x} == -SpecMat.NUM_{x}^{T} ) $ is true for $x: ( O(8), 
 	O(10), O(12) )$.  
-	\wrw{see module guide for proper notation and references}
+	\wrw{see module guide for proper notation and references} \wss{Do not
+          include important information in comments, since these will be turned
+          off for your final documentation.}
 		
 \end{enumerate} 
 
 \subsubsection{Plotting Module} 
 
-The following tests will involve inspection of the spectral plots by my thesis 
-supervisor, Dr. Dmitry Pelinvosky. He will ensure that the plots fit the 
-theoretical results, are useful for our research purposes and presented in a 
-clear fashion. The first plot test involves inspecting the spectrum for 
-moderate input values (ie, not close to their bounds). The second plot test 
-will involve inspecting the behaviour of the plots near the bounds of the input 
-parameter k. The list of qualities of an adequate plot is presented in 
-\ref{specplotlist}. 
+The following tests will involve inspection of the spectral plots by my thesis
+supervisor, Dr. Dmitry Pelinvosky \wss{This name is spelled differently than
+  last time.  You need to take extra care with names, because the spell checker
+  is not likely to catch these.}. He will ensure that the plots fit the
+theoretical results, are useful for our research purposes and presented in a
+clear fashion. The first plot test involves inspecting the spectrum for moderate
+input values (ie, not close to their bounds). The second plot test will involve
+inspecting the behaviour of the plots near the bounds of the input parameter
+k. The list of qualities of an adequate plot is presented in \ref{specplotlist}.
 
 \begin{enumerate}				
 	\item{test-Plotting-Inspect\\}
